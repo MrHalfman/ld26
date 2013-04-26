@@ -1,0 +1,19 @@
+{
+  "name": "Bug Story",
+  "version" : "1",
+  "description": "A cute bug helps the computer to rebel against the villain dev.",
+  "launch_path": "/play",
+  "icons": {
+    "16": "/img/icon16.png",
+    "32": "/img/icon32.png",
+    "64": "/img/icon64.png",
+    "128": "/img/icon128.png",
+    "256": "/img/icon256.png"
+  },
+  "developer": {
+    "name": "Samborski Charles (Demurgos)",
+    "url": "http://ld25demu.quantum-softwares.fr/"
+  },
+  "default_locale": "en",
+  "installs_allowed_from": ["*"]
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html><html>
+	<head>
+		<meta charset="utf-8" /><!--[if IE ]><meta http-equiv="Content-Type" content="text/html;charset=UTF-8" xml:lang="fr" lang="fr"/><![endif]-->
+		<title>Bug Story</title>
+		<link rel="stylesheet" type="text/css" href="style/reset.css"></link>
+		<link rel="stylesheet" type="text/css" href="style/main.css"></link>
+		<link href="favicon.ico" type="image/x-icon" rel="SHORTCUT ICON">
+</head>
+
+	<body class="loading">
+
+
+		<div id="game" >
+			<canvas id="cvs" width="500" height="500">
+				<div id="pfs">
+					
+				</div>
+			</canvas>
+			<div id="txtwrapper">
+				<ul id="txt"></ul>
+			</div>
+			<img id="end" src="end.png" style="display:none;position:absolute;" />
+			<div id="selector">
+				<div class="choice" id="playpm">
+					<div class="txt">
+						Play the improved version<br/>
+						(PostMortem)
+					</div>
+					<div class="timer">Will automaticly start in <span id="time2pm">15</span> sec.</div>
+				</div>
+				<div class="choice" id="play48h">
+					<div style="margin:10px;margin-top:20px;">
+						Play the 48h version<br />(LD rating)
+					</div>
+				</div>
+				<div class="choice" id="versions">
+					<div style="margin:10px">See how the game looked like during its creation :</div>
+					<div id="playv">
+						<a href="/v1">1</a><a href="/v2">2</a><a href="/v3">3</a><a href="/v4">4</a><a href="/v5">5</a><a href="/v6">6</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	
+	<script src="jquery.js"></script>
+	<script>
+		function log(t){
+			var log=document.getElementById('txt');
+			var li=document.createElement('li');
+			li.innerHTML=t;
+			log.appendChild(li);
+			log.style.bottom=(log.style.bottom=="1px"?"0px":"1px");
+			setTimeout(function(){var log=document.getElementById('txt');log.style.bottom=(log.style.bottom=="1px"?"0px":"1px");},10);
+			setTimeout(function(){var log=document.getElementById('txt');log.style.bottom=(log.style.bottom=="1px"?"0px":"1px");},25);
+			//log.style.bottom="0";
+		}
+		var story = [];
+		var readingStory = false ;
+		function addStory(txt,time,cb){
+			story.push({txt:txt,time:time,cb:cb});
+			readStory();
+		};
+		function readStory(){
+			if(story.length && !readingStory){
+				setTimeout(function(){
+					log(story[0].txt);
+					if(story[0].cb){story[0].cb()} ;
+					story.shift();
+					readingStory = false ;
+					readStory();
+				},story[0].time);
+				readingStory = true ;
+			}
+		}
+
+		var started = false ;
+		
+		var loadScript = function(){
+			started=true;
+			log('Computer : Loading some stuff :');
+			log('Adding a cool JS lib : <strong>Momentum.JS</strong>.');
+			$.get('pm/animator.js',function(rep){
+				$('<scripts>'+rep+'</scripts>').appendTo('head');
+			}).success(
+				function(){
+					//log('Done');
+					log('Loading an extra game : <strong>Bug Story</strong>.');
+					$.get('pm/game.js',function(rep){
+						$('<scripts>'+rep+'</scripts>').appendTo('head');
+					}).success(
+						function(){//log('Done');
+					}
+					).error(
+						function(){log('Something is broken :\'(.');}
+					);
+				}
+			).error(
+				function(){log('Something is broken :\'(.');}
+			);
+		}
+		
+		$('#play48h').click(function(e){
+			started=true;
+			var loadScript = function(){
+				log('Computer : Loading some stuff :');
+				log('Adding a cool JS lib : <strong>Momentum.JS</strong>.');
+				$.get('48h/animator.js',function(rep){
+					$('<scripts>'+rep+'</scripts>').appendTo('head');
+				}).success(
+					function(){
+						//log('Done');
+						log('Loading an extra game : <strong>Bug Story</strong>.');
+						$.get('48h/game.js',function(rep){
+							$('<scripts>'+rep+'</scripts>').appendTo('head');
+						}).success(
+							function(){//log('Done');
+						}
+						).error(
+							function(){log('Something is broken :\'(.');}
+						);
+					}
+				).error(
+					function(){log('Something is broken :\'(.');}
+				);
+			}
+			
+			$('#selector').remove();
+			
+			loadScript();
+			
+		})
+		
+		$('#playpm').click(function(e){$('#selector').remove();loadScript();})
+		
+		var wait = 15 ;
+		
+		function autostart(){
+			wait--;
+			if(wait){
+				$("#time2pm").html(wait);
+				setTimeout(autostart,1000) ;
+			}else{
+				if(!started){
+					$('#selector').remove();loadScript();
+				}
+			}
+		}
+		
+		setTimeout(autostart,1000)
+
+		//loadScript();
+
+	</script>
+	
+	<!--<script src="animator.js"></script>
+	<script src="game.js"></script>-->
+
+	</body>
+</html>
