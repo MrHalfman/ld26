@@ -168,7 +168,7 @@ var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
         this.setVelocity(10, 10);
-        this.ttl = 160; // Time to live before removing
+        this.ttl = 80; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
         this.direction = settings.direction;
@@ -179,10 +179,10 @@ var DummySelector = me.ObjectEntity.extend({
         if (this.ttl > 0) {
             this.ttl--;
         } else {
-            this.remove();
+            me.game.remove(this);
             IsDummy = false;
         }
-        console.log(this.tty);
+        console.log(this.ttl);
         switch (this.direction) {
             case "top":
                 this.vel.y += 3;
@@ -208,7 +208,7 @@ var DummySelector = me.ObjectEntity.extend({
 
         var res = me.game.collide(this);
         if (res && res.obj.type == "moveableitem") {
-            this.remove();
+            me.game.remove(this);
             IsDummy = false;
             selectedItem = res.obj.GUID;
             // TODO : Add selected effect, so the player can see it.
