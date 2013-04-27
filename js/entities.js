@@ -6,7 +6,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
         this.setVelocity(3, 3); 
-        this.setFriction(0.2, 0.2);
+        this.setFriction(0.5, 0.5);
         this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
         this.gravity = 0;
@@ -103,25 +103,25 @@ var PlayerEntity = me.ObjectEntity.extend({
                 //res.obj.setOpacity(0.5); Todo : add opacity effect
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y += 3;
+                        res.obj.pos.y += this.vel.y;
                         res.obj.hasMoved = true;
                     }
                     this.pos.y -= 4;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y -= 3;
+                        res.obj.pos.y -= this.vel.y;
                         res.obj.hasMoved = true;
                     }
                     this.pos.y += 4;
                 } else if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x += 3;
+                        res.obj.pos.x += this.vel.x;
                         res.obj.hasMoved = true;
                     }
                     this.pos.x -= 4;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x -= 3;
+                        res.obj.pos.x -= this.vel.x;
                         res.obj.hasMoved = true;
                     }
                     this.pos.x += 4;
@@ -181,7 +181,7 @@ var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
         this.setVelocity(8, 8);
-        this.ttl = 10; // Time to live before removing
+        this.ttl = 8; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
         this.type = "dummy";
@@ -231,5 +231,17 @@ var DummySelector = me.ObjectEntity.extend({
         }
 
         return false;
+    }
+});
+
+var Selector = me.ObjectEntity.extend({
+    init: function (x, y, settings) {
+        this.parent(x, y, settings);
+        settins.spriteheight = 32;
+        settings.spritewidth = 32;
+
+    },
+    update: function () {
+        return true;
     }
 });
