@@ -1,6 +1,8 @@
 ﻿var game = {
     assets: [
-        {name: "level1", type: "tmx", src: "../datas/maps/level1.tmx"}
+        { name: "level1", type: "tmx", src: "../datas/maps/level1.tmx" },
+        { name: "metatiles16x16", type: "png", src: "../datas/tilesets/metatiles16x16.png" }
+
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true, 'auto')) {
