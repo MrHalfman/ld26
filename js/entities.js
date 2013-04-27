@@ -70,11 +70,9 @@ var PlayerEntity = me.ObjectEntity.extend({
     update: function () {
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
-            this.flipX(true);
             this.changedirection("left");
         } else if (me.input.isKeyPressed('right')) {
             this.vel.x += this.accel.x * me.timer.tick;
-            this.flipX(false);
             this.changedirection("right");
         }
 
