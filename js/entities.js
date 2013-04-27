@@ -1,5 +1,5 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-console.log("Commit 50");
+console.log("Commit 54");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
@@ -57,7 +57,7 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.spritewidth = 32;
         this.renderable.spriteheight = 32;
         this.renderable.addAnimation("sofa", [3]);
-        this.rederable.setCurrentAnimation("sofa");
+        this.renderable.setCurrentAnimation("sofa");
 
         me.input.bindKey(me.input.KEY.ENTER, "push");
     },
