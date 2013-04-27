@@ -96,8 +96,8 @@ var PlayerEntity = me.ObjectEntity.extend({
         var res = me.game.collide(this);
         if (res && res.obj.type == "moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
-                this.vel.x = 0;
-                this.vel.y = 0;/*
+                /*this.vel.x = 0;
+                this.vel.y = 0;
                 this.accel.x = 0;
                 this.accel.y = 0;*/
                 //res.obj.setOpacity(0.5); Todo : add opacity effect
