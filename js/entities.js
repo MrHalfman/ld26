@@ -34,8 +34,19 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.vel.y += this.accel.y * me.timer.tick;
         }
 
-        this.updateMovement();
-
+        var res = me.game.collide(this);
+        if (res && res.obj.type == "player") {
+            if (me.input.isKeyPressed('push')) {
+                res.obj.vel.x = this.vel.x / res.obj.weight;
+                res.obj.vel.y = this.vel.y / res.obj.weight;
+            } else {
+                this.vel.x = 0;
+                this.vel.y = 0;
+            }
+            this.updateMovement();
+            this.parent();
+            return true;
+        }
 
         // Check if moved
         if (this.vel.x != 0 || this.vel.y != 0) {
@@ -43,6 +54,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             return true;
         }
 
+        this.updateMovement();
         return false;
     }
 })
@@ -64,19 +76,7 @@ var MoveableItem = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.ENTER, "push");
     },
     update: function () {
-        var res = me.game.collide(this);
-        if (res && res.obj.type == "player") {
-                if (me.input.isKeyPressed('push')) {
-                    this.vel.x = res.obj.vel.x / this.weight;
-                    this.vel.y = res.obj.vel.y / this.weight;
-                } else {
-                    res.obj.vel.x = 0;
-                    res.obj.vel.y = 0;
-                }
-                this.updateMovement();
-                this.parent();
-                return true;
-        }
+        
 
         if (this.vel.x != 0 || this.vel.y != 0) {
             this.parent();
