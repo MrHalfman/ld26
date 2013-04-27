@@ -113,7 +113,8 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     this.pos.y += 4;
-                } else if (res.x > 0) {
+                }
+                if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x += this.vel.x;
                         res.obj.hasMoved = true;
