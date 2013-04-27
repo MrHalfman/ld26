@@ -3,7 +3,9 @@
 var game = {
     assets: [
         { name: "level1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/level1.tmx" },
-        { name: "metatiles16x16", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metatiles16x16.png" }
+        { name: "metatiles16x16", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metatiles16x16.png" },
+        { name: "Moquette", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/moquette.png" },
+        { name: "furnitures", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/furnitures.png" }
 
     ],
     onload: function () {

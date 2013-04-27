@@ -1,18 +1,23 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-
+console.log("Commit 55");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(3, 15);
-
+        this.setVelocity(3, 3); // Init values : 3; 15
+        this.setFriction(0.2, 0.2);
+        this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
-
+        this.gravity = 0;
+        this.collidable = true;
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
 
         this.renderable.addAnimation("walk", [0]);
+        this.renderable.addAnimation("push", [1]);
+        this.renderable.setCurrentAnimation("walk");
+        console.log(this.settings.spritewidth + " - " + this.renderable.spritewidth + " - " + this.settings.image);
     },
 
     update: function () {
@@ -25,9 +30,9 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
 
         if (me.input.isKeyPressed('up')) {
-            this.vel.y += this.accel.y * me.timer.tick;
-        } else if (me.input.isKeyPressed('down')) {
             this.vel.y -= this.accel.y * me.timer.tick;
+        } else if (me.input.isKeyPressed('down')) {
+            this.vel.y += this.accel.y * me.timer.tick;
         }
 
         this.updateMovement();
@@ -47,6 +52,14 @@ var MoveableItem = me.ObjectEntity.extend({
     //We can move this entity.
     // ==> Check for collide
     init: function (x, y, settings) {
+        this.parent(x, y, settings);
+        this.collidable = true;
+
+        this.settings.spritewidth = 32;
+        this.settings.spriteheight = 32;
+        this.renderable.addAnimation("sofa", [3]);
+        this.renderable.setCurrentAnimation("sofa");
+
         me.input.bindKey(me.input.KEY.ENTER, "push");
     },
     update: function () {
@@ -69,3 +82,4 @@ var MoveableItem = me.ObjectEntity.extend({
         }
     }
 });
+
