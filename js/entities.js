@@ -71,19 +71,19 @@ var PlayerEntity = me.ObjectEntity.extend({
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
             this.flipX(true);
-            changedirection("left");
+            this.changedirection("left");
         } else if (me.input.isKeyPressed('right')) {
             this.vel.x += this.accel.x * me.timer.tick;
             this.flipX(false);
-            changedirection("right");
+            this.changedirection("right");
         }
 
         if (me.input.isKeyPressed('up')) {
             this.vel.y -= this.accel.y * me.timer.tick;
-            changedirection("top");
+            this.changedirection("top");
         } else if (me.input.isKeyPressed('down')) {
             this.vel.y += this.accel.y * me.timer.tick;
-            changedirection("bottom");
+            this.changedirection("bottom");
         }
 
         this.updateMovement();
