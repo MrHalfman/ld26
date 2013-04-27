@@ -65,9 +65,11 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
     },
     update: function () {
-        if (!IsDummy)
-            var Dummy = new DummySelector(this.pos.x, this.pos.y, {direction: PlayerDirection});
-
+        if (!IsDummy) {
+            var Dummy = new DummySelector(this.pos.x, this.pos.y, { direction: PlayerDirection });
+            me.game.add(DummySelector)
+            me.game.sort();
+        }
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
             this.changedirection("left");
