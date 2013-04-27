@@ -66,7 +66,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     update: function () {
         if (!IsDummy)
-            var Dummy = new DummySelector(this.pos.x, this.pos.y, {});
+            var Dummy = new DummySelector(this.pos.x, this.pos.y, {direction: PlayerDirection});
 
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
@@ -164,11 +164,11 @@ var MoveableItem = me.ObjectEntity.extend({
 
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
-        // Todo : compute vector angles to move dummy
         this.setVelocity(1, 1);
         this.ttl = 160; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
+        this.direction = settings.direction;
     },
     update: function () {
         if (this.ttl > 0)
@@ -176,7 +176,7 @@ var DummySelector = me.ObjectEntity.extend({
         else
             this.remove();
         console.log(this.tty);
-        switch (PlayerDirection) {
+        /*switch (this.direction) {
             case "top":
                 this.vel.y += 3;
                 break;
@@ -192,7 +192,7 @@ var DummySelector = me.ObjectEntity.extend({
             default:
                 console.log("Error in dummy direction");
                 break;
-        }
+        }*/
         this.updateMovement();
         this.parent(this);
 
