@@ -198,7 +198,10 @@ var DummySelector = me.ObjectEntity.extend({
                 break;
         }
         this.updateMovement();
-        this.parent(this);
+        if (this.vel.x != 0 || this.vel.y != 0) {
+            this.parent(this);
+            return true;
+        }
 
         var res = me.game.collide(this);
         if (res && res.obj.type == "moveableitem") {
