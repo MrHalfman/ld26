@@ -53,7 +53,8 @@ var MoveableItem = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
         this.collidable = true;
-
+        this.setVelocity(3, 3);
+        this.gravity = 0;
         /*this.renderable = new me.AnimationSheet(0, 0, "furnitures", 16, 16);
         settings.spritewidth = 16;
         settings.spriteheight = 16;*/
@@ -70,8 +71,7 @@ var MoveableItem = me.ObjectEntity.extend({
         
         var res = me.game.collide(this);
         if (res) {
-            console.log(res.obj.type);
-            if (res.obj.type == "playerEntity") {
+            if (res.obj.type == "player") {
                 if (me.input.isKeyPressed('push')) {
                     this.vel.x = res.vel.x / this.weight;
                     this.vel.y = res.vel.y / this.weight;
