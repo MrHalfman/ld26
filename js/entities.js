@@ -11,6 +11,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
         this.gravity = 0;
         this.collidable = true;
+        this.width = settings.spritewidth;
 
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
@@ -66,7 +67,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     update: function () {
         if (!IsDummy) {
-            var Dummy = new DummySelector(this.pos.x, this.pos.y, { direction: PlayerDirection });
+            var Dummy = new DummySelector(this.pos.x + (this.width /2), this.pos.y, { direction: PlayerDirection });
             me.game.add(Dummy, this.z);
             me.game.sort();
         }
@@ -167,8 +168,8 @@ var MoveableItem = me.ObjectEntity.extend({
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(10, 10);
-        this.ttl = 80; // Time to live before removing
+        this.setVelocity(5, 5);
+        this.ttl = 10; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
         this.direction = settings.direction;
@@ -182,7 +183,6 @@ var DummySelector = me.ObjectEntity.extend({
             me.game.remove(this);
             IsDummy = false;
         }
-        console.log(this.ttl);
         switch (this.direction) {
             case "top":
                 this.vel.y -= 3;
