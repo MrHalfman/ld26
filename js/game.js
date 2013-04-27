@@ -5,7 +5,11 @@ var game = {
         { name: "level1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/level1.tmx" },
         { name: "metatiles16x16", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metatiles16x16.png" },
         { name: "Moquette", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/moquette.png" },
-        { name: "furnitures", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/furnitures26.png" }
+        { name: "furnitures", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/furnitures26.png" },
+        { name: "metaset", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metaset.png" },
+        { name: "walls", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/walls.png" },
+        { name: "character", type: "image", src: "http://ludum.quantum-softwares.com/datas/sprites/character.png" },
+        { name: "alpha1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/alpha1.tmx" }
 
     ],
     onload: function () {
@@ -35,7 +39,7 @@ var game = {
 
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
-        me.levelDirector.loadLevel("level1");
+        me.levelDirector.loadLevel("alpha1");
     }
 });
 

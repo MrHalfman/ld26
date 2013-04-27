@@ -41,25 +41,29 @@ var PlayerEntity = me.ObjectEntity.extend({
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
                 this.vel.y = 0;
-                res.obj.setOpacity(0.5);
+                //res.obj.setOpacity(0.5); Todo : add opacity effect
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.y += 3;
+                        res.obj.hasMoved = true;
                     }
                     this.pos.y -= 3;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.y -= 3;
+                        res.obj.hasMoved = true;
                     }
                     this.pos.y += 3
                 } else if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x += 3;
+                        res.obj.hasMoved = true;
                     }
                     this.pos.x -= 3;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x -= 3;
+                        res.obj.hasMoved = true;
                     }
                     this.pos.x += 3;
                 }
@@ -80,14 +84,13 @@ var PlayerEntity = me.ObjectEntity.extend({
 })
 
 var MoveableItem = me.ObjectEntity.extend({
-    //We can move this entity.
-    // ==> Check for collide
     init: function (x, y, settings) {
         this.parent(x, y, settings);
         this.type = "moveableitem";
         this.collidable = true;
         this.setVelocity(3, 3);
         this.gravity = 0;
+        this.hasMoved = false;
         /*this.renderable = new me.AnimationSheet(0, 0, "furnitures", 16, 16);
         settings.spritewidth = 16;
         settings.spriteheight = 16;*/
@@ -96,7 +99,10 @@ var MoveableItem = me.ObjectEntity.extend({
         this.weight = 1;
     },
     update: function () {
-        
+        if (this.hasMoved == true) {
+            this.hasMoved == false;
+
+        }
 
         if (this.vel.x != 0 || this.vel.y != 0) {
             this.parent(this);
