@@ -48,4 +48,4 @@ window.onReady(function onReady() {
     game.onload();
 });
 
-me.debug.renderHitBox = false; // Displays hitboxes & movement vectors.
+me.debug.renderHitBox = true; // Displays hitboxes & movement vectors.
