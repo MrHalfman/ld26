@@ -5,7 +5,7 @@ console.log("Commit 144");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(3, 3); // Init values : 3; 15
+        this.setVelocity(3, 3); 
         this.setFriction(0.2, 0.2);
         this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
@@ -18,6 +18,10 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
+        me.input.bindKey(me.input.KEY.Q, "left");
+        me.input.bindKey(me.input.KEY.D, "right");
+        me.input.bindKey(me.input.KEY.Z, "up");
+        me.input.bindKey(me.input.KEY.S, "down");
         me.input.bindKey(me.input.KEY.ENTER, "push");
 
         this.renderable.addAnimation("walkright", [1, 5, 9]);
@@ -88,12 +92,13 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.changedirection("bottom");
         }
 
-        this.updateMovement();
         var res = me.game.collide(this);
         if (res && res.obj.type == "moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
                 this.vel.y = 0;
+                this.accel.x = 0;
+                this.accel.y = 0;
                 //res.obj.setOpacity(0.5); Todo : add opacity effect
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
@@ -121,10 +126,11 @@ var PlayerEntity = me.ObjectEntity.extend({
                     this.pos.x += 3;
                 }
             }
-            this.updateMovement();
             this.parent(this);
             return true;
         }
+
+        this.updateMovement();
 
         // Check if moved
         if (this.vel.x != 0 || this.vel.y != 0) {
