@@ -32,9 +32,6 @@ var PlayerEntity = me.ObjectEntity.extend({
             "doorbypass": false,
             "remove": false
         };
-        /*if (!IsDummy)
-            TODO : Finish the dummy sys
-            var Dummy = new DummySelector;*/
     },
     changedirection: function (direction) {
         PlayerDirection = direction;
@@ -68,6 +65,9 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
     },
     update: function () {
+        if (!IsDummy)
+            var Dummy = new DummySelector(this.pos.x, this.pos.y, {});
+
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
             this.changedirection("left");
@@ -175,7 +175,7 @@ var DummySelector = me.ObjectEntity.extend({
             this.ttl--;
         else
             this.remove();
-
+        console.log(this.tty);
         switch (PlayerDirection) {
             case "top":
                 this.vel.y += 3;
