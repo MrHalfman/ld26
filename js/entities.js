@@ -173,10 +173,11 @@ var MoveableItem = me.ObjectEntity.extend({
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(2, 2);
+        this.setVelocity(3, 3);
         this.ttl = 10; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
+        this.type = "dummy";
         this.direction = settings.direction;
         this.updateColRect(0, 2, 0, 2);
         IsDummy = true;
@@ -206,10 +207,6 @@ var DummySelector = me.ObjectEntity.extend({
                 break;
         }
         this.updateMovement();
-        if (this.vel.x != 0 || this.vel.y != 0) {
-            this.parent(this);
-            return true;
-        }
 
         var res = me.game.collide(this);
         if (res)
@@ -221,6 +218,12 @@ var DummySelector = me.ObjectEntity.extend({
             console.log(selectedItem);
             // TODO : Add selected effect, so the player can see it.
         }
+
+        if (this.vel.x != 0 || this.vel.y != 0) {
+            this.parent(this);
+            return true;
+        }
+
         return false;
     }
 });
