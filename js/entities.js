@@ -40,25 +40,26 @@ var PlayerEntity = me.ObjectEntity.extend({
         if (res && res.obj.type=="moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
-                console.log("Collision : Plr PosX : " + this.pos.x + " / Obj PosX : " + res.obj.pos.x + " / DeltaX : " + res.x);
-                console.log("            Plr PosY : " + Math.round(this.pos.y) + " / Obj PosY : " + res.obj.pos.y + " / DeltaY : " + Math.round(res.y));
                 if (res.y > 0) {
-                    console.log("Obj is under.");
-                    //this.vel.y = -1;
-                    this.pos.y -= 30;
-                }
-                else if (res.x > 0) {
-                    console.log("Obj is on the right.");
-                    this.pos.x -= 3;
+                    if (me.input.isKeyPressed('push')) {
+                        res.obj.pos.y += 4;
+                    }
+                    this.pos.y -= 3;
+                } else if (res.y < 0) {
+                    if (me.input.isKeyPressed('push')) {
+                        res.obj.pos.y -= 4;
+                    }
+                    this.pos.y += 3
+                } else if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x += 4;
                     }
+                    this.pos.x -= 3;
                 } else if (res.x < 0) {
-                    console.log("Obj is on the left.");
-                    this.pos.x += 3;
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x -= 4;
                     }
+                    this.pos.x += 3;
                 }
             }
             this.updateMovement();
