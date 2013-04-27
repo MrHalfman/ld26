@@ -11,7 +11,7 @@ var game = {
         { name: "character", type: "image", src: "http://ludum.quantum-softwares.com/datas/sprites/character.png" },
         { name: "alpha1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/alpha1.tmx" },
         { name: "meta", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metaset2.png" },
-        { name: "selected", type: "image", src: "http://ludum.quantum-softwares.com/sprites/tilesets/selected.png" }
+        { name: "selected", type: "image", src: "http://ludum.quantum-softwares.com/sprites/selected.png" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
