@@ -47,3 +47,5 @@ var PlayScreen = me.ScreenObject.extend({
 window.onReady(function onReady() {
     game.onload();
 });
+
+me.debug.renderHitBox = true;
