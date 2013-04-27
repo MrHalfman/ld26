@@ -170,7 +170,7 @@ var DummySelector = me.ObjectEntity.extend({
         this.collidable = true;
         this.gravity = 0;
         this.direction = settings.direction;
-        this.updatecolrect(1, 1, 1, 1);
+        this.updateColRect(0, 1, 0, 1);
     },
     update: function () {
         if (this.ttl > 0)
