@@ -1,6 +1,6 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
 var IsDummy = false, PlayerDirection = "top", selectedItem = null;
-console.log("Commit 100");
+console.log("Commit 144");
 
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
@@ -153,14 +153,18 @@ var MoveableItem = me.ObjectEntity.extend({
     },
     update: function () {
         if (this.hasMoved == true) {
+            // Todo : %32 position.
             this.hasMoved == false;
-
         }
 
         if (this.vel.x != 0 || this.vel.y != 0) {
             this.parent(this);
             return true;
         }
+
+        var res = me.game.collide(this);
+        if (res)
+            console.log(res.obj.type);
 
         return false;
     }
@@ -169,12 +173,12 @@ var MoveableItem = me.ObjectEntity.extend({
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(5, 5);
+        this.setVelocity(2, 2);
         this.ttl = 10; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
         this.direction = settings.direction;
-        this.updateColRect(0, 1, 0, 1);
+        this.updateColRect(0, 2, 0, 2);
         IsDummy = true;
     },
     update: function () {
