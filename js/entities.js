@@ -1,12 +1,14 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-
+console.log("Commit 49");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        //this.setVelocity(3, 15); // Init values : 3; 15
+        this.setVelocity(3, 3); // Init values : 3; 15
+        this.setFriction(0.2, 0.2);
         this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
-
+        this.gravity = 0;
+        this.collidable = true;
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.UP, "up");
