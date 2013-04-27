@@ -67,7 +67,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     update: function () {
         if (!IsDummy) {
             var Dummy = new DummySelector(this.pos.x, this.pos.y, { direction: PlayerDirection });
-            me.game.add(DummySelector)
+            me.game.add(Dummy);
             me.game.sort();
         }
         if (me.input.isKeyPressed('left')) {
@@ -173,12 +173,15 @@ var DummySelector = me.ObjectEntity.extend({
         this.gravity = 0;
         this.direction = settings.direction;
         this.updateColRect(0, 1, 0, 1);
+        IsDummy = true;
     },
     update: function () {
-        /*if (this.ttl > 0)
+        if (this.ttl > 0) {
             this.ttl--;
-        else
-            this.remove();*/
+        } else {
+            this.remove();
+            IsDummy = false;
+        }
         console.log(this.tty);
         switch (this.direction) {
             case "top":
@@ -204,11 +207,12 @@ var DummySelector = me.ObjectEntity.extend({
         }
 
         var res = me.game.collide(this);
-        /*if (res && res.obj.type == "moveableitem") {
+        if (res && res.obj.type == "moveableitem") {
             this.remove();
+            IsDummy = false;
             selectedItem = res.obj.GUID;
             // TODO : Add selected effect, so the player can see it.
-        }*/
+        }
         return false;
     }
 });
