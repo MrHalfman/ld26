@@ -96,9 +96,9 @@ var PlayerEntity = me.ObjectEntity.extend({
         if (res && res.obj.type == "moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
-                this.vel.y = 0;
+                this.vel.y = 0;/*
                 this.accel.x = 0;
-                this.accel.y = 0;
+                this.accel.y = 0;*/
                 //res.obj.setOpacity(0.5); Todo : add opacity effect
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
@@ -179,7 +179,7 @@ var MoveableItem = me.ObjectEntity.extend({
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(10, 10);
+        this.setVelocity(8, 8);
         this.ttl = 10; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
