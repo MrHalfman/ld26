@@ -5,7 +5,7 @@ console.log("Commit 144");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(3, 3); 
+        this.setVelocity(2, 2); 
         this.setFriction(0.5, 0.5);
         this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
@@ -222,7 +222,7 @@ var DummySelector = me.ObjectEntity.extend({
             me.game.remove(this);
             IsDummy = false;
             selectedItem = res.obj.GUID;
-            console.log(selectedItem);
+            // console.log(selectedItem);
             // TODO : Add selected effect, so the player can see it.
         }
 
