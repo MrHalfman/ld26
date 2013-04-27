@@ -14,7 +14,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         this.renderable.addAnimation("walk", [0]);
         this.renderable.addAnimation("push", [1]);
-        this.renderable.setAnimation("walk");
+       // this.renderable.setAnimation("walk");
     },
 
     update: function () {
