@@ -42,3 +42,30 @@ var PlayerEntity = me.ObjectEntity.extend({
         return false;
     }
 })
+
+var MoveableItem = me.ObjectEntity.extend({
+    //We can move this entity.
+    // ==> Check for collide
+    init: function (x, y, settings) {
+        me.input.bindKey(me.input.KEY.ENTER, "push");
+    },
+    update: function () {
+        if (this.vel.x != 0 || this.vel.y != 0) {
+            this.parent();
+            return true;
+        }
+
+        return false;
+    },
+    onCollide: function (res, obj) {
+        if (res.type == "player") {
+            if (me.input.isKeyPressed('push')) {
+                this.vel.x = res.vel.x / this.weight;
+                this.vel.y = res.vel.y / this.weight;
+            } else {
+                res.vel.x = 0;
+                res.vel.y = 0;
+            }
+        }
+    }
+});

@@ -25,6 +25,8 @@ var game = {
         me.state.transition("fade", "#FFFFF", 250);
 
         me.entityPool.add("PlayerEntity", PlayerEntity);
+        me.entityPool.add("MoveableItem", MoveableItem);
+
         me.state.change(me.state.PLAY);
     }
 };
