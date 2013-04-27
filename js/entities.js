@@ -37,8 +37,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         this.updateMovement();
         var res = me.game.collide(this);
-        if (res) {
-            console.log(res.obj.type);
+        if (res && res.obj.type=="moveableitem") {
             if (me.input.isKeyPressed('push')) {
                 res.obj.vel.x = this.vel.x / res.obj.weight;
                 res.obj.vel.y = this.vel.y / res.obj.weight;
@@ -65,6 +64,7 @@ var MoveableItem = me.ObjectEntity.extend({
     // ==> Check for collide
     init: function (x, y, settings) {
         this.parent(x, y, settings);
+        this.type = "moveableitem";
         this.collidable = true;
         this.setVelocity(3, 3);
         this.gravity = 0;
