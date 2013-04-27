@@ -164,11 +164,13 @@ var MoveableItem = me.ObjectEntity.extend({
 
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
-        this.setVelocity(1, 1);
+        this.parent(x, y, settings);
+        this.setVelocity(10, 10);
         this.ttl = 160; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
         this.direction = settings.direction;
+        this.updatecolrect(1, 1, 1, 1);
     },
     update: function () {
         if (this.ttl > 0)
@@ -176,7 +178,7 @@ var DummySelector = me.ObjectEntity.extend({
         else
             this.remove();
         console.log(this.tty);
-        /*switch (this.direction) {
+        switch (this.direction) {
             case "top":
                 this.vel.y += 3;
                 break;
@@ -192,7 +194,7 @@ var DummySelector = me.ObjectEntity.extend({
             default:
                 console.log("Error in dummy direction");
                 break;
-        }*/
+        }
         this.updateMovement();
         this.parent(this);
 
