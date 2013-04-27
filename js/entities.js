@@ -1,5 +1,5 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-console.log("Commit 49");
+console.log("Commit 50");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
@@ -16,7 +16,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         this.renderable.addAnimation("walk", [0]);
         this.renderable.addAnimation("push", [1]);
-       // this.renderable.setAnimation("walk");
+        this.renderable.setCurrentAnimation("walk");
     },
 
     update: function () {
@@ -29,9 +29,9 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
 
         if (me.input.isKeyPressed('up')) {
-            this.vel.y += this.accel.y * me.timer.tick;
-        } else if (me.input.isKeyPressed('down')) {
             this.vel.y -= this.accel.y * me.timer.tick;
+        } else if (me.input.isKeyPressed('down')) {
+            this.vel.y += this.accel.y * me.timer.tick;
         }
 
         this.updateMovement();
