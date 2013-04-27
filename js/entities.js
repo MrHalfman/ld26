@@ -13,6 +13,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
+        me.input.bindKey(me.input.KEY.ENTER, "push");
 
         this.renderable.addAnimation("walk", [0]);
         this.renderable.addAnimation("push", [1]);
@@ -34,6 +35,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.vel.y += this.accel.y * me.timer.tick;
         }
 
+        this.updateMovement();
         var res = me.game.collide(this);
         if (res && res.obj.type == "player") {
             if (me.input.isKeyPressed('push')) {
@@ -43,18 +45,16 @@ var PlayerEntity = me.ObjectEntity.extend({
                 this.vel.x = 0;
                 this.vel.y = 0;
             }
-            this.updateMovement();
-            this.parent();
+            this.parent(this);
             return true;
         }
 
         // Check if moved
         if (this.vel.x != 0 || this.vel.y != 0) {
-            this.parent();
+            this.parent(this);
             return true;
         }
 
-        this.updateMovement();
         return false;
     }
 })
@@ -73,13 +73,12 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.addAnimation("sofa", [1]);
         this.renderable.setCurrentAnimation(settings.type);
         this.weight = 1;
-        me.input.bindKey(me.input.KEY.ENTER, "push");
     },
     update: function () {
         
 
         if (this.vel.x != 0 || this.vel.y != 0) {
-            this.parent();
+            this.parent(this);
             return true;
         }
 
