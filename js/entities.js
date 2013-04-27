@@ -64,14 +64,8 @@ var MoveableItem = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.ENTER, "push");
     },
     update: function () {
-        if (this.vel.x != 0 || this.vel.y != 0) {
-            this.parent();
-            return true;
-        }
-        
         var res = me.game.collide(this);
-        if (res) {
-            if (res.obj.type == "player") {
+        if (res && res.obj.type == "player") {
                 if (me.input.isKeyPressed('push')) {
                     this.vel.x = res.obj.vel.x / this.weight;
                     this.vel.y = res.obj.vel.y / this.weight;
@@ -79,9 +73,16 @@ var MoveableItem = me.ObjectEntity.extend({
                     res.obj.vel.x = 0;
                     res.obj.vel.y = 0;
                 }
-            }
-            this.updateMovement();
+                this.updateMovement();
+                this.parent();
+                return true;
         }
+
+        if (this.vel.x != 0 || this.vel.y != 0) {
+            this.parent();
+            return true;
+        }
+
         return false;
     }
 });
