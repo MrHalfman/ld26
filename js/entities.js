@@ -68,7 +68,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     update: function () {
         if (!IsDummy) {
-            var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y - (this.height/2), { direction: PlayerDirection });
+            var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y + (this.height/2), { direction: PlayerDirection });
             me.game.add(Dummy, this.z);
             me.game.sort();
         }
