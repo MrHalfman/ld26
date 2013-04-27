@@ -11,14 +11,19 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
         this.gravity = 0;
         this.collidable = true;
+
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
         me.input.bindKey(me.input.KEY.ENTER, "push");
-        this.renderable.addAnimation("walk", [0]);
-        this.renderable.addAnimation("push", [1]);
-        this.renderable.setCurrentAnimation("walk");
+
+        this.renderable.addAnimation("walkleft", [1, 5, 9]);
+        this.renderable.addAnimation("walkright", [2, 6, 10]);
+        this.renderable.addAnimation("walktop", [0, 4, 8]);
+        this.renderable.addAnimation("walkbottom", [3, 7, 11]);
+
+        this.renderable.setCurrentAnimation("walktop");
         this.power = {
             "jumpover": false,
             "pull": false,
@@ -27,8 +32,13 @@ var PlayerEntity = me.ObjectEntity.extend({
             "doorbypass": false,
             "remove": false
         };
-        if (!IsDummy)
-            var Dummy = new DummySelector;
+        /*if (!IsDummy)
+            TODO : Finish the dummy sys
+            var Dummy = new DummySelector;*/
+    },
+    changedirection: function (direction) {
+        PlayerDirection = direction;
+        this.renderable.setCurrentAnimation("walk" + direction);
     },
     usePower: function (power) {
         if (this.power[power]) {
@@ -61,19 +71,19 @@ var PlayerEntity = me.ObjectEntity.extend({
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
             this.flipX(true);
-            PlayerDirection = "left";
+            changedirection("left");
         } else if (me.input.isKeyPressed('right')) {
             this.vel.x += this.accel.x * me.timer.tick;
             this.flipX(false);
-            PlayerDirection = "right";
+            changedirection("right");
         }
 
         if (me.input.isKeyPressed('up')) {
             this.vel.y -= this.accel.y * me.timer.tick;
-            PlayerDirection = "top";
+            changedirection("top");
         } else if (me.input.isKeyPressed('down')) {
             this.vel.y += this.accel.y * me.timer.tick;
-            PlayerDirection = "bottom";
+            changedirection("bottom");
         }
 
         this.updateMovement();
