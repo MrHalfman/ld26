@@ -3,8 +3,8 @@
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(3, 15);
-
+        this.setVelocity(3, 15); // Init values : 3; 15
+        this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
 
         me.input.bindKey(me.input.KEY.LEFT, "left");
@@ -13,6 +13,8 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.DOWN, "down");
 
         this.renderable.addAnimation("walk", [0]);
+        this.renderable.addAnimation("push", [1]);
+        this.renderable.setAnimation("walk");
     },
 
     update: function () {
@@ -47,6 +49,9 @@ var MoveableItem = me.ObjectEntity.extend({
     //We can move this entity.
     // ==> Check for collide
     init: function (x, y, settings) {
+        this.parent(x, y, settings);
+        this.collidable = true;
+
         me.input.bindKey(me.input.KEY.ENTER, "push");
     },
     update: function () {
@@ -69,3 +74,4 @@ var MoveableItem = me.ObjectEntity.extend({
         }
     }
 });
+
