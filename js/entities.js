@@ -1,5 +1,5 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-console.log("Commit 57");
+console.log("Commit 69");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
@@ -65,19 +65,22 @@ var MoveableItem = me.ObjectEntity.extend({
             this.parent();
             return true;
         }
-
-        return false;
-    },
-    onCollide: function (res, obj) {
-        if (res.type == "player") {
-            if (me.input.isKeyPressed('push')) {
-                this.vel.x = res.vel.x / this.weight;
-                this.vel.y = res.vel.y / this.weight;
-            } else {
-                res.vel.x = 0;
-                res.vel.y = 0;
+        
+        var res = me.game.collide(this);
+        if (res) {
+            console.log(res.obj.type);
+            if (res.obj.type == "playerEntity") {
+                if (me.input.isKeyPressed('push')) {
+                    this.vel.x = res.vel.x / this.weight;
+                    this.vel.y = res.vel.y / this.weight;
+                } else {
+                    res.vel.x = 0;
+                    res.vel.y = 0;
+                }
             }
+            this.updateMovement();
         }
+        return false;
     }
 });
 
