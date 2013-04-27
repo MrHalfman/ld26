@@ -103,29 +103,29 @@ var PlayerEntity = me.ObjectEntity.extend({
                 //res.obj.setOpacity(0.5); Todo : add opacity effect
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y += this.vel.y;
+                        res.obj.pos.y += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= 4;
+                    this.pos.y -= this.vel.y;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y -= this.vel.y;
+                        res.obj.pos.y -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y += 4;
+                    this.pos.y += this.vel.y;
                 }
                 if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x += this.vel.x;
+                        res.obj.pos.x += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= 4;
+                    this.pos.x -= this.vel.x;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x -= this.vel.x;
+                        res.obj.pos.x -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x += 4;
+                    this.pos.x += this.vel.x;
                 }
             }
             this.parent(this);
