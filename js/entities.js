@@ -18,8 +18,8 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.DOWN, "down");
         me.input.bindKey(me.input.KEY.ENTER, "push");
 
-        this.renderable.addAnimation("walkleft", [1, 5, 9]);
-        this.renderable.addAnimation("walkright", [2, 6, 10]);
+        this.renderable.addAnimation("walkright", [1, 5, 9]);
+        this.renderable.addAnimation("walkleft", [2, 6, 10]);
         this.renderable.addAnimation("walktop", [0, 4, 8]);
         this.renderable.addAnimation("walkbottom", [3, 7, 11]);
 
