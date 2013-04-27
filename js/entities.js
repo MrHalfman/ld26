@@ -3,7 +3,7 @@
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(3, 15); // Init values : 3; 15
+        //this.setVelocity(3, 15); // Init values : 3; 15
         this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
 
