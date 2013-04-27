@@ -55,6 +55,8 @@ var MoveableItem = me.ObjectEntity.extend({
         this.collidable = true;
 
         //this.renderable = new me.AnimationSheet(0, 0, "furnitures", 16, 16);
+        settings.spritewidth = 16;
+        settings.spriteheight = 16;
         this.renderable.addAnimation("sofa", [2]);
         this.renderable.setCurrentAnimation(settings.type);
 
