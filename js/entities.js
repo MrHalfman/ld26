@@ -18,8 +18,42 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.renderable.addAnimation("walk", [0]);
         this.renderable.addAnimation("push", [1]);
         this.renderable.setCurrentAnimation("walk");
+        this.power = {
+            "jumpover": false,
+            "pull": false,
+            "putbehind": false,
+            "superpush": false,
+            "doorbypass": false,
+            "remove": false
+        };
     },
-
+    usePower: function (power) {
+        if (this.power[power]) {
+            switch (power) {
+                case "jumpover":
+                    // Jumping over an item
+                    break;
+                case "pull":
+                    // Pull an item
+                    break;
+                case "putbehind":
+                    // Take an item and put it behind the player
+                    break;
+                case "superpush":
+                    // Pushing 2 items at a time
+                    break;
+                case "doorbypass":
+                    // Opens any door
+                    break;
+                case "remove":
+                    // Removes an item
+                    break;
+                default:
+                    break;
+            }
+            this.power[power] = false;
+        }
+    },
     update: function () {
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
