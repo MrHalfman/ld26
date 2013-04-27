@@ -185,10 +185,10 @@ var DummySelector = me.ObjectEntity.extend({
         console.log(this.ttl);
         switch (this.direction) {
             case "top":
-                this.vel.y += 3;
+                this.vel.y -= 3;
                 break;
             case "bottom":
-                this.vel.y -= 3;
+                this.vel.y += 3;
                 break;
             case "left":
                 this.vel.x -= 3;
