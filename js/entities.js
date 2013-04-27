@@ -57,7 +57,7 @@ var MoveableItem = me.ObjectEntity.extend({
         settings.image = "furnitures";
         settings.spritewidth = 32;
         settings.spriteheight = 32;
-        this.renderable.addAnimation("sofa", [3]);
+        this.renderable.addAnimation("sofa", [2]);
         this.renderable.setCurrentAnimation("sofa");
 
         me.input.bindKey(me.input.KEY.ENTER, "push");
