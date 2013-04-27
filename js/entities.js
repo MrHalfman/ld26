@@ -106,25 +106,25 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.y += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= 3;
+                    this.pos.y -= 4;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.y -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y += 3
+                    this.pos.y += 4;
                 } else if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= 3;
+                    this.pos.x -= 4;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x += 3;
+                    this.pos.x += 4;
                 }
             }
             this.parent(this);
