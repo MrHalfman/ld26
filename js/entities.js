@@ -1,5 +1,5 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-console.log("Commit 69");
+console.log("Commit 82");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
@@ -37,7 +37,8 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         this.updateMovement();
         var res = me.game.collide(this);
-        if (res && res.obj.type == "player") {
+        if (res) {
+            console.log(res.obj.type);
             if (me.input.isKeyPressed('push')) {
                 res.obj.vel.x = this.vel.x / res.obj.weight;
                 res.obj.vel.y = this.vel.y / res.obj.weight;
