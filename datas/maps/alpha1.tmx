@@ -28,6 +28,7 @@
   <object name="PlayerEntity" x="224" y="448" width="32" height="32">
    <properties>
     <property name="image" value="character"/>
+    <property name="spriteheight" value="32"/>
     <property name="spritewidth" value="32"/>
    </properties>
   </object>
