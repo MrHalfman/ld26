@@ -752,6 +752,8 @@
   <object name="MoveableItem" x="320" y="160" width="32" height="32">
    <properties>
     <property name="image" value="furnitures"/>
+    <property name="spriteheight" value="16"/>
+    <property name="spritewidth" value="16"/>
     <property name="type" value="sofa"/>
    </properties>
   </object>
