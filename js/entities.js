@@ -162,9 +162,9 @@ var MoveableItem = me.ObjectEntity.extend({
             return true;
         }
 
-        var res = me.game.collide(this);
+        /*var res = me.game.collide(this);
         if (res)
-            console.log(res.obj.type);
+            console.log(res.obj.type);*/
 
         return false;
     }
@@ -173,7 +173,7 @@ var MoveableItem = me.ObjectEntity.extend({
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(3, 3);
+        this.setVelocity(10, 10);
         this.ttl = 10; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
@@ -209,8 +209,7 @@ var DummySelector = me.ObjectEntity.extend({
         this.updateMovement();
 
         var res = me.game.collide(this);
-        if (res)
-            console.log(res.obj.type);
+
         if (res && res.obj.type == "moveableitem") {
             me.game.remove(this);
             IsDummy = false;
