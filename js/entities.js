@@ -212,6 +212,7 @@ var DummySelector = me.ObjectEntity.extend({
             me.game.remove(this);
             IsDummy = false;
             selectedItem = res.obj.GUID;
+            console.log(selectedItem);
             // TODO : Add selected effect, so the player can see it.
         }
         return false;
