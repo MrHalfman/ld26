@@ -40,24 +40,25 @@ var PlayerEntity = me.ObjectEntity.extend({
         if (res && res.obj.type=="moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
+                this.vel.y = 0;
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y += 4;
+                        res.obj.pos.y += 3;
                     }
                     this.pos.y -= 3;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y -= 4;
+                        res.obj.pos.y -= 3;
                     }
                     this.pos.y += 3
                 } else if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x += 4;
+                        res.obj.pos.x += 3;
                     }
                     this.pos.x -= 3;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x -= 4;
+                        res.obj.pos.x -= 3;
                     }
                     this.pos.x += 3;
                 }
