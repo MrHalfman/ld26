@@ -1,11 +1,11 @@
 ﻿var game = {
     assets: [
-        { name: "level1", type: "tmx", src: "../datas/maps/level1.tmx" },
-        { name: "metatiles16x16", type: "image", src: "../datas/tilesets/metatiles16x16.png" }
+        { name: "level1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/level1.tmx" },
+        { name: "metatiles16x16", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metatiles16x16.png" }
 
     ],
     onload: function () {
-        if (!me.video.init('screen', 800, 600, true, 'auto')) {
+        if (!me.video.init('screen', 800, 600, true)) {
             alert("This browser does not support HTML5 canvas");
             return;
         }
