@@ -58,9 +58,9 @@ var MoveableItem = me.ObjectEntity.extend({
         /*this.renderable = new me.AnimationSheet(0, 0, "furnitures", 16, 16);
         settings.spritewidth = 16;
         settings.spriteheight = 16;*/
-        this.renderable.addAnimation("sofa", [2]);
+        this.renderable.addAnimation("sofa", [1]);
         this.renderable.setCurrentAnimation(settings.type);
-
+        this.weight = 1;
         me.input.bindKey(me.input.KEY.ENTER, "push");
     },
     update: function () {
@@ -73,11 +73,11 @@ var MoveableItem = me.ObjectEntity.extend({
         if (res) {
             if (res.obj.type == "player") {
                 if (me.input.isKeyPressed('push')) {
-                    this.vel.x = res.vel.x / this.weight;
-                    this.vel.y = res.vel.y / this.weight;
+                    this.vel.x = res.obj.vel.x / this.weight;
+                    this.vel.y = res.obj.vel.y / this.weight;
                 } else {
-                    res.vel.x = 0;
-                    res.vel.y = 0;
+                    res.obj.vel.x = 0;
+                    res.obj.vel.y = 0;
                 }
             }
             this.updateMovement();
