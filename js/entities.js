@@ -1,5 +1,7 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-console.log("Commit 82");
+var IsDummy = false, PlayerDirection = "top", selectedItem = null;
+console.log("Commit 100");
+
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
@@ -14,7 +16,6 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
         me.input.bindKey(me.input.KEY.ENTER, "push");
-
         this.renderable.addAnimation("walk", [0]);
         this.renderable.addAnimation("push", [1]);
         this.renderable.setCurrentAnimation("walk");
@@ -26,6 +27,8 @@ var PlayerEntity = me.ObjectEntity.extend({
             "doorbypass": false,
             "remove": false
         };
+        if (!IsDummy)
+            var Dummy = new DummySelector;
     },
     usePower: function (power) {
         if (this.power[power]) {
@@ -58,15 +61,19 @@ var PlayerEntity = me.ObjectEntity.extend({
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
             this.flipX(true);
+            PlayerDirection = "left";
         } else if (me.input.isKeyPressed('right')) {
             this.vel.x += this.accel.x * me.timer.tick;
             this.flipX(false);
+            PlayerDirection = "right";
         }
 
         if (me.input.isKeyPressed('up')) {
             this.vel.y -= this.accel.y * me.timer.tick;
+            PlayerDirection = "top";
         } else if (me.input.isKeyPressed('down')) {
             this.vel.y += this.accel.y * me.timer.tick;
+            PlayerDirection = "bottom";
         }
 
         this.updateMovement();
@@ -147,3 +154,46 @@ var MoveableItem = me.ObjectEntity.extend({
     }
 });
 
+var DummySelector = me.ObjectEntity.extend({
+    init: function (x, y, settings) {
+        // Todo : compute vector angles to move dummy
+        this.setVelocity(1, 1);
+        this.ttl = 160; // Time to live before removing
+        this.collidable = true;
+        this.gravity = 0;
+    },
+    update: function () {
+        if (this.ttl > 0)
+            this.ttl--;
+        else
+            this.remove();
+
+        switch (PlayerDirection) {
+            case "top":
+                this.vel.y += 3;
+                break;
+            case "bottom":
+                this.vel.y -= 3;
+                break;
+            case "left":
+                this.vel.x -= 3;
+                break;
+            case "right":
+                this.vel.x += 3;
+                break;
+            default:
+                console.log("Error in dummy direction");
+                break;
+        }
+        this.updateMovement();
+        this.parent(this);
+
+        var res = me.game.collide(this);
+        if (res && res.obj.type == "moveableitem") {
+            this.remove();
+            selectedItem = res.obj.GUID;
+            // TODO : Add selected effect, so the player can see it.
+        }
+        return true;
+    }
+});
