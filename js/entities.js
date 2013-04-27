@@ -155,13 +155,16 @@ var MoveableItem = me.ObjectEntity.extend({
         if (this.hasMoved == true) {
             // Todo : %32 position.
             this.hasMoved == false;
-
         }
 
         if (this.vel.x != 0 || this.vel.y != 0) {
             this.parent(this);
             return true;
         }
+
+        var res = me.game.collide(this);
+        if (res)
+            console.log(res.obj.type);
 
         return false;
     }
@@ -170,7 +173,7 @@ var MoveableItem = me.ObjectEntity.extend({
 var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(0.1, 0.1);
+        this.setVelocity(2, 2);
         this.ttl = 10; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
