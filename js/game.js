@@ -9,7 +9,8 @@ var game = {
         { name: "metaset", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metaset.png" },
         { name: "walls", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/walls.png" },
         { name: "character", type: "image", src: "http://ludum.quantum-softwares.com/datas/sprites/character.png" },
-        { name: "alpha1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/alpha1.tmx" }
+        { name: "alpha1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/alpha1.tmx" },
+        { name: "meta", type: "image", src: "http://ludum.quantum-softwares.com/datas/maps/metaset2.tmx" }
 
     ],
     onload: function () {
