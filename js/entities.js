@@ -54,6 +54,12 @@ var MoveableItem = me.ObjectEntity.extend({
         this.parent(x, y, settings);
         this.collidable = true;
 
+        this.renderable.image = "furnitures";
+        this.renderable.spritewidth = 32;
+        this.renderable.spriteheight = 32;
+        this.renderable.addAnimation("sofa", [3]);
+        this.rederable.setCurrentAnimation("sofa");
+
         me.input.bindKey(me.input.KEY.ENTER, "push");
     },
     update: function () {

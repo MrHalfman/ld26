@@ -748,4 +748,7 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup color="#e5bd1b" name="Items" width="27" height="27">
+  <object name="MoveableItem" x="320" y="160" width="32" height="32"/>
+ </objectgroup>
 </map>
