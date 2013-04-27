@@ -11,7 +11,7 @@
         me.audio.init("mp3, ogg");
         me.loader.onload = this.loaded.bind(this);
         me.loader.preload(game.assets);
-        me.stage.change(me.state.LOADING);
+        me.state.change(me.state.LOADING);
     },
     loaded: function () {
         me.state.set(me.state.PLAY, new PlayScreen());
@@ -25,7 +25,7 @@
     }
 };
 
-var PlayScree = me.ScreenObject.extend({
+var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         me.levelDirector.loadLevel("level1");
     }
