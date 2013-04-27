@@ -76,6 +76,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             me.game.add(Dummy, this.z);
             me.game.sort();
         }
+
         if (me.input.isKeyPressed('left')) {
             this.vel.x -= this.accel.x * me.timer.tick;
             this.changedirection("left");
