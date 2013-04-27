@@ -175,10 +175,10 @@ var DummySelector = me.ObjectEntity.extend({
         this.updateColRect(0, 1, 0, 1);
     },
     update: function () {
-        if (this.ttl > 0)
+        /*if (this.ttl > 0)
             this.ttl--;
         else
-            this.remove();
+            this.remove();*/
         console.log(this.tty);
         switch (this.direction) {
             case "top":
@@ -204,11 +204,11 @@ var DummySelector = me.ObjectEntity.extend({
         }
 
         var res = me.game.collide(this);
-        if (res && res.obj.type == "moveableitem") {
+        /*if (res && res.obj.type == "moveableitem") {
             this.remove();
             selectedItem = res.obj.GUID;
             // TODO : Add selected effect, so the player can see it.
-        }
+        }*/
         return false;
     }
 });
