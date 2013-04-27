@@ -41,6 +41,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
                 this.vel.y = 0;
+                res.obj.setOpacity(0.5);
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.y += 3;
