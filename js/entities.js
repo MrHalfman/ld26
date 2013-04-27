@@ -96,8 +96,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         var res = me.game.collide(this);
         if (res && res.obj.type == "moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
-                /*this.vel.x = 0;
-                this.vel.y = 0;
+                /*
                 this.accel.x = 0;
                 this.accel.y = 0;*/
                 //res.obj.setOpacity(0.5); Todo : add opacity effect
@@ -107,12 +106,16 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     this.pos.y -= this.vel.y;
+                    this.vel.x = 0;
+                    this.vel.y = 0;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.y -= 3;
                         res.obj.hasMoved = true;
                     }
                     this.pos.y += this.vel.y;
+                    this.vel.x = 0;
+                    this.vel.y = 0;
                 }
                 if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
@@ -120,12 +123,16 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     this.pos.x -= this.vel.x;
+                    this.vel.x = 0;
+                    this.vel.y = 0;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x -= 3;
                         res.obj.hasMoved = true;
                     }
                     this.pos.x += this.vel.x;
+                    this.vel.x = 0;
+                    this.vel.y = 0;
                 }
             }
             this.parent(this);
