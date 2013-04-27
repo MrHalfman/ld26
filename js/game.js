@@ -1,4 +1,6 @@
-﻿var game = {
+﻿/// <reference path="melonJS-0.9.7.js" />
+/// <reference path="entities.js" />
+var game = {
     assets: [
         { name: "level1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/level1.tmx" },
         { name: "metatiles16x16", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metatiles16x16.png" }
@@ -22,9 +24,7 @@
 
         me.state.transition("fade", "#FFFFF", 250);
 
-        /*
-            Entity pool here
-        */
+        me.entityPool.add("PlayerEntity", PlayerEntity);
         me.state.change(me.state.PLAY);
     }
 };
