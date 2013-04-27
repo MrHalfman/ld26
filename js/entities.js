@@ -206,6 +206,6 @@ var DummySelector = me.ObjectEntity.extend({
             selectedItem = res.obj.GUID;
             // TODO : Add selected effect, so the player can see it.
         }
-        return true;
+        return false;
     }
 });
