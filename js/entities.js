@@ -90,7 +90,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         this.updateMovement();
         var res = me.game.collide(this);
-        if (res && res.obj.type=="moveableitem") {
+        if (res && res.obj.type == "moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
                 this.vel.y = 0;
@@ -208,6 +208,8 @@ var DummySelector = me.ObjectEntity.extend({
         }
 
         var res = me.game.collide(this);
+        if (res)
+            console.log(res.obj.type);
         if (res && res.obj.type == "moveableitem") {
             me.game.remove(this);
             IsDummy = false;
