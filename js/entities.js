@@ -1,5 +1,5 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-console.log("Commit 54");
+console.log("Commit 55");
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
@@ -17,6 +17,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.renderable.addAnimation("walk", [0]);
         this.renderable.addAnimation("push", [1]);
         this.renderable.setCurrentAnimation("walk");
+        console.log(this.settings.spritewidth + " - " + this.renderable.spritewidth + " - " + this.settings.image);
     },
 
     update: function () {
@@ -54,8 +55,8 @@ var MoveableItem = me.ObjectEntity.extend({
         this.parent(x, y, settings);
         this.collidable = true;
 
-        this.renderable.spritewidth = 32;
-        this.renderable.spriteheight = 32;
+        this.settings.spritewidth = 32;
+        this.settings.spriteheight = 32;
         this.renderable.addAnimation("sofa", [3]);
         this.renderable.setCurrentAnimation("sofa");
 
