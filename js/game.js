@@ -1,5 +1,7 @@
 ﻿var game = {
-    assets: [],
+    assets: [
+        {name: "level1", type: "tmx", src: "../datas/maps/level1.tmx"}
+    ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true, 'auto')) {
             alert("This browser does not support HTML5 canvas");
