@@ -39,7 +39,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ff5500" name="Items" width="16" height="16">
-  <object name="MoveableItem" x="352" y="320" width="32" height="32">
+  <object name="MoveableItem" x="224" y="288" width="32" height="32">
    <properties>
     <property name="image" value="furnitures"/>
     <property name="spriteheight" value="32"/>
