@@ -1,19 +1,31 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
 /// <reference path="entities.js" />
+/// <reference path="gui.js" />
 var game = {
     assets: [
+        /****** LEVELS ******/
         { name: "level1", type: "tmx", src: "datas/maps/level1.tmx" },
+        { name: "alpha1", type: "tmx", src: "datas/maps/alpha1.tmx" },
+
+        /****** TILESETS ******/
         { name: "metatiles16x16", type: "image", src: "datas/tilesets/metatiles16x16.png" },
         { name: "Moquette", type: "image", src: "datas/tilesets/moquette.png" },
         { name: "furnitures", type: "image", src: "datas/tilesets/furnitures26.png" },
         { name: "metaset", type: "image", src: "datas/tilesets/metaset.png" },
         { name: "walls", type: "image", src: "datas/tilesets/walls.png" },
-        { name: "character", type: "image", src: "datas/sprites/character.png" },
-        { name: "alpha1", type: "tmx", src: "datas/maps/alpha1.tmx" },
         { name: "meta", type: "image", src: "datas/tilesets/metaset2.png" },
+
+        /****** SPRITES ******/
+        { name: "character", type: "image", src: "datas/sprites/character.png" },
         { name: "selected", type: "image", src: "datas/sprites/select.png" },
-        { name: "maintheme", type: "audio", src: "datas/sounds/" },
-        { name: "splashscreen", type: "image", src: "datas/images/title.png" }
+
+        /****** IMAGES ******/
+        { name: "splashscreen", type: "image", src: "datas/images/title.png" },
+        { name: "doorbypass", type: "image", src: "datas/images/doorbypass.png" },
+        { name: "pull", type: "image", src: "datas/images/pull.png" },
+
+        /****** SOUNDS ******/
+        { name: "maintheme", type: "audio", src: "datas/sounds/" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -48,6 +60,8 @@ var game = {
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         me.levelDirector.loadLevel("alpha1");
+        me.game.add(new SpellButton(me.video.getWidth() - 10, me.video.getHeight() - 10, { image: "doorbypass", spell: "doorbypass" }));
+        me.game.add(new SpellButton(me.video.getWidth() - 40, me.video.getHeight() - 10, { image: "pull", spell: "pull" }));
     }
 });
 
