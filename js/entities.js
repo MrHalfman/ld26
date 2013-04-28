@@ -71,7 +71,26 @@ var PlayerEntity = me.ObjectEntity.extend({
                     break;
 
                 case "pull":
-                    // Pull an item
+                    switch (PlayerDirection) {
+                        case "top":
+                            SelectedEntity.pos.y -= 32;
+                            this.pos.y -= 32;
+                            break;
+                        case "left":
+                            SelectedEntity.pos.x -= 32;
+                            this.pos.y -= 32;
+                            break;
+                        case "bottom":
+                            SelectedEntity.pos.y += 32;
+                            this.pos.y += 32;
+                            break;
+                        case "right":
+                            SelectedEntity.pos.x += 32;
+                            this.pos.x += 32;
+                            break;
+                        default:
+                            console.log("Error: can't recognise direction");
+                    }
                     break;
                 case "putbehind":
                     // Put the selected item behind player
