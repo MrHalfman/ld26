@@ -1,5 +1,5 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-var IsDummy = false, PlayerDirection = "top", selectedItem = null;
+var IsDummy = false, PlayerDirection = "top", selectedItem = null, selectedSprite;
 console.log("Commit 144");
 
 var PlayerEntity = me.ObjectEntity.extend({
@@ -200,6 +200,8 @@ var DummySelector = me.ObjectEntity.extend({
         if (this.ttl > 0) {
             this.ttl--;
         } else {
+            var OldSelector = me.game.getEntityByGUID(selectedSprite);
+            me.game.remove(OldSelector);
             me.game.remove(this);
             IsDummy = false;
             selectedItem = null;
@@ -250,6 +252,7 @@ var Selector = me.ObjectEntity.extend({
         this.parent(x, y, settings);
         this.renderable.addAnimation("selected", [0, 1, 2]);
         this.renderable.setCurrentAnimation("selected");
+        selectedSprite = this.GUID;
     },
     update: function () {
         this.parent(this);
