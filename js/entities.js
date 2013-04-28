@@ -1,12 +1,13 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-var IsDummy = false, PlayerDirection = "top", selectedItem = null;
+var IsDummy = false, PlayerDirection = "top", selectedItem = null, selectedSprite;
 console.log("Commit 144");
 
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        this.setVelocity(3, 3); 
-        this.setFriction(0.2, 0.2);
+        this.setVelocity(2, 2);
+        this.setMaxVelocity(2, 2);
+        this.setFriction(0.5, 0.5);
         this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
         this.gravity = 0;
@@ -28,7 +29,6 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.renderable.addAnimation("walkleft", [2, 6, 10]);
         this.renderable.addAnimation("walktop", [0, 4, 8]);
         this.renderable.addAnimation("walkbottom", [3, 7, 11]);
-
         this.renderable.setCurrentAnimation("walktop");
         this.power = {
             "jumpover": false,
@@ -38,13 +38,15 @@ var PlayerEntity = me.ObjectEntity.extend({
             "doorbypass": false,
             "remove": false
         };
+        this.lastPositions = { x: this.pos.x, y: this.pos.y };
+        this.collisiondInterp = 4;
     },
     changedirection: function (direction) {
         PlayerDirection = direction;
         this.renderable.setCurrentAnimation("walk" + direction);
     },
     usePower: function (power) {
-        if (this.power[power]) {
+        if (this.power[power] && selectedItem) {
             switch (power) {
                 case "jumpover":
                     // Jumping over an item
@@ -97,48 +99,24 @@ var PlayerEntity = me.ObjectEntity.extend({
         if (res && res.obj.type == "moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
-                this.vel.y = 0;/*
-                this.accel.x = 0;
-                this.accel.y = 0;*/
-                //res.obj.setOpacity(0.5); Todo : add opacity effect
-                if (res.y > 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y += 3;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.y -= 4;
-                } else if (res.y < 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.y -= 3;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.y += 4;
-                } else if (res.x > 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x += 3;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.x -= 4;
-                } else if (res.x < 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.pos.x -= 3;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.x += 4;
-                }
+                this.vel.y = 0;
+
+                this.pos.y -= res.y;
+                this.pos.x -= res.x;
+
+                this.updateMovement();
             }
             this.parent(this);
             return true;
         }
 
-        this.updateMovement();
-
         // Check if moved
         if (this.vel.x != 0 || this.vel.y != 0) {
+            this.updateMovement();
+            this.lastPositions = { x: this.pos.x, y: this.pos.y };
             this.parent(this);
             return true;
         }
-
         return false;
     }
 })
@@ -149,6 +127,7 @@ var MoveableItem = me.ObjectEntity.extend({
         this.type = "moveableitem";
         this.collidable = true;
         this.setVelocity(3, 3);
+        this.setFriction(1, 1);
         this.gravity = 0;
         this.hasMoved = false;
         /*this.renderable = new me.AnimationSheet(0, 0, "furnitures", 16, 16);
@@ -164,14 +143,16 @@ var MoveableItem = me.ObjectEntity.extend({
             this.hasMoved == false;
         }
 
+
+        this.updateMovement();
+        /*var res = me.game.collide(this);
+        if (res)
+            console.log(res.obj.type);*/
+
         if (this.vel.x != 0 || this.vel.y != 0) {
             this.parent(this);
             return true;
         }
-
-        /*var res = me.game.collide(this);
-        if (res)
-            console.log(res.obj.type);*/
 
         return false;
     }
@@ -181,7 +162,7 @@ var DummySelector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
         this.setVelocity(8, 8);
-        this.ttl = 10; // Time to live before removing
+        this.ttl = 8; // Time to live before removing
         this.collidable = true;
         this.gravity = 0;
         this.type = "dummy";
@@ -193,8 +174,13 @@ var DummySelector = me.ObjectEntity.extend({
         if (this.ttl > 0) {
             this.ttl--;
         } else {
+            /*
+                Todo : Remove selector properly */         
+            var OldSelector = me.game.getEntityByGUID(selectedSprite);
+            me.game.remove(OldSelector);
             me.game.remove(this);
             IsDummy = false;
+            selectedItem = null;
         }
         switch (this.direction) {
             case "top":
@@ -217,12 +203,15 @@ var DummySelector = me.ObjectEntity.extend({
 
         var res = me.game.collide(this);
 
-        if (res && res.obj.type == "moveableitem") {
+        if (res && res.obj.type == "moveableitem" && selectedItem == null) {
             me.game.remove(this);
             IsDummy = false;
             selectedItem = res.obj.GUID;
-            console.log(selectedItem);
+            // console.log(selectedItem);
             // TODO : Add selected effect, so the player can see it.
+            var SelectedImage = new Selector(res.obj.pos.x, res.obj.pos.y, { image: "selected", spritewidth: 32, spriteheight: 32 });
+            me.game.add(SelectedImage, this.z);
+            me.game.sort();
         }
 
         if (this.vel.x != 0 || this.vel.y != 0) {
@@ -231,5 +220,19 @@ var DummySelector = me.ObjectEntity.extend({
         }
 
         return false;
+    }
+});
+
+var Selector = me.ObjectEntity.extend({
+    init: function (x, y, settings) {
+        this.parent(x, y, settings);
+        this.renderable.addAnimation("selected", [0, 1, 2]);
+        this.renderable.setCurrentAnimation("selected");
+        selectedSprite = this.GUID;
+    },
+    update: function () {
+        this.parent(this);
+
+        return true;
     }
 });
