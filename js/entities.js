@@ -176,15 +176,16 @@ var MoveableItem = me.ObjectEntity.extend({
             this.hasMoved == false;
         }
 
-        if (this.vel.x != 0 || this.vel.y != 0) {
-            this.parent(this);
-            return true;
-        }
 
         this.updateMovement();
         /*var res = me.game.collide(this);
         if (res)
             console.log(res.obj.type);*/
+
+        if (this.vel.x != 0 || this.vel.y != 0) {
+            this.parent(this);
+            return true;
+        }
 
         return false;
     }
