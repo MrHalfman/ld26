@@ -22,7 +22,7 @@ var game = {
 
         me.video.setImageSmoothing(false);
 
-        me.audio.init("mp3, ogg");
+        me.audio.init("mp3");
         me.audio.enable();
         me.loader.onload = this.loaded.bind(this);
         me.loader.preload(game.assets);
