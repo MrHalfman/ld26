@@ -28,7 +28,9 @@ var game = {
         { name: "remove", type: "image", src: "datas/images/remove.png" },
 
         /****** SOUNDS ******/
-        { name: "maintheme", type: "audio", src: "datas/sounds/" }
+        { name: "maintheme", type: "audio", src: "datas/sounds/" },
+        { name: "theme1", type: "audio", src: "datas/sounds/" },
+        { name: "theme2", type: "audio", src: "datas/sounds/" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -63,6 +65,7 @@ var game = {
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         me.levelDirector.loadLevel("alpha1");
+        me.audio.playTrack("theme1");
         me.game.add(new SpellButton(me.video.getWidth() - 40, me.video.getHeight() - 40, { image: "doorbypass", spell: "doorbypass" }));
         me.game.add(new SpellButton(me.video.getWidth() - 80, me.video.getHeight() - 40, { image: "pull", spell: "pull" }));
         me.game.add(new SpellButton(me.video.getWidth() - 120, me.video.getHeight() - 40, { image: "jumpover", spell: "jumpover" }));
