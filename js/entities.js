@@ -77,7 +77,7 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     usePower: function (power) {
         if (this.power[power] && selectedItem) {
-
+            var SelectedEntity = me.game.getEntityByGUID(selectedItem);
             switch (power) {
                 case "jumpover":
                     // Jumping over an item

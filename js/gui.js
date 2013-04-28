@@ -1,8 +1,7 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
 
-var SpellButton = new me.GUI_Object.extend({
+var SpellButton = me.GUI_Object.extend({
     init: function (x, y, settings) {
-        settings = {};
         this.isClickable = true;
         settings.spritewidth = 32;
         settings.spriteheight = 32;
@@ -12,5 +11,6 @@ var SpellButton = new me.GUI_Object.extend({
     onClick: function () {
         var MainPlayer = me.game.getEntityByGUID(playerEntityGuid);
         MainPlayer.usePower(this.spell);
+        console.log("Clicked on " + this.spell + " button");
     }
 });
