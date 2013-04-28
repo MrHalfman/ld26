@@ -27,7 +27,8 @@ var game = {
         me.state.change(me.state.LOADING);
     },
     loaded: function () {
-        me.state.set(me.state.PLAY, new StartScreen());
+        me.state.set(me.state.PLAY, new PlayScreen());
+        me.state.set(me.state.MENU, new StartScreen());
 
         me.state.transition("fade", "#FFFFF", 250);
 
@@ -36,7 +37,7 @@ var game = {
         me.entityPool.add("DummySelector", DummySelector);
         me.entityPool.add("Selector", Selector);
 
-        me.state.change(me.state.PLAY);
+        me.state.change(me.state.MENU);
     }
 };
 
@@ -51,6 +52,9 @@ var StartScreen = me.ScreenObject.extend({
         this.parent(true);
         this.logo = new me.Font('century gothic', 32, 'white');
         this.invalidate = false;
+        me.input.bindKey(me.input.KEY.UP, "up");
+        me.input.bindKey(me.input.KEY.DOWN, "down");
+        me.input.bindKey(me.input.KEY.ENTER, "use");
     },
     draw: function (context) {
         me.video.clearSurface(context, "black");
@@ -61,6 +65,10 @@ var StartScreen = me.ScreenObject.extend({
                         "This is awesome",
                         ((me.video.getWidth() - logo_width) / 2),
                         (me.video.getHeight() + 60) / 2);
+    },
+    update: function () {
+        if (me.input.isKeyPressed("use"))
+            me.state.change(me.state.PLAY);
     },
     onDestroyEvent: function () {
         this.logo = null;
