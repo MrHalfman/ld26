@@ -280,7 +280,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                     res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
                 if (res.obj.pos.y % 32 <11) {
                     res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
-                if ( res.obj.pos.x % 32 == 0) {
+                if ( res.obj.pos.y % 32 == 0) {
                 res.obj.vel.y = this.vel.y - 1;
                 }
             }
