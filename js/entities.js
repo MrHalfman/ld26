@@ -43,7 +43,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.renderable.setCurrentAnimation("walk" + direction);
     },
     usePower: function (power) {
-        if (this.power[power]) {
+        if (this.power[power] && selectedItem) {
             switch (power) {
                 case "jumpover":
                     // Jumping over an item
@@ -104,7 +104,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.y += 3;
                         res.obj.hasMoved = true;
                     }
-                    //this.pos.y -= this.vel.y+2;
+                    this.pos.y -= this.vel.y+2;
                     this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 } else if (res.y < 0) {
@@ -112,7 +112,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.y -= 3;
                         res.obj.hasMoved = true;
                     }
-                    //this.pos.y -= this.vel.y-2;
+                    this.pos.y -= this.vel.y-2;
                     this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 }
@@ -121,7 +121,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.x += 3;
                         res.obj.hasMoved = true;
                     }
-                    //this.pos.x -= this.vel.x+2;
+                    this.pos.x -= this.vel.x+2;
                     this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 } else if (res.x < 0) {
@@ -129,7 +129,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.x -= 3;
                         res.obj.hasMoved = true;
                     }
-                    //this.pos.x -= this.vel.x - 2;
+                    this.pos.x -= this.vel.x - 2;
                     this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 }
@@ -200,8 +200,10 @@ var DummySelector = me.ObjectEntity.extend({
         if (this.ttl > 0) {
             this.ttl--;
         } else {
+            /*
+                Todo : Remove selector            
             var OldSelector = me.game.getEntityByGUID(selectedSprite);
-            me.game.remove(OldSelector);
+            me.game.remove(OldSelector);*/
             me.game.remove(this);
             IsDummy = false;
             selectedItem = null;
