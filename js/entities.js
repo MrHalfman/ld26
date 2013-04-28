@@ -1,4 +1,4 @@
-/// <reference path="melonJS-0.9.7.js" />
+﻿/// <reference path="melonJS-0.9.7.js" />
 var IsDummy = false,
     PlayerDirection = "top",
     selectedItem = null,
@@ -81,7 +81,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             switch (power) {
                 case "jumpover":
                     // Jumping over an item
-switch (PlayerDirection) {
+                switch (PlayerDirection) {
                         case "top":
                             this.pos.y = SelectedEntity.pos.y + 2;
                             break;
@@ -102,7 +102,7 @@ switch (PlayerDirection) {
 
                 case "pull":
                     // Pull an item
-	switch (PlayerDirection) {
+	            switch (PlayerDirection) {
                         case "top":
                             SelectedEntity.pos.y -= 32;
                             this.pos.y -= 32;
@@ -124,7 +124,7 @@ switch (PlayerDirection) {
                     }
                     break;
                 case "putbehind":
-// Put the selected item behind player
+                    // Put the selected item behind player
                     switch (PlayerDirection) {
                         case "top":
                             SelectedEntity.pos.y = this.pos.y + this.height + 2;

@@ -60,8 +60,8 @@ var game = {
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         me.levelDirector.loadLevel("alpha1");
-        me.game.add(new SpellButton(me.video.getWidth() - 10, me.video.getHeight() - 10, { image: "doorbypass", spell: "doorbypass" }));
-        me.game.add(new SpellButton(me.video.getWidth() - 40, me.video.getHeight() - 10, { image: "pull", spell: "pull" }));
+        /*me.game.add(new SpellButton(me.video.getWidth() - 10, me.video.getHeight() - 10, { image: "doorbypass", spell: "doorbypass" }));
+        me.game.add(new SpellButton(me.video.getWidth() - 40, me.video.getHeight() - 10, { image: "pull", spell: "pull" }));*/
     }
 });
 
