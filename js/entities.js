@@ -100,36 +100,10 @@ var PlayerEntity = me.ObjectEntity.extend({
             if (this.vel.x != 0 || this.vel.y != 0) {
                 this.vel.x = 0;
                 this.vel.y = 0;
-                /*
-                this.accel.x = 0;
-                this.accel.y = 0;*/
-                //res.obj.setOpacity(0.5); Todo : add opacity effect
-                if (res.y > 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.y = this.vel.y;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.y -= this.collisiondInterp;
-                } else if (res.y < 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.y = this.vel.y;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.y += this.collisiondInterp;
-                }
-                if (res.x > 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.x = this.vel.x;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.x += this.collisiondInterp;
-                } else if (res.x < 0) {
-                    if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.x = this.vel.x;
-                        res.obj.hasMoved = true;
-                    }
-                    this.pos.x -= this.collisiondInterp;
-                }
+
+                this.pos.y -= res.y;
+                this.pos.x -= res.x;
+
                 this.updateMovement();
             }
             this.parent(this);
