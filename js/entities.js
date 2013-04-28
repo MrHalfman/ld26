@@ -320,15 +320,16 @@ var PlayerEntity = me.ObjectEntity.extend({
 
 var MoveableItem = me.ObjectEntity.extend({
     init: function (x, y, settings) {
-        this.parent(x, y, settings);
         this.type = "moveableitem";
         this.collidable = true;
         this.setVelocity(3, 3);
         this.setFriction(1, 1);
         this.gravity = 0;
         this.hasMoved = false;
+
         settings.spritewidth = 32;
         settings.spriteheight = 32;
+
         /* All furnitures elements */
         this.renderable.addAnimation("little_table", [0]);
         this.renderable.addAnimation("sofa", [1]);
@@ -344,11 +345,11 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.addAnimation("ironing_board", [13]);
         this.renderable.addAnimation("flower", [14]);
         this.renderable.setCurrentAnimation(settings.type);
-        this.weight = 1;
 
+        this.weight = 1;
         this.height = settings.spriteheight;
         this.width = settings.spritewidth; 
-
+        this.parent(x, y, settings);
     },
     update: function () {
         if (this.hasMoved == true) {
