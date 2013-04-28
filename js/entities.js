@@ -125,9 +125,9 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     //this.pos.x -= this.vel.x+2;
-                   /* this.pos.x -= 2;
-                    this.pos.x = ~~this.pos.x;
-                    this.vel.x = 0;*/
+                    /* this.pos.x -= 2;
+                     this.pos.x = ~~this.pos.x;
+                     this.vel.x = 0;*/
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.vel.x = this.vel.x;
@@ -144,22 +144,21 @@ var PlayerEntity = me.ObjectEntity.extend({
                 this.pos.y = this.lastPositions.y;
                 this.pos.x = ~~this.pos.x;
                 this.pos.y = ~~this.pos.y;
-            } else {
+                this.updateMovement();
+                this.parent(this);
+                return true;
+            }
+        } else {
+
+            this.updateMovement();
+
+            // Check if moved
+            if (this.vel.x != 0 || this.vel.y != 0) {
+                this.parent(this);
+                return true;
                 this.lastPositions = { x: this.pos.x, y: this.pos.y };
             }
-            this.updateMovement();
-            this.parent(this);
-            return true;
-        } 
-
-        this.updateMovement();
-
-        // Check if moved
-        if (this.vel.x != 0 || this.vel.y != 0) {
-            this.parent(this);
-            return true;
         }
-
         return false;
     }
 })
