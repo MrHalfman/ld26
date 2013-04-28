@@ -11,7 +11,8 @@ var game = {
         { name: "character", type: "image", src: "datas/sprites/character.png" },
         { name: "alpha1", type: "tmx", src: "datas/maps/alpha1.tmx" },
         { name: "meta", type: "image", src: "datas/tilesets/metaset2.png" },
-        { name: "selected", type: "image", src: "datas/sprites/select.png" }
+        { name: "selected", type: "image", src: "datas/sprites/select.png" },
+        { name: "main_theme", type: "audio", src: "datas/sounds/MainThemeEssai1.mp3" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -22,6 +23,7 @@ var game = {
         me.video.setImageSmoothing(false);
 
         me.audio.init("mp3, ogg");
+        me.audio.enable();
         me.loader.onload = this.loaded.bind(this);
         me.loader.preload(game.assets);
         me.state.change(me.state.LOADING);
@@ -51,19 +53,25 @@ var StartScreen = me.ScreenObject.extend({
     init: function () {
         this.parent(true);
         this.logo = new me.Font('century gothic', 32, 'white');
+        this.presstoplay = new me.font('century gothic', 24, 'white');
         this.invalidate = false;
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
         me.input.bindKey(me.input.KEY.ENTER, "use");
+        me.audio.playTrack("main_theme");
     },
     draw: function (context) {
         me.video.clearSurface(context, "black");
 
-        logo_width = this.logo.measureText(context, "This is Awesome").width;
-
+        logo_width = this.logo.measureText(context, "Shrink Shift").width;
+        presstoplay_width = this.logo.measureText(context, "Press enter to play.").width;
         this.logo.draw(context,
-                        "This is awesome",
+                        "Shrink Shift",
                         ((me.video.getWidth() - logo_width) / 2),
+                        (me.video.getHeight()) / 2);
+        this.presstoplay.draw(context,
+                        "Press enter to play.",
+                        ((me.video.getWidth() - presstoplay_width) / 2),
                         (me.video.getHeight() + 60) / 2);
     },
     update: function () {
