@@ -1,7 +1,6 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
 var IsDummy = false, PlayerDirection = "top", selectedItem = null, selectedSprite;
 console.log("Commit 144");
-
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
