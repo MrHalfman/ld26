@@ -202,7 +202,7 @@ var DummySelector = me.ObjectEntity.extend({
         } else {
             me.game.remove(this);
             IsDummy = false;
-            SelectedItem = null;
+            selectedItem = null;
         }
         switch (this.direction) {
             case "top":
@@ -225,7 +225,7 @@ var DummySelector = me.ObjectEntity.extend({
 
         var res = me.game.collide(this);
 
-        if (res && res.obj.type == "moveableitem" && SelectedImage != null) {
+        if (res && res.obj.type == "moveableitem" && selectedItem != null) {
             me.game.remove(this);
             IsDummy = false;
             selectedItem = res.obj.GUID;
