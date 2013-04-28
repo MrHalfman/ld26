@@ -320,6 +320,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
 var MoveableItem = me.ObjectEntity.extend({
     init: function (x, y, settings) {
+        this.parent(x, y, settings);
         this.type = "moveableitem";
         this.collidable = true;
         this.setVelocity(3, 3);
@@ -327,8 +328,8 @@ var MoveableItem = me.ObjectEntity.extend({
         this.gravity = 0;
         this.hasMoved = false;
 
-        settings.spritewidth = 32;
-        settings.spriteheight = 32;
+        //settings.spritewidth = 32;
+        //settings.spriteheight = 32;
 
         /* All furnitures elements */
         this.renderable.addAnimation("little_table", [0]);
@@ -349,7 +350,6 @@ var MoveableItem = me.ObjectEntity.extend({
         this.weight = 1;
         this.height = settings.spriteheight;
         this.width = settings.spritewidth; 
-        this.parent(x, y, settings);
     },
     update: function () {
         if (this.hasMoved == true) {
