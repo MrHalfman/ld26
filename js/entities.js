@@ -154,9 +154,9 @@ var PlayerEntity = me.ObjectEntity.extend({
 
             // Check if moved
             if (this.vel.x != 0 || this.vel.y != 0) {
+                this.lastPositions = { x: this.pos.x, y: this.pos.y };
                 this.parent(this);
                 return true;
-                this.lastPositions = { x: this.pos.x, y: this.pos.y };
             }
         }
         return false;
