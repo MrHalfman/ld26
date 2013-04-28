@@ -285,10 +285,23 @@ var MoveableItem = me.ObjectEntity.extend({
         this.setFriction(1, 1);
         this.gravity = 0;
         this.hasMoved = false;
-        /*this.renderable = new me.AnimationSheet(0, 0, "furnitures", 16, 16);
+        settings.image = "furnitures";
         settings.spritewidth = 16;
-        settings.spriteheight = 16;*/
+        settings.spriteheight = 16;
+        /* All furnitures elements */
+        this.renderable.addAnimation("little_table", [0]);
         this.renderable.addAnimation("sofa", [1]);
+        this.renderable.addAnimation("tv", [2]);
+        this.renderable.addAnimation("lamp", [3]);
+        this.renderable.addAnimation("medium_table", [4]);
+        this.renderable.addAnimation("big_table", [5]);
+        this.renderable.addAnimation("chair", [6]);
+        this.renderable.addAnimation("trash", [9]);
+        this.renderable.addAnimation("table_napperon", [10]);
+        this.renderable.addAnimation("table_lamp", [11]);
+        this.renderable.addAnimation("plant", [12]);
+        this.renderable.addAnimation("ironing_board", [13]);
+        this.renderable.addAnimation("flower", [14]);
         this.renderable.setCurrentAnimation(settings.type);
         this.weight = 1;
 
