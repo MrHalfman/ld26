@@ -9,8 +9,9 @@ var game = {
         { name: "metaset", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metaset.png" },
         { name: "walls", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/walls.png" },
         { name: "character", type: "image", src: "http://ludum.quantum-softwares.com/datas/sprites/character.png" },
-        { name: "alpha1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/alpha1.tmx" }
-
+        { name: "alpha1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/alpha1.tmx" },
+        { name: "meta", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metaset2.png" },
+        { name: "selected", type: "image", src: "http://ludum.quantum-softwares.com/datas/sprites/select.png" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -46,3 +47,5 @@ var PlayScreen = me.ScreenObject.extend({
 window.onReady(function onReady() {
     game.onload();
 });
+
+me.debug.renderHitBox = true; // Displays hitboxes & movement vectors.
