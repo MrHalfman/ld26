@@ -95,27 +95,24 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.changedirection("bottom");
         }
 
-        var res = me.game.collide(this);
-        if (res && res.obj.type == "moveableitem") {
-            if (this.vel.x != 0 || this.vel.y != 0) {
-                this.vel.x = 0;
-                this.vel.y = 0;
-
-                this.pos.y -= res.y;
-                this.pos.x -= res.x;
-
-                this.updateMovement();
-            }
-            this.parent(this);
-            return true;
+        this.updateMovement();
+        var res = me.game.collideType(this,"moveableitem");
+        var moveAllowed = true;
+        if (res) {
+            moveAllowed = false;
+            this.vel.x = 0;
+            this.vel.y = 0;
+            this.pos.y -= res.y;
+            this.pos.x -= res.x;
+            return false;
         }
 
         // Check if moved
-        if (this.vel.x != 0 || this.vel.y != 0) {
-            this.updateMovement();
+        if (moveAllowed) {
             this.lastPositions = { x: this.pos.x, y: this.pos.y };
-            this.parent(this);
             return true;
+        } else {
+            this.pos = { x: this.lastPositions.x, y: this.lastPositions.y };
         }
         return false;
     }
