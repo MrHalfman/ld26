@@ -39,7 +39,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             "remove": false
         };
         this.lastPositions = { x: this.pos.x, y: this.pos.y };
-        this.collisiondInterp = 10;
+        this.collisiondInterp = 4;
     },
     changedirection: function (direction) {
         PlayerDirection = direction;
