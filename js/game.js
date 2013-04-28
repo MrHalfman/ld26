@@ -1,6 +1,5 @@
-﻿﻿/// <reference path="melonJS-0.9.7.js" />
-/// <reference path="entities.js" />
-/// <reference path="gui.js" />
+﻿/// <reference path="melonJS-0.9.7.js" />
+
 var MutedSound = false;
 var game = {
     assets: [
@@ -54,11 +53,13 @@ var game = {
         me.state.set(me.state.MENU, new StartScreen());
 
         me.state.transition("fade", "#FFFFF", 250);
-
+        me.input.bindKey(me.input.KEY.R, "reset", true);
         me.entityPool.add("PlayerEntity", PlayerEntity);
         me.entityPool.add("MoveableItem", MoveableItem);
         me.entityPool.add("DummySelector", DummySelector);
         me.entityPool.add("Selector", Selector);
+        //me.game.addHUD(me.video.getWidth() - 50, 10, 50, 50);
+        //me.game.HUD.addItem("RemainingItemsHUD", new RemainingItemsHUD(me.video.getWidth() - 20, 20));
 
         me.state.change(me.state.MENU);
     }
