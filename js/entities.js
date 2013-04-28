@@ -102,7 +102,7 @@ switch (PlayerDirection) {
 
                 case "pull":
                     // Pull an item
-switch (PlayerDirection) {
+	switch (PlayerDirection) {
                         case "top":
                             SelectedEntity.pos.y -= 32;
                             this.pos.y -= 32;
@@ -288,6 +288,8 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.setCurrentAnimation(settings.type);
         this.weight = 1;
 
+        this.height = settings.spriteheight;
+        this.width = settings.spritewidth; 
 
     },
     update: function () {
