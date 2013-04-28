@@ -53,7 +53,7 @@ var StartScreen = me.ScreenObject.extend({
     init: function () {
         this.parent(true);
         this.logo = new me.Font('century gothic', 32, 'white');
-        this.presstoplay = new me.font('century gothic', 24, 'white');
+        this.presstoplay = new me.Font('century gothic', 24, 'white');
         this.invalidate = false;
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
