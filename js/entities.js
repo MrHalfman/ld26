@@ -142,13 +142,15 @@ var PlayerEntity = me.ObjectEntity.extend({
                 this.vel.y = 0;
                 this.pos.x = this.lastPositions.x;
                 this.pos.y = this.lastPositions.y;
+                this.pos.x = ~~this.pos.x;
+                this.pos.y = ~~this.pos.y;
+            } else {
+                this.lastPositions = { x: this.pos.x, y: this.pos.y };
             }
             this.updateMovement();
             this.parent(this);
             return true;
-        } else {
-            this.lastPositions = { x: this.pos.x, y: this.pos.y };
-        }
+        } 
 
         this.updateMovement();
 
@@ -168,6 +170,7 @@ var MoveableItem = me.ObjectEntity.extend({
         this.type = "moveableitem";
         this.collidable = true;
         this.setVelocity(3, 3);
+        this.setFriction(1, 1);
         this.gravity = 0;
         this.hasMoved = false;
         /*this.renderable = new me.AnimationSheet(0, 0, "furnitures", 16, 16);
