@@ -225,13 +225,13 @@ var DummySelector = me.ObjectEntity.extend({
 
         var res = me.game.collide(this);
 
-        if (res && res.obj.type == "moveableitem" && !SelectedImage) {
+        if (res && res.obj.type == "moveableitem" && SelectedImage != null) {
             me.game.remove(this);
             IsDummy = false;
             selectedItem = res.obj.GUID;
             // console.log(selectedItem);
             // TODO : Add selected effect, so the player can see it.
-            var SelectedImage = new Selector(res.obj.pos.x, res.obj.pos.y, { image: "selected" });
+            var SelectedImage = new Selector(res.obj.pos.x, res.obj.pos.y, { image: "selected", spritewidth: 32, spriteheight: 32 });
             me.game.add(SelectedImage, this.z);
             me.game.sort();
         }
@@ -248,12 +248,12 @@ var DummySelector = me.ObjectEntity.extend({
 var Selector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        settings.spriteheight = 32;
-        settings.spritewidth = 32;
         this.renderable.addAnimation("selected", [0, 1, 2]);
         this.renderable.setCurrentAnimation("selected");
     },
     update: function () {
+        this.parent(this);
+
         return true;
     }
 });
