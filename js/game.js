@@ -52,7 +52,7 @@ var StartScreen = me.ScreenObject.extend({
         this.logo = new me.Font('century gothic', 32, 'white');
         this.invalidate = false;
     },
-    draw: function () {
+    draw: function (context) {
         me.video.clearSurface(context, "black");
 
         logo_width = this.logo.measureText(context, "This is Awesome").width;
