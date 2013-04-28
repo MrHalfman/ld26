@@ -2,16 +2,16 @@
 /// <reference path="entities.js" />
 var game = {
     assets: [
-        { name: "level1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/level1.tmx" },
-        { name: "metatiles16x16", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metatiles16x16.png" },
-        { name: "Moquette", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/moquette.png" },
-        { name: "furnitures", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/furnitures26.png" },
-        { name: "metaset", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metaset.png" },
-        { name: "walls", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/walls.png" },
-        { name: "character", type: "image", src: "http://ludum.quantum-softwares.com/datas/sprites/character.png" },
-        { name: "alpha1", type: "tmx", src: "http://ludum.quantum-softwares.com/datas/maps/alpha1.tmx" },
-        { name: "meta", type: "image", src: "http://ludum.quantum-softwares.com/datas/tilesets/metaset2.png" },
-        { name: "selected", type: "image", src: "http://ludum.quantum-softwares.com/datas/sprites/select.png" }
+        { name: "level1", type: "tmx", src: "datas/maps/level1.tmx" },
+        { name: "metatiles16x16", type: "image", src: "datas/tilesets/metatiles16x16.png" },
+        { name: "Moquette", type: "image", src: "datas/tilesets/moquette.png" },
+        { name: "furnitures", type: "image", src: "datas/tilesets/furnitures26.png" },
+        { name: "metaset", type: "image", src: "datas/tilesets/metaset.png" },
+        { name: "walls", type: "image", src: "datas/tilesets/walls.png" },
+        { name: "character", type: "image", src: "datas/sprites/character.png" },
+        { name: "alpha1", type: "tmx", src: "datas/maps/alpha1.tmx" },
+        { name: "meta", type: "image", src: "datas/tilesets/metaset2.png" },
+        { name: "selected", type: "image", src: "datas/sprites/select.png" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
