@@ -77,22 +77,6 @@ var PlayerEntity = me.ObjectEntity.extend({
             me.game.sort();
         }
 
-        if (me.input.isKeyPressed('left')) {
-            this.vel.x -= this.accel.x * me.timer.tick;
-            this.changedirection("left");
-        } else if (me.input.isKeyPressed('right')) {
-            this.vel.x += this.accel.x * me.timer.tick;
-            this.changedirection("right");
-        }
-
-        if (me.input.isKeyPressed('up')) {
-            this.vel.y -= this.accel.y * me.timer.tick;
-            this.changedirection("top");
-        } else if (me.input.isKeyPressed('down')) {
-            this.vel.y += this.accel.y * me.timer.tick;
-            this.changedirection("bottom");
-        }
-
         var res = me.game.collide(this);
         if (res && res.obj.type == "moveableitem") {
             if (this.vel.x != 0 || this.vel.y != 0) {
@@ -105,14 +89,14 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.y += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= this.vel.y+2;
+                    this.pos.y -= this.vel.y + 2;
                     this.vel.y = 0;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.y -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= this.vel.y-2;
+                    this.pos.y -= this.vel.y - 2;
                     this.vel.y = 0;
                 }
                 if (res.x > 0) {
@@ -120,19 +104,35 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.x += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= this.vel.x+2;
+                    this.pos.x -= this.vel.x + 2;
                     this.vel.x = 0;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= this.vel.x-2;
+                    this.pos.x -= this.vel.x - 2;
                     this.vel.x = 0;
                 }
             }
             this.parent(this);
             return true;
+        } else {
+            if (me.input.isKeyPressed('left')) {
+                this.vel.x -= this.accel.x * me.timer.tick;
+                this.changedirection("left");
+            } else if (me.input.isKeyPressed('right')) {
+                this.vel.x += this.accel.x * me.timer.tick;
+                this.changedirection("right");
+            }
+
+            if (me.input.isKeyPressed('up')) {
+                this.vel.y -= this.accel.y * me.timer.tick;
+                this.changedirection("top");
+            } else if (me.input.isKeyPressed('down')) {
+                this.vel.y += this.accel.y * me.timer.tick;
+                this.changedirection("bottom");
+            }
         }
 
         this.updateMovement();
