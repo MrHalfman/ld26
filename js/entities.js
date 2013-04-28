@@ -202,6 +202,7 @@ var DummySelector = me.ObjectEntity.extend({
         } else {
             me.game.remove(this);
             IsDummy = false;
+            SelectedItem = null;
         }
         switch (this.direction) {
             case "top":
@@ -224,7 +225,7 @@ var DummySelector = me.ObjectEntity.extend({
 
         var res = me.game.collide(this);
 
-        if (res && res.obj.type == "moveableitem") {
+        if (res && res.obj.type == "moveableitem" && !SelectedImage) {
             me.game.remove(this);
             IsDummy = false;
             selectedItem = res.obj.GUID;
@@ -247,9 +248,10 @@ var DummySelector = me.ObjectEntity.extend({
 var Selector = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
-        settins.spriteheight = 32;
+        settings.spriteheight = 32;
         settings.spritewidth = 32;
-
+        this.renderable.addAnimation("selected", [0, 1, 2]);
+        this.renderable.setCurrentAnimation("selected");
     },
     update: function () {
         return true;
