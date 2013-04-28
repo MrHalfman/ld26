@@ -4,14 +4,14 @@
   <image source="../tilesets/walls.png" width="256" height="192"/>
  </tileset>
  <tileset firstgid="49" name="meta" tilewidth="32" tileheight="32">
-  <image source="../tilesets/metaset2.png" width="64" height="64"/>
+  <image source="../tilesets/metaset2.png" width="128" height="96"/>
  </tileset>
  <layer name="Calque de Tile 1" width="6" height="6">
   <data encoding="base64">
    HwAAAA0AAAANAAAADQAAAA0AAAAiAAAABQAAABAAAAAQAAAAEAAAABAAAAAQAAAABQAAABAAAAAQAAAAEAAAABAAAAAhAAAABQAAABAAAAAQAAAAEAAAABAAAAAFAAAABQAAABAAAAAQAAAAEAAAABAAAAAFAAAAIAAAAA0AAAANAAAADQAAAA0AAAAYAAAA
   </data>
  </layer>
- <layer name="meta" width="6" height="6" visible="0">
+ <layer name="meta" width="6" height="6">
   <data encoding="base64">
    MQAAADEAAAAxAAAAMQAAADEAAAAxAAAAMQAAADQAAAAAAAAAAAAAAAAAAAAAAAAAMQAAADQAAAAAAAAANAAAADQAAAAxAAAAMQAAADQAAAAAAAAAMgAAADQAAAAxAAAAMQAAADQAAAA0AAAANAAAADQAAAAxAAAAMQAAADEAAAAxAAAAMQAAADEAAAAxAAAA
   </data>
