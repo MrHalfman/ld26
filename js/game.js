@@ -1,6 +1,7 @@
 ﻿﻿/// <reference path="melonJS-0.9.7.js" />
 /// <reference path="entities.js" />
 /// <reference path="gui.js" />
+var MutedSound = false;
 var game = {
     assets: [
         /****** LEVELS ******/
@@ -26,9 +27,12 @@ var game = {
         { name: "jumpover", type: "image", src: "datas/images/jumpover.png" },
         { name: "putbehind", type: "image", src: "datas/images/putbehind.png" },
         { name: "remove", type: "image", src: "datas/images/remove.png" },
+        { name: "soundmute", type: "image", src: "datas/images/soundmute.png" },
 
         /****** SOUNDS ******/
-        { name: "maintheme", type: "audio", src: "datas/sounds/" }
+        { name: "maintheme", type: "audio", src: "datas/sounds/" },
+        { name: "theme1", type: "audio", src: "datas/sounds/" },
+        { name: "theme2", type: "audio", src: "datas/sounds/" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -63,11 +67,13 @@ var game = {
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         me.levelDirector.loadLevel("alpha1");
-        me.game.add(new SpellButton(me.video.getWidth() - 40, me.video.getHeight() - 40, { image: "doorbypass", spell: "doorbypass" }));
-        me.game.add(new SpellButton(me.video.getWidth() - 80, me.video.getHeight() - 40, { image: "pull", spell: "pull" }));
-        me.game.add(new SpellButton(me.video.getWidth() - 120, me.video.getHeight() - 40, { image: "jumpover", spell: "jumpover" }));
-        me.game.add(new SpellButton(me.video.getWidth() - 160, me.video.getHeight() - 40, { image: "putbehind", spell: "putbehind" }));
-        me.game.add(new SpellButton(me.video.getWidth() - 200, me.video.getHeight() - 40, { image: "remove", spell: "remove" }));
+        me.audio.playTrack("theme1");
+        me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }));
+        me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }));
+        me.game.add(new SpellButton(120, 10, { image: "jumpover", spell: "jumpover" }));
+        me.game.add(new SpellButton(160, 10, { image: "putbehind", spell: "putbehind" }));
+        me.game.add(new SpellButton(200, 10, { image: "remove", spell: "remove" }));
+        me.game.add(new SoundButton(5, 10));
     }
 });
 
