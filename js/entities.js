@@ -37,6 +37,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             "doorbypass": false,
             "remove": false
         };
+        this.lastPositions = { x: this.pos.x, y: this.pos.y };
     },
     changedirection: function (direction) {
         PlayerDirection = direction;
@@ -105,18 +106,18 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     //this.pos.y -= this.vel.y+2;
-                    this.pos.y -= 2;
+                    /*this.pos.y -= 2;
                     this.pos.y = ~~this.pos.y;
-                    this.vel.y = 0;
+                    this.vel.y = 0;*/
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.vel.y = this.vel.y;
                         res.obj.hasMoved = true;
                     }
                     //this.pos.y -= this.vel.y-2;
-                    this.pos.y += 2;
+                    /*this.pos.y += 2;
                     this.pos.y = ~~this.pos.y;
-                    this.vel.y = 0;
+                    this.vel.y = 0;*/
                 }
                 if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
@@ -124,23 +125,29 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     //this.pos.x -= this.vel.x+2;
-                    this.pos.x -= 2;
+                   /* this.pos.x -= 2;
                     this.pos.x = ~~this.pos.x;
-                    this.vel.x = 0;
+                    this.vel.x = 0;*/
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.vel.x = this.vel.x;
                         res.obj.hasMoved = true;
                     }
                     //this.pos.x -= this.vel.x - 2;
-                    this.pos.x += 2;
+                    /*this.pos.x += 2;
                     this.pos.x = ~~this.pos.x;
-                    this.vel.x = 0;
+                    this.vel.x = 0;*/
                 }
+                this.vel.x = 0;
+                this.vel.y = 0;
+                this.pos.x = this.lastPositions.x;
+                this.pos.y = this.lastPositions.y;
             }
             this.updateMovement();
             this.parent(this);
             return true;
+        } else {
+            this.lastPositions = { x: this.pos.x, y: this.pos.y };
         }
 
         this.updateMovement();
