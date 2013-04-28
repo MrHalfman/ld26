@@ -27,7 +27,7 @@ var game = {
         me.state.change(me.state.LOADING);
     },
     loaded: function () {
-        me.state.set(me.state.PLAY, new PlayScreen());
+        me.state.set(me.state.PLAY, new StartScreen());
 
         me.state.transition("fade", "#FFFFF", 250);
 
@@ -45,6 +45,27 @@ var PlayScreen = me.ScreenObject.extend({
         me.levelDirector.loadLevel("alpha1");
     }
 });
+
+var StartScreen = me.ScreenObject.extend({
+    init: function () {
+        this.parent(true);
+        this.logo = new me.Font('century gothic', 32, 'white');
+        this.invalidate = false;
+    },
+    draw: function () {
+        me.video.clearSurface(context, "black");
+
+        logo_width = this.logo.measureText(context, "This is Awesome").width;
+
+        this.logo.draw(context,
+                        "This is awesome",
+                        ((me.video.getWidth() - logo_width) / 2),
+                        (me.video.getHeight() + 60) / 2);
+    },
+    onDestroyEvent: function () {
+        this.logo = null;
+    }
+})
 
 window.onReady(function onReady() {
     game.onload();
