@@ -33,6 +33,8 @@ var game = {
 
         me.entityPool.add("PlayerEntity", PlayerEntity);
         me.entityPool.add("MoveableItem", MoveableItem);
+        me.entityPool.add("DummySelector", DummySelector);
+        me.entityPool.add("Selector", Selector);
 
         me.state.change(me.state.PLAY);
     }
