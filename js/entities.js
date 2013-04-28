@@ -105,7 +105,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     //this.pos.y -= this.vel.y+2;
-                    this.pos.y += 2;
+                    this.pos.y -= 2;
                     this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 } else if (res.y < 0) {
@@ -114,7 +114,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     //this.pos.y -= this.vel.y-2;
-                    this.pos.y -= 2;
+                    this.pos.y += 2;
                     this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 }
@@ -124,7 +124,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     //this.pos.x -= this.vel.x+2;
-                    this.pos.x += 2;
+                    this.pos.x -= 2;
                     this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 } else if (res.x < 0) {
@@ -133,11 +133,12 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.hasMoved = true;
                     }
                     //this.pos.x -= this.vel.x - 2;
-                    this.pos.x -= 2;
+                    this.pos.x += 2;
                     this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 }
             }
+            this.updateMovement();
             this.parent(this);
             return true;
         }
