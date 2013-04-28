@@ -158,12 +158,17 @@ var PlayerEntity = me.ObjectEntity.extend({
         var res = me.game.collideType(this,"moveableitem");
         var moveAllowed = true;
         if (res) {
-            moveAllowed = false;
-            this.vel.x = 0;
-            this.vel.y = 0;
-            this.pos.y -= res.y;
-            this.pos.x -= res.x;
-            return false;
+            if (me.input.isKeyPressed("push")) {
+                res.obj.vel.x = this.vel.x;
+                res.obj.vel.y = this.vel.y;
+            } else {
+                moveAllowed = false;
+                this.vel.x = 0;
+                this.vel.y = 0;
+                this.pos.y -= res.y;
+                this.pos.x -= res.x;
+                return false;
+            }
         }
 
         // Check if moved

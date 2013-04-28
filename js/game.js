@@ -68,7 +68,7 @@ var StartScreen = me.ScreenObject.extend({
         presstoplay_width = this.presstoplay.measureText(context, "Press enter to play.").width;
         this.presstoplay.draw(context,
                         "Press enter to play.",
-                        ((me.video.getWidth() - presstoplay_width) / 2) + 60,
+                        ((me.video.getWidth() - presstoplay_width) / 2) + 100,
                         (me.video.getHeight() + 60) / 2);
     },
     update: function () {
