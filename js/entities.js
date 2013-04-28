@@ -292,7 +292,7 @@ var DummySelector = me.ObjectEntity.extend({
             me.game.add(SelectedImage, this.z);
             me.game.sort();
         }
-
+         
         if (this.vel.x != 0 || this.vel.y != 0) {
             this.parent(this);
             return true;
