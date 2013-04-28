@@ -47,26 +47,66 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     usePower: function (power) {
         if (this.power[power] && selectedItem) {
+            var SelectedEntity = me.game.getEntityByGUID(selectedItem);
             switch (power) {
                 case "jumpover":
-                    // Jumping over an item
+                    // Jump over the selected item
+                    switch (PlayerDirection) {
+                        case "top":
+                            this.pos.y = SelectedEntity.pos.y + 2;
+                            break;
+                        case "left":
+                            this.pos.x = SelectedEntity.pos.x - 2;
+                            break;
+                        case "bottom":
+                            this.pos.y = SelectedEntity.pos.y - SelectedEntity.height - 2;
+                            break;
+                        case "right":
+                            this.pos.x = SelectedEntity.pos.x + SelectedEntity.width + 2;
+                            break;
+                        default:
+                            console.log("Error: can't recognise direction");
+                            break;
+                    }
                     break;
+
                 case "pull":
                     // Pull an item
                     break;
                 case "putbehind":
-                    // Take an item and put it behind the player
+                    // Put the selected item behind player
+                    switch (PlayerDirection) {
+                        case "top":
+                            SelectedEntity.pos.y = this.pos.y + this.height + 2;
+                            break;
+                        case "left":
+                            SelectedEntity.pos.x = this.pos.x - this.width - 2;
+                            break;
+                        case "right":
+                            SelectedEntity.pos.x = this.pos.x + this.width + 2;
+                            break;
+                        case "bottom":
+                            SelectedEntity.pos.y = this.pos.y - this.height + 2;
+                            break;
+                        default:
+                            console.log("Error: can't recognise direction");
+                            break;
+                    }
                     break;
                 case "superpush":
                     // Pushing 2 items at a time
                     break;
                 case "doorbypass":
                     // Opens any door
+                    if (SelectedEntity.type == "switch")
+                        SelectedEntity.toggle();
                     break;
                 case "remove":
                     // Removes an item
+                    me.game.remove(SelectedEntity);
                     break;
                 default:
+                    console.log("Error: can't find spell.");
                     break;
             }
             this.power[power] = false;
@@ -133,6 +173,8 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.addAnimation("sofa", [1]);
         this.renderable.setCurrentAnimation(settings.type);
         this.weight = 1;
+        this.height = settings.spriteheight;
+        this.width = settings.spritewidth;
     },
     update: function () {
         if (this.hasMoved == true) {
