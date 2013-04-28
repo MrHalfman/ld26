@@ -105,14 +105,16 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.y += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= this.vel.y+2;
+                    //this.pos.y -= this.vel.y+2;
+                    this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.y -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= this.vel.y-2;
+                    //this.pos.y -= this.vel.y-2;
+                    this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 }
                 if (res.x > 0) {
@@ -120,14 +122,16 @@ var PlayerEntity = me.ObjectEntity.extend({
                         res.obj.pos.x += 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= this.vel.x+2;
+                    //this.pos.x -= this.vel.x+2;
+                    this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
                         res.obj.pos.x -= 3;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= this.vel.x-2;
+                    //this.pos.x -= this.vel.x - 2;
+                    this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 }
             }
