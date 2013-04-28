@@ -28,7 +28,6 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.renderable.addAnimation("walkleft", [2, 6, 10]);
         this.renderable.addAnimation("walktop", [0, 4, 8]);
         this.renderable.addAnimation("walkbottom", [3, 7, 11]);
-
         this.renderable.setCurrentAnimation("walktop");
         this.power = {
             "jumpover": false,
@@ -231,6 +230,9 @@ var DummySelector = me.ObjectEntity.extend({
             selectedItem = res.obj.GUID;
             // console.log(selectedItem);
             // TODO : Add selected effect, so the player can see it.
+            var SelectedImage = new Selector(res.obj.pos.x, res.obj.pos.y, { image: "selected" });
+            me.game.add(SelectedImage, this.z);
+            me.game.sort();
         }
 
         if (this.vel.x != 0 || this.vel.y != 0) {
