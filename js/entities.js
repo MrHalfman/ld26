@@ -181,7 +181,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
 
         var modY = this.pos.y % 32, modX = this.pos.x % 32;
-        if ( (modY >0 && modY < 5 && PlayerDirection == "top") || (modY > 27 && PlayerDirection == "bottom") || (modX >0 && modX < 5 && PlayerDirection == "left") || (modX > 27  && PlayerDirection == "right" )) {
+        if ( (modY >0 && modY < 10 && PlayerDirection == "top") || (modY > 22 && PlayerDirection == "bottom") || (modX >0 && modX < 10 && PlayerDirection == "left") || (modX > 22  && PlayerDirection == "right" )) {
             this.pos.x = 32 * Math.floor(this.hardPos.x);
             this.pos.y = 32 * Math.floor(this.hardPos.y);
         }
@@ -240,39 +240,49 @@ var PlayerEntity = me.ObjectEntity.extend({
             if (res.x > 0 && me.input.isKeyPressed("right")) {
                 
                 var mod = res.obj.pos.y % 32;
-                if (mod < 5 || mod > 27 ) {
+                if (mod < 10 || mod > 22 ) {
                     res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
-                if (res.obj.pos.x % 32 > 27) {
+                if (res.obj.pos.x % 32 > 21) {
                     res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                res.obj.vel.x = this.vel.x + 1;
+                
+                if ( res.obj.pos.y % 32 == 0) {
+                    res.obj.vel.x = this.vel.x + 1;
+                }
+                
                 
             }else if (res.x < 0 && me.input.isKeyPressed("left")) {
                 
                 var mod = res.obj.pos.y % 32;
-                if (mod < 5 || mod > 27 ) {
+                if (mod < 10 || mod > 22 ) {
                     res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
-                if (res.obj.pos.x % 32 <5 ) {
+                if (res.obj.pos.x % 32 <11 ) {
                     res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                res.obj.vel.x = this.vel.x - 1;
+                if ( res.obj.pos.y % 32 == 0) {
+                    res.obj.vel.x = this.vel.x - 1;
+                }
+                
                 
             }else if (res.y > 0 && me.input.isKeyPressed("down")) {
                 
                 var mod = res.obj.pos.x % 32;
-                if (mod < 5 || mod > 27 ) {
+                if (mod < 10 || mod > 22 ) {
                     res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                if (res.obj.pos.y % 32 >27) {
+                if (res.obj.pos.y % 32 >21) {
                     res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
+                if ( res.obj.pos.x % 32 == 0) {
                 res.obj.vel.y = this.vel.y + 1;
+                }
                 
             }else if (res.y < 0 && me.input.isKeyPressed("up")) {
                 
                 var mod = res.obj.pos.x % 32;
-                if (mod < 5 || mod > 27 ) {
+                if (mod < 10 || mod > 22 ) {
                     res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                if (res.obj.pos.y % 32 <5) {
+                if (res.obj.pos.y % 32 <11) {
                     res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
+                if ( res.obj.pos.x % 32 == 0) {
                 res.obj.vel.y = this.vel.y - 1;
-                
+                }
             }
             moveAllowed = false;
             this.vel.x = 0;
