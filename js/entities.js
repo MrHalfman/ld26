@@ -327,7 +327,6 @@ var MoveableItem = me.ObjectEntity.extend({
         this.setFriction(1, 1);
         this.gravity = 0;
         this.hasMoved = false;
-        settings.image = "furnitures";
         settings.spritewidth = 32;
         settings.spriteheight = 32;
         /* All furnitures elements */
