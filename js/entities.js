@@ -201,9 +201,9 @@ var DummySelector = me.ObjectEntity.extend({
             this.ttl--;
         } else {
             /*
-                Todo : Remove selector            
+                Todo : Remove selector properly */         
             var OldSelector = me.game.getEntityByGUID(selectedSprite);
-            me.game.remove(OldSelector);*/
+            me.game.remove(OldSelector);
             me.game.remove(this);
             IsDummy = false;
             selectedItem = null;
