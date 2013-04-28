@@ -197,9 +197,6 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.blocked = getGridPos(this.pos);
             this.blocked.since = 0;
         }
-               
-
-
     },
     update: function () {
         if (!IsDummy) {
@@ -240,17 +237,17 @@ var PlayerEntity = me.ObjectEntity.extend({
         var res = me.game.collideType(this,"moveableitem");
         var moveAllowed = true;
         if (res) {
-
-
-
-
+            if ((res.x > 0 && me.input.isKeyPressed("right")) || (res.x < 0 && me.input.isKeyPressed("left"))) {
+                res.obj.vel.x = this.vel.x + 1;
+            } else if ((res.y > 0 && me.input.isKeyPressed("down")) || (res.y < 0 && me.input.isKeyPressed("up"))) {
+                res.obj.vel.y = this.vel.y + 1;
+            }
             moveAllowed = false;
             this.vel.x = 0;
             this.vel.y = 0;
             this.pos.y -= res.y;
             this.pos.x -= res.x;
             return false;
-
         }
 
         // Check if moved
