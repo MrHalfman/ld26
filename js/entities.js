@@ -237,10 +237,42 @@ var PlayerEntity = me.ObjectEntity.extend({
         var res = me.game.collideType(this,"moveableitem");
         var moveAllowed = true;
         if (res) {
-            if ((res.x > 0 && me.input.isKeyPressed("right")) || (res.x < 0 && me.input.isKeyPressed("left"))) {
+            if (res.x > 0 && me.input.isKeyPressed("right")) {
+                
+                var mod = res.obj.pos.y % 32;
+                if (mod < 5 || mod > 27 ) {
+                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
+                if (res.obj.pos.x % 32 > 27) {
+                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
                 res.obj.vel.x = this.vel.x + 1;
-            } else if ((res.y > 0 && me.input.isKeyPressed("down")) || (res.y < 0 && me.input.isKeyPressed("up"))) {
+                
+            }else if (res.x < 0 && me.input.isKeyPressed("left")) {
+                
+                var mod = res.obj.pos.y % 32;
+                if (mod < 5 || mod > 27 ) {
+                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
+                if (res.obj.pos.x % 32 <5 ) {
+                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
+                res.obj.vel.x = this.vel.x - 1;
+                
+            }else if (res.y > 0 && me.input.isKeyPressed("down")) {
+                
+                var mod = res.obj.pos.x % 32;
+                if (mod < 5 || mod > 27 ) {
+                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
+                if (res.obj.pos.y % 32 >27) {
+                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
                 res.obj.vel.y = this.vel.y + 1;
+                
+            }else if (res.y < 0 && me.input.isKeyPressed("up")) {
+                
+                var mod = res.obj.pos.x % 32;
+                if (mod < 5 || mod > 27 ) {
+                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
+                if (res.obj.pos.y % 32 <5) {
+                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
+                res.obj.vel.y = this.vel.y - 1;
+                
             }
             moveAllowed = false;
             this.vel.x = 0;
@@ -286,8 +318,8 @@ var MoveableItem = me.ObjectEntity.extend({
         this.gravity = 0;
         this.hasMoved = false;
         settings.image = "furnitures";
-        settings.spritewidth = 16;
-        settings.spriteheight = 16;
+        settings.spritewidth = 32;
+        settings.spriteheight = 32;
         /* All furnitures elements */
         this.renderable.addAnimation("little_table", [0]);
         this.renderable.addAnimation("sofa", [1]);
@@ -311,7 +343,11 @@ var MoveableItem = me.ObjectEntity.extend({
     },
     update: function () {
         if (this.hasMoved == true) {
-            // Todo : %32 position.
+            
+            
+            
+            
+            
             this.hasMoved == false;
         }
 
