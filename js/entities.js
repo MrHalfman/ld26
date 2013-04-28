@@ -327,9 +327,10 @@ var MoveableItem = me.ObjectEntity.extend({
         this.setFriction(1, 1);
         this.gravity = 0;
         this.hasMoved = false;
-        settings.image = "furnitures";
-        settings.spritewidth = 32;
-        settings.spriteheight = 32;
+
+        //settings.spritewidth = 32;
+        //settings.spriteheight = 32;
+
         /* All furnitures elements */
         this.renderable.addAnimation("little_table", [0]);
         this.renderable.addAnimation("sofa", [1]);
@@ -345,11 +346,10 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.addAnimation("ironing_board", [13]);
         this.renderable.addAnimation("flower", [14]);
         this.renderable.setCurrentAnimation(settings.type);
-        this.weight = 1;
 
+        this.weight = 1;
         this.height = settings.spriteheight;
         this.width = settings.spritewidth; 
-
     },
     update: function () {
         if (this.hasMoved == true) {
