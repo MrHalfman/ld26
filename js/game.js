@@ -23,6 +23,9 @@ var game = {
         { name: "splashscreen", type: "image", src: "datas/images/title.png" },
         { name: "doorbypass", type: "image", src: "datas/images/doorbypass.png" },
         { name: "pull", type: "image", src: "datas/images/pull.png" },
+        { name: "jumpover", type: "image", src: "datas/images/jumpover.png" },
+        { name: "putbehind", type: "image", src: "datas/images/putbehind.png" },
+        { name: "remove", type: "image", src: "datas/images/remove.png" },
 
         /****** SOUNDS ******/
         { name: "maintheme", type: "audio", src: "datas/sounds/" }
@@ -60,8 +63,11 @@ var game = {
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         me.levelDirector.loadLevel("alpha1");
-        /*me.game.add(new SpellButton(me.video.getWidth() - 10, me.video.getHeight() - 10, { image: "doorbypass", spell: "doorbypass" }));
-        me.game.add(new SpellButton(me.video.getWidth() - 40, me.video.getHeight() - 10, { image: "pull", spell: "pull" }));*/
+        me.game.add(new SpellButton(me.video.getWidth() - 40, me.video.getHeight() - 40, { image: "doorbypass", spell: "doorbypass" }));
+        me.game.add(new SpellButton(me.video.getWidth() - 80, me.video.getHeight() - 40, { image: "pull", spell: "pull" }));
+        me.game.add(new SpellButton(me.video.getWidth() - 120, me.video.getHeight() - 40, { image: "jumpover", spell: "jumpover" }));
+        me.game.add(new SpellButton(me.video.getWidth() - 160, me.video.getHeight() - 40, { image: "putbehind", spell: "putbehind" }));
+        me.game.add(new SpellButton(me.video.getWidth() - 200, me.video.getHeight() - 40, { image: "remove", spell: "remove" }));
     }
 });
 
