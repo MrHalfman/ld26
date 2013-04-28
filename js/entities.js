@@ -101,35 +101,39 @@ var PlayerEntity = me.ObjectEntity.extend({
                 //res.obj.setOpacity(0.5); Todo : add opacity effect
                 if (res.y > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.y += this.vel.y;
+                        res.obj.vel.y = this.vel.y;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= this.vel.y+2;
+                    //this.pos.y -= this.vel.y+2;
+                    this.pos.y += 2;
                     this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 } else if (res.y < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.y += this.vel.y;
+                        res.obj.vel.y = this.vel.y;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.y -= this.vel.y-2;
+                    //this.pos.y -= this.vel.y-2;
+                    this.pos.y -= 2;
                     this.pos.y = ~~this.pos.y;
                     this.vel.y = 0;
                 }
                 if (res.x > 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.x += this.vel.x;
+                        res.obj.vel.x = this.vel.x;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= this.vel.x+2;
+                    //this.pos.x -= this.vel.x+2;
+                    this.pos.x += 2;
                     this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 } else if (res.x < 0) {
                     if (me.input.isKeyPressed('push')) {
-                        res.obj.vel.x += this.vel.x;
+                        res.obj.vel.x = this.vel.x;
                         res.obj.hasMoved = true;
                     }
-                    this.pos.x -= this.vel.x - 2;
+                    //this.pos.x -= this.vel.x - 2;
+                    this.pos.x -= 2;
                     this.pos.x = ~~this.pos.x;
                     this.vel.x = 0;
                 }
@@ -176,6 +180,7 @@ var MoveableItem = me.ObjectEntity.extend({
             return true;
         }
 
+        this.updateMovement();
         /*var res = me.game.collide(this);
         if (res)
             console.log(res.obj.type);*/
