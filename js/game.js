@@ -12,7 +12,7 @@ var game = {
         { name: "alpha1", type: "tmx", src: "datas/maps/alpha1.tmx" },
         { name: "meta", type: "image", src: "datas/tilesets/metaset2.png" },
         { name: "selected", type: "image", src: "datas/sprites/select.png" },
-        { name: "main_theme", type: "audio", src: "datas/sounds/MainThemeEssai1.mp3" }
+        { name: "MainThemeEssai1", type: "audio", src: "datas/sounds/" }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -58,7 +58,7 @@ var StartScreen = me.ScreenObject.extend({
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
         me.input.bindKey(me.input.KEY.ENTER, "use");
-        me.audio.playTrack("main_theme");
+        me.audio.playTrack("MainThemeEssai1");
     },
     draw: function (context) {
         me.video.clearSurface(context, "black");
