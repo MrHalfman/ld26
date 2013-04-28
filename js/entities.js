@@ -1,14 +1,9 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-<<<<<<< HEAD
 var IsDummy = false,
     PlayerDirection = "top",
     selectedItem = null,
     selectedSprite,
     playerEntityGuid;
-=======
-var IsDummy = false, PlayerDirection = "top", selectedItem = null, selectedSprite;
-console.log("Commit 144");
->>>>>>> 67971feca1351b8cd0855e116e4c0a4c47c8b9d0
 
 function getSmoothGridPos(pos) {
     return { x: pos.x / 32, y: pos.y / 32 };
@@ -21,10 +16,6 @@ function getGridPos(pos) {
     return rep;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 67971feca1351b8cd0855e116e4c0a4c47c8b9d0
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
         this.parent(x, y, settings);
@@ -65,7 +56,6 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.lastPositions = { x: this.pos.x, y: this.pos.y };
         this.sGridPos = getSmoothGridPos(this.pos);
         this.prevSGridPos = getSmoothGridPos(this.lastPositions);
-<<<<<<< HEAD
         this.hardPos = getGridPos(this.pos);
         this.lastHardPos = getGridPos(this.lastPositions);
         this.blocked = getGridPos(this.pos);
@@ -73,21 +63,6 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.readyNode = true;
         this.onNodeSince = 30;
         this.absOnGrid = 0;
-=======
-
-        this.hardPos = getGridPos(this.pos);
-        this.lastHardPos = getGridPos(this.lastPositions);
-
-        this.blocked = getGridPos(this.pos);
-        this.blocked.since = 30;
-
-        this.readyNode = true;
-        this.onNodeSince = 30;
-
-        this.absOnGrid = 0;
-
-        this.collisiondInterp = 4;
->>>>>>> 67971feca1351b8cd0855e116e4c0a4c47c8b9d0
     },
     changedirection: function (direction) {
         PlayerDirection = direction;
@@ -95,26 +70,85 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     usePower: function (power) {
         if (this.power[power] && selectedItem) {
+            var SelectedEntity = me.game.getEntityByGUID(selectedItem);
             switch (power) {
                 case "jumpover":
-                    // Jumping over an item
+                    // Jump over the selected item
+                    switch (PlayerDirection) {
+                        case "top":
+                            this.pos.y = SelectedEntity.pos.y + 2;
+                            break;
+                        case "left":
+                            this.pos.x = SelectedEntity.pos.x - 2;
+                            break;
+                        case "bottom":
+                            this.pos.y = SelectedEntity.pos.y - SelectedEntity.height - 2;
+                            break;
+                        case "right":
+                            this.pos.x = SelectedEntity.pos.x + SelectedEntity.width + 2;
+                            break;
+                        default:
+                            console.log("Error: can't recognise direction");
+                            break;
+                    }
                     break;
+
                 case "pull":
-                    // Pull an item
+                    switch (PlayerDirection) {
+                        case "top":
+                            SelectedEntity.pos.y -= 32;
+                            this.pos.y -= 32;
+                            break;
+                        case "left":
+                            SelectedEntity.pos.x -= 32;
+                            this.pos.y -= 32;
+                            break;
+                        case "bottom":
+                            SelectedEntity.pos.y += 32;
+                            this.pos.y += 32;
+                            break;
+                        case "right":
+                            SelectedEntity.pos.x += 32;
+                            this.pos.x += 32;
+                            break;
+                        default:
+                            console.log("Error: can't recognise direction");
+                    }
                     break;
                 case "putbehind":
-                    // Take an item and put it behind the player
+                    // Put the selected item behind player
+                    switch (PlayerDirection) {
+                        case "top":
+                            SelectedEntity.pos.y = this.pos.y + this.height + 2;
+                            break;
+                        case "left":
+                            SelectedEntity.pos.x = this.pos.x - this.width - 2;
+                            break;
+                        case "right":
+                            SelectedEntity.pos.x = this.pos.x + this.width + 2;
+                            break;
+                        case "bottom":
+                            SelectedEntity.pos.y = this.pos.y - this.height + 2;
+                            break;
+                        default:
+                            console.log("Error: can't recognise direction");
+                            break;
+                    }
                     break;
                 case "superpush":
                     // Pushing 2 items at a time
                     break;
                 case "doorbypass":
                     // Opens any door
+                    if (SelectedEntity.type == "switch")
+                        SelectedEntity.toggle();
                     break;
                 case "remove":
                     // Removes an item
+                    me.game.remove(SelectedEntity);
                     break;
                 default:
+                    console.log("Error: can't find spell.");
                     break;
             }
             this.power[power] = false;
@@ -150,39 +184,6 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.blocked.since = 0;
         }
 
-
-    },
-    gridMovement: function () {
-
-        this.blocked.since++;
-        var blockMove = false;
-
-        if (Math.floor(this.sGridPos.y) != Math.floor(this.prevSGridPos.y) && this.hardPos.y != this.lastHardPos.y) { //changement de case Y
-            if (this.blocked.y != this.hardPos.y) {
-                this.blocked = getGridPos(this.pos);
-                this.blocked.since = 0;
-            }
-        }
-        if (Math.floor(this.sGridPos.x) != Math.floor(this.prevSGridPos.x) && this.hardPos.x != this.lastHardPos.x) { //changement de case Y
-            if (this.blocked.x != this.hardPos.x) {
-                this.blocked = getGridPos(this.pos);
-                this.blocked.since = 0;
-            }
-        }
-
-
-        if (this.blocked.since < 10) {
-            this.pos.x = 32 * Math.floor(this.hardPos.x);
-            this.pos.y = 32 * Math.floor(this.hardPos.y);
-            this.lastPositions = { x: this.pos.x, y: this.pos.y };
-            this.vel.x = 0;
-            this.vel.y = 0;
-            this.updateMovement();
-        } else if (this.blocked.since > 200) {
-            this.blocked = getGridPos(this.pos);
-            this.blocked.since = 0;
-        }
-               
 
     },
     update: function () {
@@ -222,12 +223,17 @@ var PlayerEntity = me.ObjectEntity.extend({
         var res = me.game.collideType(this,"moveableitem");
         var moveAllowed = true;
         if (res) {
-            moveAllowed = false;
-            this.vel.x = 0;
-            this.vel.y = 0;
-            this.pos.y -= res.y;
-            this.pos.x -= res.x;
-            return false;
+            if (me.input.isKeyPressed("push")) {
+                res.obj.vel.x = this.vel.x;
+                res.obj.vel.y = this.vel.y;
+            } else {
+                moveAllowed = false;
+                this.vel.x = 0;
+                this.vel.y = 0;
+                this.pos.y -= res.y;
+                this.pos.x -= res.x;
+                return false;
+            }
         }
 
         // Check if moved
@@ -240,15 +246,9 @@ var PlayerEntity = me.ObjectEntity.extend({
                 this.lastHardPos.x = save.x
                 this.lastHardPos.y = save.y
             }
-<<<<<<< HEAD
 
             this.lastPositions = { x: this.pos.x, y: this.pos.y };
 
-=======
-            
-            this.lastPositions = { x: this.pos.x, y: this.pos.y };
-            
->>>>>>> 67971feca1351b8cd0855e116e4c0a4c47c8b9d0
             this.gridMovement();
             return true;
         } else {
@@ -275,6 +275,8 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.addAnimation("sofa", [1]);
         this.renderable.setCurrentAnimation(settings.type);
         this.weight = 1;
+        this.height = settings.spriteheight;
+        this.width = settings.spritewidth;
     },
     update: function () {
         if (this.hasMoved == true) {
@@ -352,7 +354,7 @@ var DummySelector = me.ObjectEntity.extend({
             me.game.add(SelectedImage, this.z);
             me.game.sort();
         }
-         
+
         if (this.vel.x != 0 || this.vel.y != 0) {
             this.parent(this);
             return true;
