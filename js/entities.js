@@ -17,9 +17,91 @@ function getGridPos(pos) {
     return rep;
 }
 
+function generateMap(player) {
+    var map = me.game.currentLevel ;
+    
+    var rep = {};
+    for (var x = -2, xmax= map.cols+2;x<xmax;x++) {
+        var col = {};
+        for (var y = -2, ymax= map.rows+2;y<ymax;y++) {
+            var cell = 0;
+            if (x<0||x>=map.cols||y<0||y>=map.rows) {
+                cell = -2 ; //extérieur
+            }
+            col[y]=cell;
+        }   
+        rep[x]=col;
+    }
+    
+    var layers = map.mapLayers;
+    var meta = false ;
+    for (var i=0,c=layers.length;i<c;i++) {
+        if (layers[i].name=="meta") {
+            meta = layers[i].layerData ;
+        }
+    }
+    
+    var legend = false ;
+    var tileset = map.tilesets.tilesets ;
+    for (var i=0,c=tileset.length;i<c;i++) {
+        if (tileset[i].name=="meta") {
+            legend = tileset[i].TileProperties ;
+        }
+    }
+
+
+    if (meta && legend) {
+        for (var x in meta) {
+            for (var y in meta[x]) {
+                if (!meta[x][y]) {
+                    continue ;
+                }
+                var content = legend[meta[x][y].tileId] ;
+                if (content) {
+                    switch (content.type) {
+                        case "wall":
+                            rep[x][y]=-1;
+                        break;
+                        case "box":
+                            var entity={};
+                            entity.height=32;
+                            entity.image="furnitures";
+                            entity.isPolygon=false;
+                            entity.name="Box";
+                            entity.spriteheight=32;
+                            entity.spritewidth=32;
+                            entity.type="sofa";
+                            entity.width=32;
+                            entity.x=32*parseInt(x);
+                            entity.y=32*parseInt(y);
+                            entity.z=5;
+                            
+                            var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            if (obj) {
+                                me.game.add(obj, 5);
+                            }       
+                            rep[x][y]=obj;
+                            
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    rep[player.pos.x/32][player.pos.y/32]=player;
+    
+    return rep ;
+    
+}
+
+var curMap ;
+var xmax;
+var ymax;
 
 var PlayerEntity = me.ObjectEntity.extend({
     init: function (x, y, settings) {
+        
         this.parent(x, y, settings);
         this.setVelocity(2, 2);
         this.setMaxVelocity(2, 2);
@@ -27,7 +109,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.type = "player";
         me.game.viewport.follow(this, me.game.viewport.AXIS.HORIZONTAL);
         this.gravity = 0;
-        this.collidable = true;
+        this.collidable = false;
         this.width = settings.spritewidth;
         this.height = settings.spriteheight;
         playerEntityGuid = this.GUID;
@@ -56,6 +138,11 @@ var PlayerEntity = me.ObjectEntity.extend({
             "doorbypass": false,
             "remove": false
         };
+        
+        curMap = generateMap(this) ;
+        xmax = me.game.currentLevel.cols;
+        ymax = me.game.currentLevel.rows;
+        
         this.lastPositions = { x: this.pos.x, y: this.pos.y };
         this.sGridPos = getSmoothGridPos(this.pos);
         this.prevSGridPos = getSmoothGridPos(this.lastPositions);
@@ -63,13 +150,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.hardPos = getGridPos(this.pos);
         this.lastHardPos = getGridPos(this.lastPositions);
 
-        this.blocked = getGridPos(this.pos);
-        this.blocked.since = 30;
-
-        this.readyNode = true;
-        this.onNodeSince = 30;
-
-        this.absOnGrid = 0;
+        this.moving = false ;
 
     },
     changedirection: function (direction) {
@@ -165,41 +246,11 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     gridMovement: function () {
 
-        this.blocked.since++;
-        var blockMove = false;
-
-        if (Math.floor(this.sGridPos.y) != Math.floor(this.prevSGridPos.y) && this.hardPos.y != this.lastHardPos.y) { //changement de case Y
-            if (this.blocked.y != this.hardPos.y) {
-                this.blocked = getGridPos(this.pos);
-                this.blocked.since = 0;
-            }
-        }
-        if (Math.floor(this.sGridPos.x) != Math.floor(this.prevSGridPos.x) && this.hardPos.x != this.lastHardPos.x) { //changement de case Y
-            if (this.blocked.x != this.hardPos.x) {
-                this.blocked = getGridPos(this.pos);
-                this.blocked.since = 0;
-            }
-        }
-
-        var modY = this.pos.y % 32, modX = this.pos.x % 32;
-        if ( (modY >0 && modY < 10 && PlayerDirection == "top") || (modY > 22 && PlayerDirection == "bottom") || (modX >0 && modX < 10 && PlayerDirection == "left") || (modX > 22  && PlayerDirection == "right" )) {
-            this.pos.x = 32 * Math.floor(this.hardPos.x);
-            this.pos.y = 32 * Math.floor(this.hardPos.y);
-        }
-
-        if (this.blocked.since < 10) {
-            this.pos.x = 32 * Math.floor(this.hardPos.x);
-            this.pos.y = 32 * Math.floor(this.hardPos.y);
-            this.lastPositions = { x: this.pos.x, y: this.pos.y };
-            this.vel.x = 0;
-            this.vel.y = 0;
-            this.updateMovement();
-        } else if (this.blocked.since > 200) {
-            this.blocked = getGridPos(this.pos);
-            this.blocked.since = 0;
-        }
+        
     },
     update: function () {
+        
+        
         if (!IsDummy) {
             var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y + (this.height/2), { direction: PlayerDirection });
             me.game.add(Dummy, this.z);
@@ -207,116 +258,192 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
         if (me.input.isKeyPressed("reset")) {
             me.levelDirector.reloadLevel();
-        }
-        if (me.input.isKeyPressed('left')) {
-            this.vel.x -= this.accel.x * me.timer.tick;
-            this.changedirection("left");
-        } else if (me.input.isKeyPressed('right')) {
-            this.vel.x += this.accel.x * me.timer.tick;
-            this.changedirection("right");
-        } else if (me.input.isKeyPressed('up')) {
-            this.vel.y -= this.accel.y * me.timer.tick;
-            this.changedirection("top");
-        } else if (me.input.isKeyPressed('down')) {
-            this.vel.y += this.accel.y * me.timer.tick;
-            this.changedirection("bottom");
-        }
-
-        if (this.vel.y != 0 && (PlayerDirection == "top" || PlayerDirection == "bottom")) {
-            var mod = this.pos.x % 32;
-            if (mod > 4 && mod < 28) {
-                this.pos.x = 32 * Math.floor(this.hardPos.x);
-                this.vel.y = 0;
+        }     
+        if (!this.moving) {
+            if (me.input.isKeyPressed('left')) {
+                this.changedirection("left");
+                var destination = curMap[this.hardPos.x-1][this.hardPos.y];
+                if ( destination != -2 && destination != -1 ) {
+                    var move = true ;
+                    if (destination != 0) {
+                        if (destination.name="Box") {
+                            if (curMap[this.hardPos.x-2][this.hardPos.y]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                                move = false ;
+                            }else{
+                                destination.pushed = "left";
+                                destination.pos.x-=3;
+                                
+                                if (this.hardPos.x-1<0) {
+                                    move = false ;
+                                    curMap[this.hardPos.x-1][this.hardPos.y]=-2;
+                                    me.game.remove(destination);
+                                }else{
+                                    curMap[this.hardPos.x-2][this.hardPos.y]=destination;
+                                    curMap[this.hardPos.x-1][this.hardPos.y]=0;
+                                }
+                                
+                            }
+                        }else{
+                            move = false ;
+                        }
+                    }
+                    if (move) {
+                        curMap[this.hardPos.x][this.hardPos.y] = 0 ;
+                        this.hardPos.x--;
+                        this.pos.x-=3;
+                        curMap[this.hardPos.x][this.hardPos.y] = this ;
+                        this.moving=true;
+                    }
+                }
+            } else if (me.input.isKeyPressed('right')) {
+                this.changedirection("right");
+                var destination = curMap[this.hardPos.x+1][this.hardPos.y];
+                if ( destination != -2 && destination != -1 ) {
+                    var move = true ;
+                    if (destination != 0) {
+                        if (destination.name="Box") {
+                            if (curMap[this.hardPos.x+2][this.hardPos.y]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                                move = false ;
+                            }else{
+                                destination.pushed = "right";
+                                destination.pos.x+=3;
+                                
+                                if ((this.hardPos.x+1)>=xmax) {
+                                    move = false ;
+                                    curMap[this.hardPos.x+1][this.hardPos.y]=-2;
+                                    me.game.remove(destination);
+                                }else{
+                                    curMap[this.hardPos.x+2][this.hardPos.y]=destination;
+                                    curMap[this.hardPos.x+1][this.hardPos.y]=0;
+                                }
+                                
+                            }
+                        }else{
+                            move = false ;
+                        }
+                    }
+                    if (move) {
+                        curMap[this.hardPos.x][this.hardPos.y] = 0 ;
+                        this.hardPos.x++;
+                        this.pos.x+=3;
+                        curMap[this.hardPos.x][this.hardPos.y] = this ;
+                        this.moving=true;
+                    }
+                }
+            } else if (me.input.isKeyPressed('up')) {
+                this.changedirection("top");
+                var destination = curMap[this.hardPos.x][this.hardPos.y-1];
+                if ( destination != -2 && destination != -1 ) {
+                    var move = true ;
+                    if (destination != 0) {
+                        if (destination.name="Box") {
+                            if (curMap[this.hardPos.x][this.hardPos.y-2]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                                move = false ;
+                            }else{
+                                destination.pushed = "top";
+                                destination.pos.y-=3;
+                                if ((this.hardPos.y-1)<0) {
+                                    move = false ;
+                                    curMap[this.hardPos.x][this.hardPos.y-1]=-2;
+                                    me.game.remove(destination);
+                                }else{  
+                                    curMap[this.hardPos.x][this.hardPos.y-2]=destination;
+                                    curMap[this.hardPos.x][this.hardPos.y-1]=0; 
+                                }
+                            }
+                        }else{
+                            move = false ;
+                        }
+                    }
+                    if (move) {
+                        curMap[this.hardPos.x][this.hardPos.y] = 0 ;
+                        this.hardPos.y--;
+                        this.pos.y-=3;
+                        curMap[this.hardPos.x][this.hardPos.y] = this ;
+                        this.moving=true; 
+                    }
+                }
+            } else if (me.input.isKeyPressed('down')) {
+                this.changedirection("bottom");
+                var destination = curMap[this.hardPos.x][this.hardPos.y+1];
+                if ( destination != -2 && destination != -1 )  {
+                    var move = true ;
+                    if (destination != 0) {
+                        if (destination.name="Box") {
+                            if (curMap[this.hardPos.x][this.hardPos.y+2]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                                move = false ;
+                            }else{
+                                destination.pushed = "bottom";
+                                destination.pos.y+=3;
+                                
+                                if ((this.hardPos.y+1)>=ymax) {
+                                    move = false ;
+                                    curMap[this.hardPos.x][this.hardPos.y+1]=-2;
+                                    me.game.remove(destination);
+                                }else{
+                                    curMap[this.hardPos.x][this.hardPos.y+2]=destination;
+                                    curMap[this.hardPos.x][this.hardPos.y+1]=0;
+                                }
+                                
+                            }
+                        }else{
+                            move = false ;
+                        }
+                    }
+                    if (move) {
+                        curMap[this.hardPos.x][this.hardPos.y] = 0 ;
+                        this.hardPos.y++;
+                        this.pos.y+=3;
+                        curMap[this.hardPos.x][this.hardPos.y] = this ;
+                        this.moving=true;
+                    }
+                }
             }
-        } else if (this.vel.x != 0 && (PlayerDirection == "left" || PlayerDirection == "right")) {
-            var mod = this.pos.y % 32;
-            if (mod > 4 && mod < 28) {
-                this.pos.y = 32 * Math.floor(this.hardPos.y);
-                this.vel.x = 0;
+        }else{
+            if (PlayerDirection == "left") {
+                if (this.pos.x%32 != 0) {
+                    this.pos.x -= 3;
+                    if (this.pos.x%32>29) {
+                        this.pos.x = 32 * this.hardPos.x ;
+                        this.moving = false ;
+                    }
+                }
+            }else if (PlayerDirection == "right") {
+                if (this.pos.x%32 != 0) {
+                    this.pos.x += 3;
+                    if (this.pos.x%32<3) {
+                        this.pos.x = 32 * this.hardPos.x ;
+                        this.moving = false ;
+                    }
+                }
+            }else if (PlayerDirection == "top") {
+                if (this.pos.y%32 != 0) {
+                    this.pos.y -= 3;
+                    if (this.pos.y%32>29) {
+                        this.pos.y = 32 * this.hardPos.y ;
+                        this.moving = false ;
+                    }
+                }
+            }else if (PlayerDirection == "bottom") {
+                if (this.pos.y%32 != 0) {
+                    this.pos.y += 3;
+                    if (this.pos.y%32<3) {
+                        this.pos.y = 32 * this.hardPos.y ;
+                        this.moving = false ;
+                    }
+                }
             }
         }
-
         this.updateMovement();
-        var res = me.game.collideType(this,"moveableitem");
-        var moveAllowed = true;
-        if (res) {
-            if (res.x > 0 && me.input.isKeyPressed("right")) {
-                
-                var mod = res.obj.pos.y % 32;
-                if (mod < 10 || mod > 22 ) {
-                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
-                if (res.obj.pos.x % 32 > 21) {
-                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                
-                if ( res.obj.pos.y % 32 == 0) {
-                    res.obj.vel.x = this.vel.x + 1;
-                }
-                
-                
-            }else if (res.x < 0 && me.input.isKeyPressed("left")) {
-                
-                var mod = res.obj.pos.y % 32;
-                if (mod < 10 || mod > 22 ) {
-                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
-                if (res.obj.pos.x % 32 <11 ) {
-                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                if ( res.obj.pos.y % 32 == 0) {
-                    res.obj.vel.x = this.vel.x - 1;
-                }
-                
-                
-            }else if (res.y > 0 && me.input.isKeyPressed("down")) {
-                
-                var mod = res.obj.pos.x % 32;
-                if (mod < 10 || mod > 22 ) {
-                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                if (res.obj.pos.y % 32 >21) {
-                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
-                if ( res.obj.pos.x % 32 == 0) {
-                res.obj.vel.y = this.vel.y + 1;
-                }
-                
-            }else if (res.y < 0 && me.input.isKeyPressed("up")) {
-                
-                var mod = res.obj.pos.x % 32;
-                if (mod < 10 || mod > 22 ) {
-                    res.obj.pos.x = 32 * Math.floor(getGridPos(res.obj.pos).x);}
-                if (res.obj.pos.y % 32 <11) {
-                    res.obj.pos.y = 32 * Math.floor(getGridPos(res.obj.pos).y);}
-                if ( res.obj.pos.y % 32 == 0) {
-                res.obj.vel.y = this.vel.y - 1;
-                }
-            }
-            moveAllowed = false;
-            this.vel.x = 0;
-            this.vel.y = 0;
-            this.pos.y -= res.y;
-            this.pos.x -= res.x;
-            return false;
+
+        this.sGridPos = getSmoothGridPos(this.pos);
+        this.prevSGridPos = getSmoothGridPos(this.lastPositions);
+        var save = { x: this.hardPos.x, y: this.hardPos.y };
+        if (this.hardPos.y != save.y || this.hardPos.x != save.x) {
+            this.lastHardPos.x = save.x
+            this.lastHardPos.y = save.y
         }
-
-        // Check if moved
-        if (moveAllowed) {
-            this.sGridPos = getSmoothGridPos(this.pos);
-            this.prevSGridPos = getSmoothGridPos(this.lastPositions);
-            var save = { x: this.hardPos.x, y: this.hardPos.y };
-            this.hardPos = getGridPos(this.pos);
-            if (this.hardPos.y != save.y || this.hardPos.x != save.x) {
-                this.lastHardPos.x = save.x
-                this.lastHardPos.y = save.y
-            }
-            
-
-            this.lastPositions = { x: this.pos.x, y: this.pos.y };
-            
-
-            this.gridMovement();
-            return true;
-        } else {
-            this.pos.x = this.lastPositions.x;
-            this.pos.y = this.lastPositions.y;
-            return true;
-        }
+        this.lastPositions = { x: this.pos.x, y: this.pos.y };
         return false;
     }
 })
@@ -356,13 +483,45 @@ var MoveableItem = me.ObjectEntity.extend({
     },
     update: function () {
         if (this.hasMoved == true) {
-            
-            
-            
-            
-            
+        
             this.hasMoved == false;
         }
+        
+        
+        if (this.pushed == "left") {
+            if (this.pos.x%32 != 0) {
+                this.pos.x -= 3;
+                if (this.pos.x%32>29) {
+                    this.pos.x = 32 * Math.floor(this.pos.x/32 + 0.5);
+                    this.pushed = false ;
+                }
+            }
+        }else if (this.pushed == "right") {
+            if (this.pos.x%32 != 0) {
+                this.pos.x += 3;
+                if (this.pos.x%32<3) {
+                    this.pos.x = 32 * Math.floor(this.pos.x/32 + 0.5);
+                    this.pushed = false ;
+                }
+            }
+        }else if (this.pushed == "top") {
+            if (this.pos.y%32 != 0) {
+                this.pos.y -= 3;
+                if (this.pos.y%32>29) {
+                    this.pos.y = 32 * Math.floor(this.pos.y/32 + 0.5);
+                    this.pushed = false ;
+                }
+            }
+        }else if (this.pushed == "bottom") {
+            if (this.pos.y%32 != 0) {
+                this.pos.y += 3;
+                if (this.pos.y%32<3) {
+                    this.pos.y = 32 * Math.floor(this.pos.y/32 + 0.5);
+                    this.pushed = false ;
+                }
+            }
+        }
+        
 
 
         this.updateMovement();

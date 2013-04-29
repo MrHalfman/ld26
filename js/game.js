@@ -1,5 +1,4 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-
 var MutedSound = false;
 var game = {
     assets: [
@@ -37,7 +36,7 @@ var game = {
         if (!me.video.init('screen', 800, 600, true)) {
             alert("This browser does not support HTML5 canvas");
             return;
-        }
+        } 
 
         me.video.setImageSmoothing(false);
 
@@ -55,7 +54,7 @@ var game = {
         me.state.transition("fade", "#FFFFF", 250);
         me.input.bindKey(me.input.KEY.R, "reset", true);
         me.entityPool.add("PlayerEntity", PlayerEntity);
-        me.entityPool.add("MoveableItem", MoveableItem);
+        me.entityPool.add("Box", MoveableItem);
         me.entityPool.add("DummySelector", DummySelector);
         me.entityPool.add("Selector", Selector);
         //me.game.addHUD(me.video.getWidth() - 50, 10, 50, 50);
