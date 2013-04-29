@@ -9,6 +9,13 @@ var game = {
         { name: "alpha4", type: "tmx", src: "datas/maps/alpha4.tmx" },
         { name: "alpha5", type: "tmx", src: "datas/maps/alpha5.tmx" },
         { name: "alpha6", type: "tmx", src: "datas/maps/alpha6.tmx" },
+        { name: "beta1", type: "tmx", src: "datas/maps/beta1.tmx" },
+        { name: "beta2", type: "tmx", src: "datas/maps/beta2.tmx" },
+        { name: "beta3", type: "tmx", src: "datas/maps/beta3.tmx" },
+        { name: "beta5", type: "tmx", src: "datas/maps/beta4.tmx" },
+        { name: "beta6", type: "tmx", src: "datas/maps/beta5.tmx" },
+        { name: "beta7", type: "tmx", src: "datas/maps/beta6.tmx" },
+
 
         /****** TILESETS ******/
         { name: "metatiles16x16", type: "image", src: "datas/tilesets/metatiles16x16.png" },
