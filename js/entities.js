@@ -112,8 +112,9 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.collidable = false;
         this.width = settings.spritewidth;
         this.height = settings.spriteheight;
-    playerEntityGuid = this.GUID;
-
+        playerEntityGuid = this.GUID;
+        
+        
         me.input.bindKey(me.input.KEY.LEFT, "left");
         me.input.bindKey(me.input.KEY.RIGHT, "right");
         me.input.bindKey(me.input.KEY.UP, "up");
@@ -255,7 +256,9 @@ var PlayerEntity = me.ObjectEntity.extend({
             me.game.add(Dummy, this.z);
             me.game.sort();
         }
-        
+        if (me.input.isKeyPressed("reset")) {
+            me.levelDirector.reloadLevel();
+        }     
         if (!this.moving) {
             if (me.input.isKeyPressed('left')) {
                 this.changedirection("left");
@@ -612,5 +615,28 @@ var Selector = me.ObjectEntity.extend({
         this.parent(this);
 
         return true;
+    }
+});
+
+var CheckEntity = me.ObjectEntity.extend({
+    init: function (x, y, settings) {
+        this.parent(x, y, settings);
+    },
+    update: function () {
+        var res = me.game.collideType(this, "moveableitem");
+        if (res) {
+            me.game.remove(res.obj);
+        }
+    }
+});
+
+var RemainingItemsHUD = me.HUD_Item.extend({
+    init: function (x, y) {
+        this.parent(x, y);
+
+        this.text = new me.Font('arial', 24);
+    },
+    draw: function (context) {
+        this.font.draw(context, me.video.getWidth() - 50, 10);
     }
 });
