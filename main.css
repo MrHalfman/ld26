@@ -56,5 +56,5 @@ hr {
     background: none;
     height: 1px;
     color: white;
-    border: none;
+    border-top: 1px solid white;
 }
