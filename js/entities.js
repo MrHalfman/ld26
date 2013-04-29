@@ -198,7 +198,7 @@ function generateMap(player) {
                             entity.name="Switch";
                             entity.spriteheight=32;
                             entity.spritewidth=32;
-                            entity.type="button_off";
+                            entity.type=content.type+"_off";
                             entity.width=32;
                             entity.x=32*parseInt(x);
                             entity.y=32*parseInt(y);
@@ -222,7 +222,7 @@ function generateMap(player) {
                             entity.name="Switch";
                             entity.spriteheight=32;
                             entity.spritewidth=32;
-                            entity.type="blue_portal";
+                            entity.type=content.type;
                             entity.width=32;
                             entity.x=32*parseInt(x);
                             entity.y=32*parseInt(y);
@@ -750,7 +750,7 @@ var MoveableItem = me.ObjectEntity.extend({
             }else{
                 if (ppMap[this.hardPos.x][this.hardPos.y]) {
                     var btn = ppMap[this.hardPos.x][this.hardPos.y];
-                    btn.renderable.setCurrentAnimation("button_on");
+                    btn.renderable.setCurrentAnimation(btn.tag+"_on");
                     var tag = btn.tag;
                     for (var x in curMap) {
                         for (var y in curMap[x]) {
@@ -882,6 +882,15 @@ var SwitchEntity = me.ObjectEntity.extend({
         this.renderable.addAnimation("button_on", [5]);
         this.renderable.addAnimation("blue_portal", [6]);
         this.renderable.addAnimation("orange_portal", [7]);
+        this.renderable.addAnimation("ppp1", [8]);
+        this.renderable.addAnimation("ppp3", [10]);
+        this.renderable.addAnimation("ppp2", [12]);
+        this.renderable.addAnimation("pp1_off", [14]);
+        this.renderable.addAnimation("pp1_on", [15]);
+        this.renderable.addAnimation("pp2_off", [16]);
+        this.renderable.addAnimation("pp2_on", [17]);
+        this.renderable.addAnimation("pp3_off", [18]);
+        this.renderable.addAnimation("pp3_on", [19]);
         this.renderable.setCurrentAnimation(settings.type);
     },
     update: function () {
