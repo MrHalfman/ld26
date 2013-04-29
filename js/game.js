@@ -1,4 +1,4 @@
-﻿﻿/// <reference path="melonJS-0.9.7.js" />
+﻿/// <reference path="melonJS-0.9.7.js" />
 /// <reference path="entities.js" />
 /// <reference path="gui.js" />
 var MutedSound = false;
@@ -56,7 +56,7 @@ var game = {
         me.state.transition("fade", "#FFFFF", 250);
 
         me.entityPool.add("PlayerEntity", PlayerEntity);
-        me.entityPool.add("MoveableItem", MoveableItem);
+        me.entityPool.add("Box", MoveableItem);
         me.entityPool.add("DummySelector", DummySelector);
         me.entityPool.add("Selector", Selector);
 
