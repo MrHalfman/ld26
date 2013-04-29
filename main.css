@@ -27,4 +27,34 @@ canvas {
     width: 800px;
     height: 600px;
     margin: auto;
+    float: left;
+}
+
+#help {
+    float: left;
+    width: 196px;
+    height: 600px;
+    padding: 2px;
+}
+
+#main {
+    width: 1200px;
+    height: 600px;
+    margin: auto;
+    border: 1px solid white;
+}
+
+#informations {
+    float: left;
+    width: 198px;
+    height: 600px;
+    padding-left: 2px;
+    font-size: 10pt;
+}
+
+hr {
+    background: none;
+    height: 1px;
+    color: white;
+    border: none;
 }
