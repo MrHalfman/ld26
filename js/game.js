@@ -9,6 +9,13 @@ var game = {
         { name: "alpha4", type: "tmx", src: "datas/maps/alpha4.tmx" },
         { name: "alpha5", type: "tmx", src: "datas/maps/alpha5.tmx" },
         { name: "alpha6", type: "tmx", src: "datas/maps/alpha6.tmx" },
+        { name: "beta1", type: "tmx", src: "datas/maps/beta1.tmx" },
+        { name: "beta2", type: "tmx", src: "datas/maps/beta2.tmx" },
+        { name: "beta3", type: "tmx", src: "datas/maps/beta3.tmx" },
+        { name: "beta5", type: "tmx", src: "datas/maps/beta4.tmx" },
+        { name: "beta6", type: "tmx", src: "datas/maps/beta5.tmx" },
+        { name: "beta7", type: "tmx", src: "datas/maps/beta6.tmx" },
+
 
         /****** TILESETS ******/
         { name: "metatiles16x16", type: "image", src: "datas/tilesets/metatiles16x16.png" },
@@ -16,11 +23,14 @@ var game = {
         { name: "furnitures", type: "image", src: "datas/tilesets/furnitures26.png" },
         { name: "metaset", type: "image", src: "datas/tilesets/metaset.png" },
         { name: "walls", type: "image", src: "datas/tilesets/walls.png" },
+        { name: "walls_red", type: "image", src: "datas/tilesets/walls_red.png" },
+        { name: "walls_green", type: "image", src: "datas/tilesets/walls_green.png" },
         { name: "meta", type: "image", src: "datas/tilesets/metaset2.png" },
 
         /****** SPRITES ******/
         { name: "character", type: "image", src: "datas/sprites/character.png" },
         { name: "selected", type: "image", src: "datas/sprites/select.png" },
+        { name: "switch", type: "image", src: "datas/sprites/switch.png" },
 
         /****** IMAGES ******/
         { name: "splashscreen", type: "image", src: "datas/images/title.png" },

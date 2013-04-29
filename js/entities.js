@@ -4,7 +4,7 @@ var IsDummy = false,
     selectedItem = null,
     selectedSprite,
     playerEntityGuid;
-
+var itemsLeft ;
 
 function getSmoothGridPos(pos) {
     return { x: pos.x / 32, y: pos.y / 32 };
@@ -49,6 +49,7 @@ function generateMap(player) {
         }
     }
 
+    itemsLeft=0;
 
     if (meta && legend) {
         for (var x in meta) {
@@ -70,7 +71,13 @@ function generateMap(player) {
                             entity.name="Box";
                             entity.spriteheight=32;
                             entity.spritewidth=32;
-                            entity.type="sofa";
+                            
+                            
+                            var boxTypes = ["little_table","sofa","tv","lamp","green_sofa","medium_table","big_table","chair","trash","table_napperon","table_lamp","plant","ironing_board","flower"]
+                            
+                            var boxType = boxTypes[Math.floor(Math.random()*boxTypes.length)];
+                            
+                            entity.type=boxType;
                             entity.width=32;
                             entity.x=32*parseInt(x);
                             entity.y=32*parseInt(y);
@@ -79,7 +86,8 @@ function generateMap(player) {
                             var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
                             if (obj) {
                                 me.game.add(obj, 5);
-                            }       
+                            }
+                            itemsLeft++;
                             rep[x][y]=obj;
                             
                         break;
@@ -254,16 +262,18 @@ var PlayerEntity = me.ObjectEntity.extend({
             me.levelDirector.reloadLevel();
             return false;
         }
-        if (me.input.isKeyPressed("nextLevel")) {
+
+        if (me.input.isKeyPressed("nextLevel") && me.game.currentLevel.levelId != "alpha6") {
             me.game.remove(this);
             me.levelDirector.nextLevel();
             return false;
         }
-        if (me.input.isKeyPressed("previousLevel")) {
+        if (me.input.isKeyPressed("previousLevel") && me.game.currentLevel.levelId != "alpha1") {
             me.game.remove(this);
             me.levelDirector.previousLevel();
             return false;
         }
+        
         
         if (!IsDummy) {
             var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y + (this.height/2), { direction: PlayerDirection });
@@ -408,7 +418,8 @@ var PlayerEntity = me.ObjectEntity.extend({
             if (PlayerDirection == "left") {
                 if (this.pos.x%32 != 0) {
                     this.pos.x -= 3;
-                    if (this.pos.x%32>29) {
+                    var mod = this.pos.x%32;if (mod <0){mod+=32;}
+                    if (mod>29) {
                         this.pos.x = 32 * this.hardPos.x ;
                         this.moving = false ;
                     }
@@ -424,7 +435,8 @@ var PlayerEntity = me.ObjectEntity.extend({
             }else if (PlayerDirection == "top") {
                 if (this.pos.y%32 != 0) {
                     this.pos.y -= 3;
-                    if (this.pos.y%32>29) {
+                    var mod = this.pos.y%32;if (mod <0){mod+=32;}
+                    if (mod>29) {
                         this.pos.y = 32 * this.hardPos.y ;
                         this.moving = false ;
                     }
@@ -474,6 +486,7 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.addAnimation("medium_table", [4]);
         this.renderable.addAnimation("big_table", [5]);
         this.renderable.addAnimation("chair", [6]);
+        this.renderable.addAnimation("green_sofa", [7]);
         this.renderable.addAnimation("trash", [9]);
         this.renderable.addAnimation("table_napperon", [10]);
         this.renderable.addAnimation("table_lamp", [11]);
@@ -498,7 +511,8 @@ var MoveableItem = me.ObjectEntity.extend({
         if (this.pushed == "left") {
             if (this.pos.x%32 != 0) {
                 this.pos.x -= 3;
-                if (this.pos.x%32>29) {
+                var mod = this.pos.x%32;if (mod <0){mod+=32;}
+                if (mod>29) {
                     this.pos.x = 32 * Math.floor(this.pos.x/32 + 0.5);
                     this.pushed = false ;
                 }
@@ -514,7 +528,8 @@ var MoveableItem = me.ObjectEntity.extend({
         }else if (this.pushed == "top") {
             if (this.pos.y%32 != 0) {
                 this.pos.y -= 3;
-                if (this.pos.y%32>29) {
+                var mod = this.pos.y%32;if (mod <0){mod+=32;}
+                if (mod>29) {
                     this.pos.y = 32 * Math.floor(this.pos.y/32 + 0.5);
                     this.pushed = false ;
                 }
@@ -533,6 +548,13 @@ var MoveableItem = me.ObjectEntity.extend({
             this.hardPos = getGridPos(this.pos);
             if (this.hardPos.x>=xmax || this.hardPos.x<0 || this.hardPos.y>=ymax || this.hardPos.y<0) {
                 curMap[this.hardPos.x][this.hardPos.y]=-2;
+                itemsLeft--;
+                if (itemsLeft==0) {
+                    me.game.remove(this);
+                    me.levelDirector.previousLevel();
+                    //me.levelDirector.nextLevel();
+                    return false;
+                }
                 me.game.remove(this);
             }
         }
@@ -548,7 +570,7 @@ var MoveableItem = me.ObjectEntity.extend({
             return true;
         }
 
-        return false;
+        return true;
     }
 });
 
@@ -594,7 +616,7 @@ var DummySelector = me.ObjectEntity.extend({
                 break;
         }
 
-
+        this.updateMovement();
         var res = me.game.collide(this);
 
         if (res && res.obj.type == "moveableitem" && selectedItem == null) {
@@ -614,7 +636,7 @@ var DummySelector = me.ObjectEntity.extend({
             return true;
         }
 
-        return false;
+        return true;
     }
 });
 
