@@ -382,7 +382,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             return false;
         }
 
-        if (me.input.isKeyPressed("nextLevel") && me.game.currentLevel.levelId != "beta6") {
+        if (me.input.isKeyPressed("nextLevel") && me.game.currentLevel.levelId != "gamma6") {
             me.game.remove(this);
             me.levelDirector.nextLevel();
             return false;
