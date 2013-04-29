@@ -100,23 +100,23 @@ function generateMap(player) {
     switch (lid) {
         case "alpha1":
             me.audio.stopTrack();
-            me.audio.playTrack("theme1");
+            me.audio.playTrack("theme2");
             break;
         case "beta1":
             me.audio.stopTrack();
-            me.audio.playTrack("theme2");
+            me.audio.playTrack("theme3");
             break;
         case "gamma1":
             me.audio.stopTrack();
-            me.audio.playTrack("theme3");
+            me.audio.playTrack("theme4");
             break;
         case "delta1":
             me.audio.stopTrack();
-            me.audio.playTrack("theme4");
+            me.audio.playTrack("theme5");
             break;
         case "epsilon1":
             me.audio.stopTrack();
-            me.audio.playTrack("theme5");
+            me.audio.playTrack("theme6");
         default:
             break;
 
