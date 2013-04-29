@@ -67,19 +67,36 @@ hr {
     left: 300px;
 }
 
-#buttons img.blocked{
+#buttons div.blocked{
     display:none;
 }
 
-#buttons img.using{
-    border: 2px solid red;
+#btn_jumpover.using{
+    background-image: url(datas/images/jumpover_using.png);
     margin:-2px;
 }
 
-#buttons img.used{
+#btn_remove.using{
+    background-image: url(datas/images/remove_using.png);
+    margin: -2px;
+}
+
+#buttons div.used{
     opacity: 0.5;
 }
 
-#buttons img.available{
+#buttons div.available{
     opacity: 1;
+}
+
+#btn_jumpover {
+    width: 32px;
+    height: 32px;
+    background-image: url(datas/images/jumpover.png);
+}
+
+#btn_remove {
+    width: 32px;
+    height: 32px;
+    background-image: url(datas/images/remove.png);
 }

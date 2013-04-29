@@ -378,6 +378,8 @@ var PlayerEntity = me.ObjectEntity.extend({
         me.input.bindKey(me.input.KEY.Z, "up");
         me.input.bindKey(me.input.KEY.S, "down");
         me.input.bindKey(me.input.KEY.ENTER, "push");
+        me.input.bindKey(me.input.KEY.A, "power1");
+        me.input.bindKey(me.input.KEY.E, "power2");
 
         this.renderable.addAnimation("walkright", [1, 5, 9]);
         this.renderable.addAnimation("walkleft", [2, 6, 10]);
@@ -566,7 +568,14 @@ var PlayerEntity = me.ObjectEntity.extend({
             me.levelDirector.previousLevel();
             return false;
         }
-        
+
+        if (me.input.isKeyPressed("power1")) {
+            fn_jo();
+        }
+
+        if (me.input.isKeyPressed("power2")) {
+            fn_rm();
+        }
         
         if (!IsDummy) {
             var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y + (this.height/2), { direction: PlayerDirection });
