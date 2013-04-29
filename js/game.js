@@ -5,6 +5,7 @@ var game = {
         /****** LEVELS ******/
         { name: "level1", type: "tmx", src: "datas/maps/level1.tmx" },
         { name: "alpha1", type: "tmx", src: "datas/maps/alpha1.tmx" },
+        { name: "alpha5", type: "tmx", src: "datas/maps/alpha5.tmx" },
 
         /****** TILESETS ******/
         { name: "metatiles16x16", type: "image", src: "datas/tilesets/metatiles16x16.png" },
@@ -66,7 +67,7 @@ var game = {
 
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
-        me.levelDirector.loadLevel("alpha1");
+        me.levelDirector.loadLevel("alpha5");
         me.audio.playTrack("theme1");
         me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }));
         me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }));
