@@ -15,6 +15,13 @@ var game = {
         { name: "beta4", type: "tmx", src: "datas/maps/beta4.tmx" },
         { name: "beta5", type: "tmx", src: "datas/maps/beta5.tmx" },
         { name: "beta6", type: "tmx", src: "datas/maps/beta6.tmx" },
+        { name: "gamma1", type: "tmx", src: "datas/maps/gamma1.tmx" },
+        { name: "gamma2", type: "tmx", src: "datas/maps/gamma2.tmx" },
+        { name: "gamma3", type: "tmx", src: "datas/maps/gamma3.tmx" },
+        { name: "gamma4", type: "tmx", src: "datas/maps/gamma4.tmx" },
+        { name: "gamma5", type: "tmx", src: "datas/maps/gamma5.tmx" },
+        { name: "gamma6", type: "tmx", src: "datas/maps/gamma6.tmx" },
+
 
 
         /****** TILESETS ******/
@@ -42,14 +49,14 @@ var game = {
         { name: "soundmute", type: "image", src: "datas/images/soundmute.png" },
 
         /****** SOUNDS ******/
-        { name: "maintheme", type: "audio", src: "datas/sounds/" },
-        { name: "theme1", type: "audio", src: "datas/sounds/" },
-        { name: "theme2", type: "audio", src: "datas/sounds/" },
-        { name: "theme3", type: "audio", src: "datas/sounds/" },
-        { name: "theme4", type: "audio", src: "datas/sounds/" },
-        { name: "theme5", type: "audio", src: "datas/sounds/" },
-        { name: "theme6", type: "audio", src: "datas/sounds/" },
-        { name: "victory", type: "audio", src: "datas/sounds/" }
+        { name: "maintheme", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme1", type: "audio", src: "datas/sounds/", channel: 1},
+        { name: "theme2", type: "audio", src: "datas/sounds/", channel: 1},
+        { name: "theme3", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme4", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme5", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme6", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "victory", type: "audio", src: "datas/sounds/", channel: 1 }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
