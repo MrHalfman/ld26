@@ -159,6 +159,8 @@ function generateMap(player) {
     }
 
     itemsLeft=0;
+    var tp1=false;
+    var tp2=false;
 
     if (meta && legend) {
         for (var x in meta) {
@@ -268,6 +270,72 @@ function generateMap(player) {
                             rep[x][y]=obj;
                             
                         break;
+                    
+                    
+                        case "tp1":
+                        
+                            var entity={};
+                            entity.height=32;
+                            entity.image="switch";
+                            entity.isPolygon=false;
+                            entity.name="Switch";
+                            entity.spriteheight=32;
+                            entity.spritewidth=32;
+                            entity.type="orange_portal";
+                            entity.width=32;
+                            entity.x=32*parseInt(x);
+                            entity.y=32*parseInt(y);
+                            entity.z=5;
+                            var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            
+                            if (!tp1) {
+                                tp1={x:x,y:y};
+                                obj.tag=false;
+                            }else{
+                                obj.tag={x:tp1.x,y:tp1.y};
+                                ppMap[tp1.x][tp1.y].tag={x:x,y:y};
+                            }
+
+                            obj.tp=true;
+                            if (obj) {
+                                me.game.add(obj, 3 );}
+                            
+                            ppMap[x][y]=obj;
+                            
+                        break;
+                    
+                        case "tp2":
+                        
+                            var entity={};
+                            entity.height=32;
+                            entity.image="switch";
+                            entity.isPolygon=false;
+                            entity.name="Switch";
+                            entity.spriteheight=32;
+                            entity.spritewidth=32;
+                            entity.type="blue_portal";
+                            entity.width=32;
+                            entity.x=32*parseInt(x);
+                            entity.y=32*parseInt(y);
+                            entity.z=5;
+                            var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            
+                            if (!tp2) {
+                                tp2={x:x,y:y};
+                                obj.tag=false;
+                            }else{
+                                obj.tag={x:tp2.x,y:tp2.y};
+                                ppMap[tp2.x][tp2.y].tag={x:x,y:y};
+                            }
+
+                            obj.tp=true;
+                            if (obj) {
+                                me.game.add(obj, 3 );}
+                            
+                            ppMap[x][y]=obj;
+                            
+                        break;
+                    
                         
                     }
                 }
@@ -749,9 +817,10 @@ var MoveableItem = me.ObjectEntity.extend({
         }
         
 
-        
+        this.moved = false ;
         
         if (this.pushed == "left") {
+            this.moved = true;
             if (this.pos.x%32 != 0) {
                 this.pos.x -= 3;
                 var mod = this.pos.x%32;if (mod <0){mod+=32;}
@@ -761,6 +830,7 @@ var MoveableItem = me.ObjectEntity.extend({
                 }
             }
         }else if (this.pushed == "right") {
+            this.moved = true;
             if (this.pos.x%32 != 0) {
                 this.pos.x += 3;
                 if (this.pos.x%32<3) {
@@ -769,6 +839,7 @@ var MoveableItem = me.ObjectEntity.extend({
                 }
             }
         }else if (this.pushed == "top") {
+            this.moved = true;
             if (this.pos.y%32 != 0) {
                 this.pos.y -= 3;
                 var mod = this.pos.y%32;if (mod <0){mod+=32;}
@@ -778,6 +849,7 @@ var MoveableItem = me.ObjectEntity.extend({
                 }
             }
         }else if (this.pushed == "bottom") {
+            this.moved = true;
             if (this.pos.y%32 != 0) {
                 this.pos.y += 3;
                 if (this.pos.y%32<3) {
@@ -801,15 +873,25 @@ var MoveableItem = me.ObjectEntity.extend({
             }else{
                 if (ppMap[this.hardPos.x][this.hardPos.y]) {
                     var btn = ppMap[this.hardPos.x][this.hardPos.y];
-                    btn.renderable.setCurrentAnimation(btn.tag+"_on");
-                    var tag = btn.tag;
-                    for (var x in curMap) {
-                        for (var y in curMap[x]) {
-                            if (curMap[x][y].wall && curMap[x][y].tag==("p"+tag)) {
-                                me.game.remove(curMap[x][y]);
-                                curMap[x][y]=0;
+                    if (!btn.tp) {
+                        btn.renderable.setCurrentAnimation(btn.tag+"_on");
+                        var tag = btn.tag;
+                        for (var x in curMap) {
+                            for (var y in curMap[x]) {
+                                if (curMap[x][y].wall && curMap[x][y].tag==("p"+tag)) {
+                                    me.game.remove(curMap[x][y]);
+                                    curMap[x][y]=0;
+                                }
                             }
                         }
+                    }else if(this.moved && btn.tp && btn.tag){
+                        curMap[this.hardPos.x][this.hardPos.y]=0;
+                        this.hardPos.x=btn.tag.x;
+                        this.hardPos.y=btn.tag.y;
+                        curMap[this.hardPos.x][this.hardPos.y]=this;
+                        this.pos.x=32*this.hardPos.x;
+                        this.pos.y=32*this.hardPos.y;
+                    
                     }
                 }
             }
