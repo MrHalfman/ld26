@@ -73,6 +73,7 @@ var game = {
         me.entityPool.add("Box", MoveableItem);
         me.entityPool.add("DummySelector", DummySelector);
         me.entityPool.add("Selector", Selector);
+        me.entityPool.add("Switch", SwitchEntity);
         //me.game.addHUD(me.video.getWidth() - 50, 10, 50, 50);
         //me.game.HUD.addItem("RemainingItemsHUD", new RemainingItemsHUD(me.video.getWidth() - 20, 20));
 
@@ -82,7 +83,7 @@ var game = {
 
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
-        me.levelDirector.loadLevel("alpha5");
+        me.levelDirector.loadLevel("alpha1");
         me.audio.playTrack("theme1");
         me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }));
         me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }));
@@ -90,17 +91,6 @@ var PlayScreen = me.ScreenObject.extend({
         me.game.add(new SpellButton(160, 10, { image: "putbehind", spell: "putbehind" }));
         me.game.add(new SpellButton(200, 10, { image: "remove", spell: "remove" }));
         me.game.add(new SoundButton(5, 10));
-    },
-    update: function () {
-        if (me.input.isKeyPressed("reset")) {
-            me.levelDirector.reloadLevel();
-        }
-        if (me.input.isKeyPressed("nextLevel")) {
-            me.levelDirector.nextLevel();
-        }
-        if (me.input.isKeyPressed("previousLevel")) {
-            me.levelDirector.previousLevel();
-        }
     }
 });
 

@@ -16,21 +16,25 @@ function getGridPos(pos) {
     rep.y = Math.floor(rep.y + 0.5);
     return rep;
 }
-
+var trapMap;
 function generateMap(player) {
     var map = me.game.currentLevel ;
     
     var rep = {};
+    trapMap = {};
     for (var x = -2, xmax= map.cols+2;x<xmax;x++) {
         var col = {};
+        var trapCol = {};
         for (var y = -2, ymax= map.rows+2;y<ymax;y++) {
             var cell = 0;
             if (x<0||x>=map.cols||y<0||y>=map.rows) {
                 cell = -2 ; //extérieur
             }
-            col[y]=cell;
+            col[y] = cell;
+            trapCol[y] = trapCell = 0;
         }   
-        rep[x]=col;
+        rep[x] = col;
+        trapMap[x] = trapCol;
     }
     
     var layers = map.mapLayers;
@@ -90,7 +94,26 @@ function generateMap(player) {
                             itemsLeft++;
                             rep[x][y]=obj;
                             
-                        break;
+                            break;
+                        case "trap":
+                                var entity={};
+                                entity.height=32;
+                                entity.image="switch";
+                                entity.isPolygon=false;
+                                entity.name="Box";
+                                entity.spriteheight=32;
+                                entity.spritewidth=32;
+                                entity.type="";
+                                entity.width=32;
+                                entity.x=32*parseInt(x);
+                                entity.y=32*parseInt(y);
+                                entity.z=5;
+                                var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                                if (obj) {
+                                    me.game.add(obj, 5);
+                                }
+                                trapMap[x][y]=1;
+                                break;
                     }
                 }
             }
@@ -654,18 +677,6 @@ var Selector = me.ObjectEntity.extend({
     }
 });
 
-var CheckEntity = me.ObjectEntity.extend({
-    init: function (x, y, settings) {
-        this.parent(x, y, settings);
-    },
-    update: function () {
-        var res = me.game.collideType(this, "moveableitem");
-        if (res) {
-            me.game.remove(res.obj);
-        }
-    }
-});
-
 var RemainingItemsHUD = me.HUD_Item.extend({
     init: function (x, y) {
         this.parent(x, y);
@@ -674,5 +685,24 @@ var RemainingItemsHUD = me.HUD_Item.extend({
     },
     draw: function (context) {
         this.font.draw(context, me.video.getWidth() - 50, 10);
+    }
+});
+
+var SwitchEntity = me.ObjectEntity.extend({
+    init: function (x, y, settings) {
+        this.parent(x, y, settings);
+        this.type = "switch";
+        this.renderable.addAnimation("trap", [0]);
+        this.renderable.addAnimation("trap2", [1]);
+        this.renderable.addAnimation("vert_door", [2]);
+        this.renderable.addAnimation("hor_door", [3]);
+        this.renderable.addAnimation("button_off", [4]);
+        this.renderable.addAnimation("button_on", [5]);
+        this.renderable.addAnimation("blue_portal", [6]);
+        this.renderable.addAnimation("orange_portal", [7]);
+        this.renderable.setCurrentAnimation(settings.type);
+    },
+    update: function () {
+        return true;
     }
 });
