@@ -45,7 +45,7 @@ canvas {
 }
 
 #informations {
-    float: left;
+    float: right;
     width: 190px;
     height: 600px;
     padding: 5px;
@@ -57,4 +57,11 @@ hr {
     height: 1px;
     color: white;
     border-top: 1px solid white;
+}
+
+#buttons {
+    position: relative;
+    display: inline-block;
+    float: left;
+    left: 300px;
 }
