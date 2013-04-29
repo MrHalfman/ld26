@@ -15,6 +15,12 @@ var game = {
         { name: "beta4", type: "tmx", src: "datas/maps/beta4.tmx" },
         { name: "beta5", type: "tmx", src: "datas/maps/beta5.tmx" },
         { name: "beta6", type: "tmx", src: "datas/maps/beta6.tmx" },
+        { name: "gamma1", type: "tmx", src: "datas/maps/gamma1.tmx" },
+        { name: "gamma2", type: "tmx", src: "datas/maps/gamma2.tmx" },
+        { name: "gamma3", type: "tmx", src: "datas/maps/gamma3.tmx" },
+        { name: "gamma4", type: "tmx", src: "datas/maps/gamma4.tmx" },
+        { name: "gamma5", type: "tmx", src: "datas/maps/gamma5.tmx" },
+        { name: "gamma6", type: "tmx", src: "datas/maps/gamma6.tmx" },
 
 
         /****** TILESETS ******/

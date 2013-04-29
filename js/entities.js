@@ -41,6 +41,8 @@ function getGridPos(pos) {
     return rep;
 }
 var trapMap;
+var ppMap;
+
 function generateMap(player) {
     me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }), 10);
     me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }), 10);
@@ -92,9 +94,11 @@ function generateMap(player) {
     }
     var rep = {};
     trapMap = {};
+    ppMap = {};
     for (var x = -2, xmax= map.cols+2;x<xmax;x++) {
         var col = {};
         var trapCol = {};
+        var ppCol = {};
         for (var y = -2, ymax= map.rows+2;y<ymax;y++) {
             var cell = 0;
             if (x<0||x>=map.cols||y<0||y>=map.rows) {
@@ -102,9 +106,11 @@ function generateMap(player) {
             }
             col[y] = cell;
             trapCol[y] = trapCell = 0;
+            ppCol[y] = ppCell = 0;
         }   
         rep[x] = col;
         trapMap[x] = trapCol;
+        ppMap[x] = ppCol;
     }
     
     var layers = map.mapLayers;
@@ -182,7 +188,55 @@ function generateMap(player) {
                                 me.game.add(obj, 3 );
                             }
                             trapMap[x][y]=1;
-                            break;
+                        break;
+                        
+                        case "pp1":
+                        case "pp2":
+                        case "pp3":
+                        
+                            var entity={};
+                            entity.height=32;
+                            entity.image="switch";
+                            entity.isPolygon=false;
+                            entity.name="Switch";
+                            entity.spriteheight=32;
+                            entity.spritewidth=32;
+                            entity.type="button_off";
+                            entity.width=32;
+                            entity.x=32*parseInt(x);
+                            entity.y=32*parseInt(y);
+                            entity.z=5;
+                            var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            obj.tag=content.type;
+                            if (obj) {
+                                me.game.add(obj, 3 );}
+                            ppMap[x][y]=this;
+                            
+                        break;
+                    
+                        case "ppp1":
+                        case "ppp2":
+                        case "ppp3":
+                        
+                            var entity={};
+                            entity.height=32;
+                            entity.image="switch";
+                            entity.isPolygon=false;
+                            entity.name="Switch";
+                            entity.spriteheight=32;
+                            entity.spritewidth=32;
+                            entity.type="blue_portal";
+                            entity.width=32;
+                            entity.x=32*parseInt(x);
+                            entity.y=32*parseInt(y);
+                            entity.z=5;
+                            var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            if (obj) {
+                                me.game.add(obj, 3 );}
+                            curMap[x][y]=this;
+                            
+                        break;
+                        
                     }
                 }
             }
@@ -693,6 +747,11 @@ var MoveableItem = me.ObjectEntity.extend({
                     return false;
                 }
                 me.game.remove(this);
+            }else{
+                if (ppMap[this.hardPos.x][this.hardPos.y]) {
+                    var btn = ppMap[this.hardPos.x][this.hardPos.y];
+                    
+                }
             }
         }
 
