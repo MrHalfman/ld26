@@ -3,8 +3,8 @@ var IsDummy = false,
     PlayerDirection = "top",
     selectedItem = null,
     selectedSprite,
-    playerEntityGuid,
-    itemsLeft;
+    playerEntityGuid;
+var itemsLeft ;
 
 function getSmoothGridPos(pos) {
     return { x: pos.x / 32, y: pos.y / 32 };
