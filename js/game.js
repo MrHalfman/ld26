@@ -47,11 +47,6 @@ var game = {
 
         /****** IMAGES ******/
         { name: "splashscreen", type: "image", src: "datas/images/title.png" },
-        { name: "doorbypass", type: "image", src: "datas/images/doorbypass.png" },
-        { name: "pull", type: "image", src: "datas/images/pull.png" },
-        { name: "jumpover", type: "image", src: "datas/images/jumpover.png" },
-        { name: "putbehind", type: "image", src: "datas/images/putbehind.png" },
-        { name: "remove", type: "image", src: "datas/images/remove.png" },
         { name: "soundmute", type: "image", src: "datas/images/soundmute.png" },
         { name: "background", type: "image", src: "datas/images/background.png" },
 
