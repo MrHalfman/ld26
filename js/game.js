@@ -85,12 +85,6 @@ var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         me.levelDirector.loadLevel("alpha1");
         me.audio.playTrack("theme1");
-        me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }));
-        me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }));
-        me.game.add(new SpellButton(120, 10, { image: "jumpover", spell: "jumpover" }));
-        me.game.add(new SpellButton(160, 10, { image: "putbehind", spell: "putbehind" }));
-        me.game.add(new SpellButton(200, 10, { image: "remove", spell: "remove" }));
-        me.game.add(new SoundButton(5, 10));
     }
 });
 
