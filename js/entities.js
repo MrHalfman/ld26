@@ -50,9 +50,7 @@ function generateMap(player) {
     
     playerRef=player;
     
-    me.game.add(new SpellButton(40, 10, { image: "jumpover", spell: "jumpover" }), 10);
-    me.game.add(new SpellButton(80, 10, { image: "remove", spell: "remove" }), 10);
-    me.game.add(new SoundButton(5, 10));
+    me.game.add(new SoundButton(5, 10), 10);
 
     
     var map = me.game.currentLevel ;
