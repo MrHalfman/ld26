@@ -257,6 +257,17 @@ var PlayerEntity = me.ObjectEntity.extend({
             return false;
         }
 
+        if (me.input.isKeyPressed("nextLevel") && me.game.currentLevel.levelId != "alpha6") {
+            me.game.remove(this);
+            me.levelDirector.nextLevel();
+            return false;
+        }
+        if (me.input.isKeyPressed("previousLevel") && me.game.currentLevel.levelId != "alpha1") {
+            me.game.remove(this);
+            me.levelDirector.previousLevel();
+            return false;
+        }
+        
         
         if (!IsDummy) {
             var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y + (this.height/2), { direction: PlayerDirection });
@@ -552,7 +563,7 @@ var MoveableItem = me.ObjectEntity.extend({
             return true;
         }
 
-        return false;
+        return true;
     }
 });
 
@@ -618,7 +629,7 @@ var DummySelector = me.ObjectEntity.extend({
             return true;
         }
 
-        return false;
+        return true;
     }
 });
 
