@@ -360,10 +360,10 @@ var PlayerEntity = me.ObjectEntity.extend({
                 this.changedirection("right");
                 this.usePower(waitingPower,'right');
             } else if (me.input.isKeyPressed('up')) {
-                this.changedirection("up");
+                this.changedirection("top");
                 this.usePower(waitingPower,'up');
             } else if (me.input.isKeyPressed('down')) {
-                this.changedirection("down");
+                this.changedirection("bottom");
                 this.usePower(waitingPower,'down');
             }
             
