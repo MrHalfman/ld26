@@ -15,6 +15,11 @@
     <property name="type" value="box"/>
    </properties>
   </tile>
+  <tile id="2">
+   <properties>
+    <property name="type" value="tp1"/>
+   </properties>
+  </tile>
   <tile id="3">
    <properties>
     <property name="type" value="trap"/>
@@ -33,6 +38,11 @@
   <tile id="6">
    <properties>
     <property name="type" value="pp3"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="tp2"/>
    </properties>
   </tile>
   <tile id="8">
@@ -54,7 +64,7 @@
  <tileset firstgid="61" name="moquette" tilewidth="32" tileheight="32">
   <image source="../tilesets/moquette.png" width="96" height="192"/>
  </tileset>
- <imagelayer name="Background" width="16" height="16">
+  <imagelayer name="Background" width="16" height="16">
   <image source="../images/background.png"/>
  </imagelayer>
  <layer name="moquette" width="12" height="12">
