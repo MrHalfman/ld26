@@ -146,11 +146,10 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.lastPositions = { x: this.pos.x, y: this.pos.y };
         this.sGridPos = getSmoothGridPos(this.pos);
         this.prevSGridPos = getSmoothGridPos(this.lastPositions);
-
         this.hardPos = getGridPos(this.pos);
         this.lastHardPos = getGridPos(this.lastPositions);
-
         this.moving = false ;
+
 
     },
     changedirection: function (direction) {
@@ -250,6 +249,21 @@ var PlayerEntity = me.ObjectEntity.extend({
     },
     update: function () {
         
+        if (me.input.isKeyPressed("reset")) {
+            me.game.remove(this);
+            me.levelDirector.reloadLevel();
+            return false;
+        }
+        if (me.input.isKeyPressed("nextLevel")) {
+            me.game.remove(this);
+            me.levelDirector.nextLevel();
+            return false;
+        }
+        if (me.input.isKeyPressed("previousLevel")) {
+            me.game.remove(this);
+            me.levelDirector.previousLevel();
+            return false;
+        }
         
         if (!IsDummy) {
             var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y + (this.height/2), { direction: PlayerDirection });
@@ -425,7 +439,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                 }
             }
         }
-        this.updateMovement();
+
 
         this.sGridPos = getSmoothGridPos(this.pos);
         this.prevSGridPos = getSmoothGridPos(this.lastPositions);
@@ -435,7 +449,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             this.lastHardPos.y = save.y
         }
         this.lastPositions = { x: this.pos.x, y: this.pos.y };
-        return false;
+        return true;
     }
 })
 
@@ -524,7 +538,7 @@ var MoveableItem = me.ObjectEntity.extend({
         }
 
 
-        this.updateMovement();
+
         /*var res = me.game.collide(this);
         if (res)
             console.log(res.obj.type);*/
@@ -579,7 +593,7 @@ var DummySelector = me.ObjectEntity.extend({
                 console.log("Error in dummy direction");
                 break;
         }
-        this.updateMovement();
+
 
         var res = me.game.collide(this);
 

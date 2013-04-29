@@ -82,7 +82,6 @@ var PlayScreen = me.ScreenObject.extend({
         me.game.add(new SoundButton(5, 10));
     },
     update: function () {
-
         if (me.input.isKeyPressed("reset")) {
             me.levelDirector.reloadLevel();
         }
