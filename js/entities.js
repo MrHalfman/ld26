@@ -7,6 +7,29 @@ var IsDummy = false,
 var itemsLeft ;
 var waitingPower=false ;
 
+
+function in_array (needle, haystack, argStrict) {
+  var key = '',
+    strict = !! argStrict;
+
+  if (strict) {
+    for (key in haystack) {
+      if (haystack[key] === needle) {
+        return true;
+      }
+    }
+  } else {
+    for (key in haystack) {
+      if (haystack[key] == needle) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+
 function getSmoothGridPos(pos) {
     return { x: pos.x / 32, y: pos.y / 32 };
 }
@@ -30,21 +53,27 @@ function generateMap(player) {
     var map = me.game.currentLevel ;
     
     player.power = {
-        "jumpover": false,
+        "jumpover": 1,
         "pull": false,
         "putbehind": false,
         "superpush": false,
         "doorbypass": false,
         "remove": false
     };
-    switch (me.levelDirector.getCurrentLevelId()) {
+    
+    var lid = me.levelDirector.getCurrentLevelId() ;
+    if (in_array(lid,["alpha1","alpha2","alpha3","alpha4","alpha5"])) {
+        player.power.jumpover = 0 ;
+    }
+    
+    switch (lid) {
         case "alpha1":
+            me.audio.stopTrack();
             me.audio.playTrack("theme1");
             break;
         case "beta1":
             me.audio.stopTrack();
             me.audio.playTrack("theme2");
-            player.power.jumpover = 1;
             break;
         case "gamma1":
             me.audio.stopTrack();
