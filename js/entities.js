@@ -273,7 +273,6 @@ var PlayerEntity = me.ObjectEntity.extend({
                                 if (this.hardPos.x-1<0) {
                                     move = false ;
                                     curMap[this.hardPos.x-1][this.hardPos.y]=-2;
-                                    me.game.remove(destination);
                                 }else{
                                     curMap[this.hardPos.x-2][this.hardPos.y]=destination;
                                     curMap[this.hardPos.x-1][this.hardPos.y]=0;
@@ -307,7 +306,6 @@ var PlayerEntity = me.ObjectEntity.extend({
                                 if ((this.hardPos.x+1)>=xmax) {
                                     move = false ;
                                     curMap[this.hardPos.x+1][this.hardPos.y]=-2;
-                                    me.game.remove(destination);
                                 }else{
                                     curMap[this.hardPos.x+2][this.hardPos.y]=destination;
                                     curMap[this.hardPos.x+1][this.hardPos.y]=0;
@@ -341,7 +339,6 @@ var PlayerEntity = me.ObjectEntity.extend({
                                 if ((this.hardPos.y-1)<0) {
                                     move = false ;
                                     curMap[this.hardPos.x][this.hardPos.y-1]=-2;
-                                    me.game.remove(destination);
                                 }else{  
                                     curMap[this.hardPos.x][this.hardPos.y-2]=destination;
                                     curMap[this.hardPos.x][this.hardPos.y-1]=0; 
@@ -375,7 +372,6 @@ var PlayerEntity = me.ObjectEntity.extend({
                                 if ((this.hardPos.y+1)>=ymax) {
                                     move = false ;
                                     curMap[this.hardPos.x][this.hardPos.y+1]=-2;
-                                    me.game.remove(destination);
                                 }else{
                                     curMap[this.hardPos.x][this.hardPos.y+2]=destination;
                                     curMap[this.hardPos.x][this.hardPos.y+1]=0;
@@ -483,6 +479,8 @@ var MoveableItem = me.ObjectEntity.extend({
             this.hasMoved == false;
         }
         
+
+        
         
         if (this.pushed == "left") {
             if (this.pos.x%32 != 0) {
@@ -518,6 +516,13 @@ var MoveableItem = me.ObjectEntity.extend({
             }
         }
         
+        if (!this.pushed) {
+            this.hardPos = getGridPos(this.pos);
+            if (this.hardPos.x>=xmax || this.hardPos.x<0 || this.hardPos.y>=ymax || this.hardPos.y<0) {
+                curMap[this.hardPos.x][this.hardPos.y]=-2;
+                me.game.remove(this);
+            }
+        }
 
 
         this.updateMovement();
