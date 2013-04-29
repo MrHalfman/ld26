@@ -21,6 +21,12 @@ var trapMap;
 function generateMap(player) {
     
     
+<<<<<<< HEAD
+    
+    
+    
+    
+=======
     me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }), 10);
     me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }), 10);
     me.game.add(new SpellButton(120, 10, { image: "jumpover", spell: "jumpover" }), 10);
@@ -28,6 +34,7 @@ function generateMap(player) {
     me.game.add(new SpellButton(200, 10, { image: "remove", spell: "remove" }), 10);
     me.game.add(new SoundButton(5, 10));
 
+>>>>>>> f58d8e8f7979888e623739777d5bc0de1c478332
     
     var map = me.game.currentLevel ;
     
@@ -238,7 +245,11 @@ var PlayerEntity = me.ObjectEntity.extend({
                 }else{
                     switch (dir) {
                         case "up":
+<<<<<<< HEAD
+                            if (curMap[this.hardPos.x][this.hardPos.y-1].name=="box" && curMap[this.hardPos.x][this.hardPos.y-2]==0){
+=======
                             if ((curMap[this.hardPos.x][this.hardPos.y-1].name+'').toLowerCase()=="box" && curMap[this.hardPos.x][this.hardPos.y-2]==0){
+>>>>>>> f58d8e8f7979888e623739777d5bc0de1c478332
                                 curMap[this.hardPos.x][this.hardPos.y-2]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.y-=2;
@@ -248,7 +259,11 @@ var PlayerEntity = me.ObjectEntity.extend({
                             }
                         break;
                         case "left":
+<<<<<<< HEAD
+                            if (curMap[this.hardPos.x-1][this.hardPos.y].name=="box" && curMap[this.hardPos.x-2][this.hardPos.y]==0){
+=======
                             if ((curMap[this.hardPos.x-1][this.hardPos.y].name+'').toLowerCase()=="box" && curMap[this.hardPos.x-2][this.hardPos.y]==0){
+>>>>>>> f58d8e8f7979888e623739777d5bc0de1c478332
                                 curMap[this.hardPos.x-2][this.hardPos.y]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.x-=2;
@@ -257,8 +272,13 @@ var PlayerEntity = me.ObjectEntity.extend({
                                 this.power[power] -- ;
                             }
                         break;
+<<<<<<< HEAD
+                        case "bottom":
+                            if (curMap[this.hardPos.x][this.hardPos.y+1].name=="box" && curMap[this.hardPos.x][this.hardPos.y+2]==0){
+=======
                         case "down":
                             if ((curMap[this.hardPos.x][this.hardPos.y+1].name+'').toLowerCase()=="box" && curMap[this.hardPos.x][this.hardPos.y+2]==0){
+>>>>>>> f58d8e8f7979888e623739777d5bc0de1c478332
                                 curMap[this.hardPos.x][this.hardPos.y+2]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.y+=2;
@@ -268,7 +288,11 @@ var PlayerEntity = me.ObjectEntity.extend({
                             }
                         break;
                         case "right":
+<<<<<<< HEAD
+                            if (curMap[this.hardPos.x+1][this.hardPos.y].name=="box" && curMap[this.hardPos.x+2][this.hardPos.y]==0){
+=======
                             if ((curMap[this.hardPos.x+1][this.hardPos.y].name+'').toLowerCase()=="box" && curMap[this.hardPos.x+2][this.hardPos.y]==0){
+>>>>>>> f58d8e8f7979888e623739777d5bc0de1c478332
                                 curMap[this.hardPos.x+2][this.hardPos.y]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.x+=2;
@@ -383,10 +407,17 @@ var PlayerEntity = me.ObjectEntity.extend({
                 this.changedirection("right");
                 this.usePower(waitingPower,'right');
             } else if (me.input.isKeyPressed('up')) {
+<<<<<<< HEAD
+                this.changedirection("up");
+                this.usePower(waitingPower,'up');
+            } else if (me.input.isKeyPressed('down')) {
+                this.changedirection("down");
+=======
                 this.changedirection("top");
                 this.usePower(waitingPower,'up');
             } else if (me.input.isKeyPressed('down')) {
                 this.changedirection("bottom");
+>>>>>>> f58d8e8f7979888e623739777d5bc0de1c478332
                 this.usePower(waitingPower,'down');
             }
             
@@ -661,8 +692,13 @@ var MoveableItem = me.ObjectEntity.extend({
                 itemsLeft--;
                 if (itemsLeft==0) {
                     me.game.remove(this);
+<<<<<<< HEAD
+                    me.levelDirector.previousLevel();
+                    //me.levelDirector.nextLevel();
+=======
                     //me.levelDirector.previousLevel();
                     me.levelDirector.nextLevel();
+>>>>>>> f58d8e8f7979888e623739777d5bc0de1c478332
                     return false;
                 }
                 me.game.remove(this);
