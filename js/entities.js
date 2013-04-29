@@ -17,20 +17,26 @@ function getGridPos(pos) {
     return rep;
 }
 
+var trapMap;
+
 function generateMap(player) {
     var map = me.game.currentLevel ;
     
     var rep = {};
+    trapMap = {};
     for (var x = -2, xmax= map.cols+2;x<xmax;x++) {
         var col = {};
+        var trapCol = {};
         for (var y = -2, ymax= map.rows+2;y<ymax;y++) {
             var cell = 0;
             if (x<0||x>=map.cols||y<0||y>=map.rows) {
                 cell = -2 ; //extérieur
             }
             col[y]=cell;
+            trapCol[y]=trapCell=0;
         }   
         rep[x]=col;
+        trapMap[x]=trapCol;
     }
     
     var layers = map.mapLayers;
@@ -89,6 +95,27 @@ function generateMap(player) {
                             }
                             itemsLeft++;
                             rep[x][y]=obj;
+                            
+                        break;
+                        case "trap":
+                            var entity={};
+                            entity.height=32;
+                            entity.image="switch";
+                            entity.isPolygon=false;
+                            entity.name="Box";
+                            entity.spriteheight=32;
+                            entity.spritewidth=32;
+                            entity.type="";
+                            entity.width=32;
+                            entity.x=32*parseInt(x);
+                            entity.y=32*parseInt(y);
+                            entity.z=5;
+                            
+                            var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            if (obj) {
+                                me.game.add(obj, 5);
+                            }
+                            trapMap[x][y]=1;
                             
                         break;
                     }
