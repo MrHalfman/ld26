@@ -21,10 +21,13 @@ var trapMap;
 function generateMap(player) {
     
     
-    
-    
-    
-    
+    me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }), 10);
+    me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }), 10);
+    me.game.add(new SpellButton(120, 10, { image: "jumpover", spell: "jumpover" }), 10);
+    me.game.add(new SpellButton(160, 10, { image: "putbehind", spell: "putbehind" }), 10);
+    me.game.add(new SpellButton(200, 10, { image: "remove", spell: "remove" }), 10);
+    me.game.add(new SoundButton(5, 10));
+
     
     var map = me.game.currentLevel ;
     
