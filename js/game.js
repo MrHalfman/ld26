@@ -109,8 +109,7 @@ var StartScreen = me.ScreenObject.extend({
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
         me.input.bindKey(me.input.KEY.ENTER, "use");
-        //me.audio.playTrack("maintheme");
-        me.audio.play("maintheme", true);
+        me.audio.playTrack("maintheme");
     },
     draw: function (context) {
         me.video.clearSurface(context, "black");
