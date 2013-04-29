@@ -19,8 +19,6 @@ function getGridPos(pos) {
 }
 var trapMap;
 function generateMap(player) {
-    
-    
     me.game.add(new SpellButton(40, 10, { image: "doorbypass", spell: "doorbypass" }), 10);
     me.game.add(new SpellButton(80, 10, { image: "pull", spell: "pull" }), 10);
     me.game.add(new SpellButton(120, 10, { image: "jumpover", spell: "jumpover" }), 10);
@@ -32,14 +30,37 @@ function generateMap(player) {
     var map = me.game.currentLevel ;
     
     player.power = {
-        "jumpover": 1,
+        "jumpover": false,
         "pull": false,
         "putbehind": false,
         "superpush": false,
         "doorbypass": false,
         "remove": false
     };
-    
+    switch (me.levelDirector.getCurrentLevelId()) {
+        case "alpha1":
+            me.audio.playTrack("theme1");
+            break;
+        case "beta1":
+            me.audio.stopTrack();
+            me.audio.playTrack("theme2");
+            player.power.jumpover = 1;
+            break;
+        case "gamma1":
+            me.audio.stopTrack();
+            me.audio.playTrack("theme3");
+            break;
+        case "delta1":
+            me.audio.stopTrack();
+            me.audio.playTrack("theme4");
+            break;
+        case "epsilon1":
+            me.audio.stopTrack();
+            me.audio.playTrack("theme5");
+        default:
+            break;
+
+    }
     var rep = {};
     trapMap = {};
     for (var x = -2, xmax= map.cols+2;x<xmax;x++) {

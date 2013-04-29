@@ -5,15 +5,47 @@
  </tileset>
  <tileset firstgid="49" name="meta" tilewidth="32" tileheight="32">
   <image source="../tilesets/metaset2.png" width="128" height="96"/>
+  <tile id="0">
+   <properties>
+    <property name="type" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="type" value="box"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="type" value="trap"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="Calque de Tile 1" width="8" height="8">
+ <tileset firstgid="61" name="moquette" tilewidth="32" tileheight="32">
+  <image source="../tilesets/moquette.png" width="96" height="192"/>
+ </tileset>
+ <layer name="moquette" width="8" height="8">
   <data encoding="base64">
-   EAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAA==
+   SgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAEoAAABKAAAASgAAAA==
   </data>
  </layer>
- <layer name="meta" width="8" height="8">
+ <layer name="Calque de Tile 1" width="8" height="8">
+  <data encoding="base64">
+   HwAAAA0AAAANAAAADQAAACcAAAANAAAADQAAABcAAAAFAAAAEAAAABAAAAAQAAAAKgAAABAAAAAQAAAABQAAAAUAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAFAAAABQAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAUAAAAFAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAABQAAAAUAAAAQAAAAEAAAAA8AAAAQAAAAEAAAABAAAAAFAAAABQAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAUAAAAgAAAAIgAAABAAAAApAAAADQAAAA0AAAANAAAAGAAAAA==
+  </data>
+ </layer>
+ <layer name="meta" width="8" height="8" visible="0">
   <data encoding="base64">
    MQAAADEAAAAxAAAAMQAAADEAAAAxAAAAMQAAADEAAAAxAAAANAAAADQAAAA0AAAAMQAAADQAAAA0AAAAMQAAADEAAAAAAAAAMgAAAAAAAAAyAAAAAAAAAAAAAAAxAAAAMQAAADQAAAA0AAAAMgAAADQAAAA0AAAANAAAADEAAAAxAAAAAAAAADIAAAAAAAAAMgAAAAAAAAAAAAAAMQAAADEAAAA0AAAANAAAADEAAAA0AAAAMgAAADQAAAAxAAAAMQAAAAAAAAAAAAAAMgAAAAAAAAAyAAAAAAAAADEAAAAxAAAAMQAAAAAAAAAxAAAAMQAAADEAAAAxAAAAMQAAAA==
   </data>
  </layer>
+ <objectgroup color="#68bd17" name="Player" width="12" height="12">
+  <object name="PlayerEntity" x="160" y="32" width="32" height="32">
+   <properties>
+    <property name="image" value="character"/>
+    <property name="spriteheight" value="32"/>
+    <property name="spritewidth" value="32"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
