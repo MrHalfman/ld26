@@ -57,11 +57,11 @@ var game = {
 
         /****** SOUNDS ******/
         { name: "maintheme", type: "audio", src: "datas/sounds/", channel: 1 },
-        { name: "theme1", type: "audio", src: "datas/sounds/", channel: 1},
         { name: "theme2", type: "audio", src: "datas/sounds/", channel: 1},
-        { name: "theme3", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme3", type: "audio", src: "datas/sounds/", channel: 1},
         { name: "theme4", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "theme5", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme6", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "victory", type: "audio", src: "datas/sounds/", channel: 1 }
     ],
     onload: function () {
@@ -72,7 +72,7 @@ var game = {
 
         me.video.setImageSmoothing(false);
 
-        me.audio.init("mp3");
+        me.audio.init("ogg, mp3");
         me.audio.enable();
         me.audio.setVolume(0.25);
         me.loader.onload = this.loaded.bind(this);
@@ -103,7 +103,7 @@ var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         this.background = me.loader.getImage("background");
         me.levelDirector.loadLevel("alpha1");
-        me.audio.playTrack("theme1");
+        me.audio.playTrack("theme2");
     },
     draw: function (context) {
         context.drawImage(this.background, 0, 0);
