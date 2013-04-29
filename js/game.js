@@ -23,6 +23,7 @@ var game = {
         { name: "gamma6", type: "tmx", src: "datas/maps/gamma6.tmx" },
 
 
+
         /****** TILESETS ******/
         { name: "metatiles16x16", type: "image", src: "datas/tilesets/metatiles16x16.png" },
         { name: "Moquette", type: "image", src: "datas/tilesets/moquette.png" },
@@ -48,14 +49,14 @@ var game = {
         { name: "soundmute", type: "image", src: "datas/images/soundmute.png" },
 
         /****** SOUNDS ******/
-        { name: "maintheme", type: "audio", src: "datas/sounds/" },
-        { name: "theme1", type: "audio", src: "datas/sounds/" },
-        { name: "theme2", type: "audio", src: "datas/sounds/" },
-        { name: "theme3", type: "audio", src: "datas/sounds/" },
-        { name: "theme4", type: "audio", src: "datas/sounds/" },
-        { name: "theme5", type: "audio", src: "datas/sounds/" },
-        { name: "theme6", type: "audio", src: "datas/sounds/" },
-        { name: "victory", type: "audio", src: "datas/sounds/" }
+        { name: "maintheme", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme1", type: "audio", src: "datas/sounds/", channel: 1},
+        { name: "theme2", type: "audio", src: "datas/sounds/", channel: 1},
+        { name: "theme3", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme4", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme5", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "theme6", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "victory", type: "audio", src: "datas/sounds/", channel: 1 }
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -108,8 +109,7 @@ var StartScreen = me.ScreenObject.extend({
         me.input.bindKey(me.input.KEY.UP, "up");
         me.input.bindKey(me.input.KEY.DOWN, "down");
         me.input.bindKey(me.input.KEY.ENTER, "use");
-        //me.audio.playTrack("maintheme");
-        me.audio.play("maintheme", true);
+        me.audio.playTrack("maintheme");
     },
     draw: function (context) {
         me.video.clearSurface(context, "black");
