@@ -51,6 +51,9 @@
    </properties>
   </tile>
  </tileset>
+  <imagelayer name="Background" width="16" height="16">
+  <image source="../images/background.png"/>
+ </imagelayer>
  <tileset firstgid="61" name="moquette" tilewidth="32" tileheight="32">
   <image source="../tilesets/moquette.png" width="96" height="192"/>
  </tileset>
