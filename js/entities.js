@@ -215,7 +215,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                 }else{
                     switch (dir) {
                         case "up":
-                            if (curMap[this.hardPos.x][this.hardPos.y-1].name=="box" && curMap[this.hardPos.x][this.hardPos.y-2]==0){
+                            if ((curMap[this.hardPos.x][this.hardPos.y-1].name+'').toLowerCase()=="box" && curMap[this.hardPos.x][this.hardPos.y-2]==0){
                                 curMap[this.hardPos.x][this.hardPos.y-2]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.y-=2;
@@ -225,7 +225,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                             }
                         break;
                         case "left":
-                            if (curMap[this.hardPos.x-1][this.hardPos.y].name=="box" && curMap[this.hardPos.x-2][this.hardPos.y]==0){
+                            if ((curMap[this.hardPos.x-1][this.hardPos.y].name+'').toLowerCase()=="box" && curMap[this.hardPos.x-2][this.hardPos.y]==0){
                                 curMap[this.hardPos.x-2][this.hardPos.y]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.x-=2;
@@ -234,8 +234,8 @@ var PlayerEntity = me.ObjectEntity.extend({
                                 this.power[power] -- ;
                             }
                         break;
-                        case "bottom":
-                            if (curMap[this.hardPos.x][this.hardPos.y+1].name=="box" && curMap[this.hardPos.x][this.hardPos.y+2]==0){
+                        case "down":
+                            if ((curMap[this.hardPos.x][this.hardPos.y+1].name+'').toLowerCase()=="box" && curMap[this.hardPos.x][this.hardPos.y+2]==0){
                                 curMap[this.hardPos.x][this.hardPos.y+2]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.y+=2;
@@ -245,7 +245,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                             }
                         break;
                         case "right":
-                            if (curMap[this.hardPos.x+1][this.hardPos.y].name=="box" && curMap[this.hardPos.x+2][this.hardPos.y]==0){
+                            if ((curMap[this.hardPos.x+1][this.hardPos.y].name+'').toLowerCase()=="box" && curMap[this.hardPos.x+2][this.hardPos.y]==0){
                                 curMap[this.hardPos.x+2][this.hardPos.y]=this;
                                 curMap[this.hardPos.x][this.hardPos.y]=0;
                                 this.hardPos.x+=2;
