@@ -71,7 +71,13 @@ function generateMap(player) {
                             entity.name="Box";
                             entity.spriteheight=32;
                             entity.spritewidth=32;
-                            entity.type="sofa";
+                            
+                            
+                            var boxTypes = ["little_table","sofa","tv","lamp","green_sofa","medium_table","big_table","chair","trash","table_napperon","table_lamp","plant","ironing_board","flower"]
+                            
+                            var boxType = boxTypes[Math.floor(Math.random()*boxTypes.length)];
+                            
+                            entity.type=boxType;
                             entity.width=32;
                             entity.x=32*parseInt(x);
                             entity.y=32*parseInt(y);
@@ -480,6 +486,7 @@ var MoveableItem = me.ObjectEntity.extend({
         this.renderable.addAnimation("medium_table", [4]);
         this.renderable.addAnimation("big_table", [5]);
         this.renderable.addAnimation("chair", [6]);
+        this.renderable.addAnimation("green_sofa", [7]);
         this.renderable.addAnimation("trash", [9]);
         this.renderable.addAnimation("table_napperon", [10]);
         this.renderable.addAnimation("table_lamp", [11]);
