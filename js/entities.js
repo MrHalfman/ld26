@@ -93,27 +93,26 @@ function generateMap(player) {
                             }
                             itemsLeft++;
                             rep[x][y]=obj;
-                            
                             break;
                         case "trap":
-                                var entity={};
-                                entity.height=32;
-                                entity.image="switch";
-                                entity.isPolygon=false;
-                                entity.name="Box";
-                                entity.spriteheight=32;
-                                entity.spritewidth=32;
-                                entity.type="";
-                                entity.width=32;
-                                entity.x=32*parseInt(x);
-                                entity.y=32*parseInt(y);
-                                entity.z=5;
-                                var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
-                                if (obj) {
-                                    me.game.add(obj, 5);
-                                }
-                                trapMap[x][y]=1;
-                                break;
+                            var entity={};
+                            entity.height=32;
+                            entity.image="switch";
+                            entity.isPolygon=false;
+                            entity.name="Box";
+                            entity.spriteheight=32;
+                            entity.spritewidth=32;
+                            entity.type="";
+                            entity.width=32;
+                            entity.x=32*parseInt(x);
+                            entity.y=32*parseInt(y);
+                            entity.z=5;
+                            var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            if (obj) {
+                                me.game.add(obj, 5);
+                            }
+                            trapMap[x][y]=1;
+                            break;
                     }
                 }
             }
