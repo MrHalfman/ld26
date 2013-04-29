@@ -210,7 +210,7 @@ function generateMap(player) {
                             obj.tag=content.type;
                             if (obj) {
                                 me.game.add(obj, 3 );}
-                            ppMap[x][y]=this;
+                            ppMap[x][y]=obj;
                             
                         break;
                     
@@ -231,9 +231,12 @@ function generateMap(player) {
                             entity.y=32*parseInt(y);
                             entity.z=5;
                             var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
+                            obj.tag=content.type;
+                            obj.wall=true;
                             if (obj) {
                                 me.game.add(obj, 3 );}
-                            curMap[x][y]=this;
+                            
+                            rep[x][y]=obj;
                             
                         break;
                         
@@ -475,7 +478,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             if (me.input.isKeyPressed('left')) {
                 this.changedirection("left");
                 var destination = curMap[this.hardPos.x-1][this.hardPos.y];
-                if ( destination != -2 && destination != -1 ) {
+                if ( destination != -2 && destination != -1 && !destination.wall ) {
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
@@ -508,7 +511,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             } else if (me.input.isKeyPressed('right')) {
                 this.changedirection("right");
                 var destination = curMap[this.hardPos.x+1][this.hardPos.y];
-                if ( destination != -2 && destination != -1 ) {
+                if ( destination != -2 && destination != -1 && !destination.wall ) {
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
@@ -541,7 +544,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             } else if (me.input.isKeyPressed('up')) {
                 this.changedirection("top");
                 var destination = curMap[this.hardPos.x][this.hardPos.y-1];
-                if ( destination != -2 && destination != -1 ) {
+                if ( destination != -2 && destination != -1 && !destination.wall ) {
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
@@ -573,7 +576,7 @@ var PlayerEntity = me.ObjectEntity.extend({
             } else if (me.input.isKeyPressed('down')) {
                 this.changedirection("bottom");
                 var destination = curMap[this.hardPos.x][this.hardPos.y+1];
-                if ( destination != -2 && destination != -1 )  {
+                if ( destination != -2 && destination != -1 && !destination.wall )  {
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
@@ -750,7 +753,16 @@ var MoveableItem = me.ObjectEntity.extend({
             }else{
                 if (ppMap[this.hardPos.x][this.hardPos.y]) {
                     var btn = ppMap[this.hardPos.x][this.hardPos.y];
-                    
+                    btn.renderable.setCurrentAnimation("button_on");
+                    var tag = btn.tag;
+                    for (var x in curMap) {
+                        for (var y in curMap[x]) {
+                            if (curMap[x][y].wall && curMap[x][y].tag==("p"+tag)) {
+                                me.game.remove(curMap[x][y]);
+                                curMap[x][y]=0;
+                            }
+                        }
+                    }
                 }
             }
         }
