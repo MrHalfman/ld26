@@ -72,7 +72,7 @@ var game = {
 
         me.video.setImageSmoothing(false);
 
-        me.audio.init("mp3");
+        me.audio.init("ogg, mp3");
         me.audio.enable();
         me.audio.setVolume(0.25);
         me.loader.onload = this.loaded.bind(this);
