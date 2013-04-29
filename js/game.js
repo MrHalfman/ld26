@@ -3,9 +3,12 @@ var MutedSound = false;
 var game = {
     assets: [
         /****** LEVELS ******/
-        { name: "level1", type: "tmx", src: "datas/maps/level1.tmx" },
         { name: "alpha1", type: "tmx", src: "datas/maps/alpha1.tmx" },
+        { name: "alpha2", type: "tmx", src: "datas/maps/alpha2.tmx" },
+        { name: "alpha3", type: "tmx", src: "datas/maps/alpha3.tmx" },
+        { name: "alpha4", type: "tmx", src: "datas/maps/alpha4.tmx" },
         { name: "alpha5", type: "tmx", src: "datas/maps/alpha5.tmx" },
+        { name: "alpha6", type: "tmx", src: "datas/maps/alpha6.tmx" },
 
         /****** TILESETS ******/
         { name: "metatiles16x16", type: "image", src: "datas/tilesets/metatiles16x16.png" },
