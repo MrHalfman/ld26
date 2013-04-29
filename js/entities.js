@@ -6,6 +6,9 @@ var IsDummy = false,
     playerEntityGuid;
 var itemsLeft ;
 var waitingPower=false ;
+var playerRef ;
+var fn_jo = function(){};
+var fn_rm = function(){};
 
 
 function in_array (needle, haystack, argStrict) {
@@ -44,6 +47,9 @@ var trapMap;
 var ppMap;
 
 function generateMap(player) {
+    
+    playerRef=player;
+    
     me.game.add(new SpellButton(40, 10, { image: "jumpover", spell: "jumpover" }), 10);
     me.game.add(new SpellButton(80, 10, { image: "remove", spell: "remove" }), 10);
     me.game.add(new SoundButton(5, 10));
@@ -65,12 +71,32 @@ function generateMap(player) {
         "putbehind": false,
         "superpush": false,
         "doorbypass": false,
-        "remove": false
+        "remove": 1
     };
     
     var lid = me.levelDirector.getCurrentLevelId() ;
     if (in_array(lid,["alpha1","alpha2","alpha3","alpha4","alpha5"])) {
         player.power.jumpover = 0 ;
+        document.getElementById('btn_jumpover').className = "blocked" ;
+        fn_jo = function(){};
+    }else{
+        player.power.jumpover = 1 ;
+        document.getElementById('btn_jumpover').className = "available" ;
+        fn_jo = (function(p){
+            return function(){p.usePower('jumpover')};
+        })(player);
+    }
+    
+    if (in_array(lid,["delta6","epsilon1","epsilon2","epsilon3","epsilon4","epsilon5","epsilon6"])) {
+        player.power.remove = 1 ;
+        document.getElementById('btn_remove').className = "available" ;
+        fn_rm = (function(p){
+            return function(){p.usePower('remove')};
+        })(player);
+    }else{
+        player.power.remove = 0 ;
+        document.getElementById('btn_remove').className = "blocked" ;
+        fn_rm = function(){};
     }
     
     switch (lid) {
@@ -324,6 +350,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                 case "jumpover": // Jumping over an item
                 if (!dir) {
                     waitingPower="jumpover";
+                    document.getElementById('btn_jumpover').className = "using" ;
                 }else{
                     switch (dir) {
                         case "up":
@@ -368,11 +395,20 @@ var PlayerEntity = me.ObjectEntity.extend({
                         break;
                     }
                     waitingPower=false;
-                } 
+                    
+                    if (this.power[power]==0) {
+                        document.getElementById('btn_jumpover').className = "used" ;
+                    }else{
+                        document.getElementById('btn_jumpover').className = "available" ;
+                    }
+                    
+                }
+                break;
                 case"remove":
                     
                     if (!dir) {
                         waitingPower="remove";
+                        document.getElementById('btn_remove').className = "using" ;
                     }else{
                         switch (dir) {
                             case "up":
@@ -429,6 +465,13 @@ var PlayerEntity = me.ObjectEntity.extend({
                             break;
                         }
                         waitingPower=false;
+                        
+                        if (this.power[power]==0) {
+                            document.getElementById('btn_remove').className = "used" ;
+                        }else{
+                            document.getElementById('btn_remove').className = "available" ;
+                        } 
+                        
                     } 
                     
                 break;

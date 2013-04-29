@@ -65,3 +65,20 @@ hr {
     float: left;
     left: 300px;
 }
+
+#buttons img.blocked{
+    display:none;
+}
+
+#buttons img.using{
+    border: 2px solid red;
+    margin:-2px;
+}
+
+#buttons img.used{
+    opacity: 0.5;
+}
+
+#buttons img.available{
+    opacity: 1;
+}
