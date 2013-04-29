@@ -33,6 +33,7 @@ canvas {
 #help {
     float: left;
     width: 200px;
+    height: 600px;
 }
 
 #main {
@@ -40,4 +41,17 @@ canvas {
     height: 600px;
     margin: auto;
     border: 1px solid white;
+}
+
+#informations {
+    float: left;
+    width: 200px;
+    height: 600px;
+}
+
+hr {
+    background: none;
+    height: 1px;
+    color: white;
+    border: none;
 }
