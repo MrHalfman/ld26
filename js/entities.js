@@ -272,12 +272,11 @@ var PlayerEntity = me.ObjectEntity.extend({
                                 
                                 if (this.hardPos.x-1<0) {
                                     move = false ;
-                                    curMap[this.hardPos.x-1][this.hardPos.y]=-2;
+                                    curMap[this.hardPos.x-1][this.hardPos.y]=-2;//test
                                 }else{
                                     curMap[this.hardPos.x-2][this.hardPos.y]=destination;
                                     curMap[this.hardPos.x-1][this.hardPos.y]=0;
                                 }
-                                
                             }
                         }else{
                             move = false ;
