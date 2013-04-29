@@ -369,67 +369,70 @@ var PlayerEntity = me.ObjectEntity.extend({
                     }
                     waitingPower=false;
                 } 
-             /*   case "pull":
-                    // Pull an item
-	            switch (PlayerDirection) {
-                        case "top":
-                            SelectedEntity.pos.y -= 32;
-                            this.pos.y -= 32;
+                case"remove":
+                    
+                    if (!dir) {
+                        waitingPower="remove";
+                    }else{
+                        switch (dir) {
+                            case "up":
+                                if ((curMap[this.hardPos.x][this.hardPos.y-1].name+'').toLowerCase()=="box"){
+                                    me.game.remove(curMap[this.hardPos.x][this.hardPos.y-1]);
+                                    curMap[this.hardPos.x][this.hardPos.y-1]=0;
+                                    itemsLeft--;
+                                    if (itemsLeft==0) {
+                                        me.game.remove(this);
+                                        me.levelDirector.nextLevel();
+                                        return false;
+                                    }
+                                    this.power[power] -- ;
+                                }
                             break;
-                        case "left":
-                            SelectedEntity.pos.x -= 32;
-                            this.pos.y -= 32;
+                            case "left":
+                                if ((curMap[this.hardPos.x-1][this.hardPos.y].name+'').toLowerCase()=="box"){
+                                    me.game.remove(curMap[this.hardPos.x-1][this.hardPos.y]);
+                                    curMap[this.hardPos.x-1][this.hardPos.y]=0;
+                                    itemsLeft--;
+                                    if (itemsLeft==0) {
+                                        me.game.remove(this);
+                                        me.levelDirector.nextLevel();
+                                        return false;
+                                    }
+                                    this.power[power] -- ;
+                                }
                             break;
-                        case "bottom":
-                            SelectedEntity.pos.y += 32;
-                            this.pos.y += 32;
+                            case "down":
+                                if ((curMap[this.hardPos.x][this.hardPos.y+1].name+'').toLowerCase()=="box"){
+                                    me.game.remove(curMap[this.hardPos.x][this.hardPos.y+1]);
+                                    curMap[this.hardPos.x][this.hardPos.y+1]=0;
+                                    itemsLeft--;
+                                    if (itemsLeft==0) {
+                                        me.game.remove(this);
+                                        me.levelDirector.nextLevel();
+                                        return false;
+                                    }
+                                    this.power[power] -- ;
+                                }
                             break;
-                        case "right":
-                            SelectedEntity.pos.x += 32;
-                            this.pos.x += 32;
+                            case "right":
+                                if ((curMap[this.hardPos.x+1][this.hardPos.y].name+'').toLowerCase()=="box"){
+                                    me.game.remove(curMap[this.hardPos.x+1][this.hardPos.y]);
+                                    curMap[this.hardPos.x+1][this.hardPos.y]=0;
+                                    itemsLeft--;
+                                    if (itemsLeft==0) {
+                                        me.game.remove(this);
+                                        me.levelDirector.nextLevel();
+                                        return false;
+                                    }
+                                    this.power[power] -- ;
+                                }
                             break;
-                        default:
-                            console.log("Error: can't recognise direction");
-                    }
-                    break;
-                case "putbehind":
-                    // Put the selected item behind player
-                    switch (PlayerDirection) {
-                        case "top":
-                            SelectedEntity.pos.y = this.pos.y + this.height + 2;
-                            break;
-                        case "left":
-                            SelectedEntity.pos.x = this.pos.x - this.width - 2;
-                            break;
-                        case "right":
-                            SelectedEntity.pos.x = this.pos.x + this.width + 2;
-                            break;
-                        case "bottom":
-                            SelectedEntity.pos.y = this.pos.y - this.height + 2;
-                            break;
-                        default:
-                            console.log("Error: can't recognise direction");
-                            break;
-                    }
-                    break;
-                case "superpush":
-                    // Pushing 2 items at a time
-                    break;
-                case "doorbypass":
-                    // Opens any door
-                    if (SelectedEntity.type == "switch")
-                        SelectedEntity.toggle();
-                    break;
-                case "remove":
-                    // Removes an item
-                    me.game.remove(SelectedEntity);
-                    break;
-                default:
-                    console.log("Error: can't find spell.");
-                    break;
-            */
+                        }
+                        waitingPower=false;
+                    } 
+                    
+                break;
             }
-            
         }
     },
     gridMovement: function () {
@@ -750,7 +753,6 @@ var MoveableItem = me.ObjectEntity.extend({
                 itemsLeft--;
                 if (itemsLeft==0) {
                     me.game.remove(this);
-                    //me.levelDirector.previousLevel();
                     me.levelDirector.nextLevel();
                     return false;
                 }
