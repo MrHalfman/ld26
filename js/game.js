@@ -21,6 +21,12 @@ var game = {
         { name: "gamma4", type: "tmx", src: "datas/maps/gamma4.tmx" },
         { name: "gamma5", type: "tmx", src: "datas/maps/gamma5.tmx" },
         { name: "gamma6", type: "tmx", src: "datas/maps/gamma6.tmx" },
+        { name: "delta1", type: "tmx", src: "datas/maps/delta1.tmx" },
+        { name: "delta2", type: "tmx", src: "datas/maps/delta2.tmx" },
+        { name: "delta3", type: "tmx", src: "datas/maps/delta3.tmx" },
+        { name: "delta4", type: "tmx", src: "datas/maps/delta4.tmx" },
+        { name: "delta5", type: "tmx", src: "datas/maps/delta5.tmx" },
+        { name: "delta6", type: "tmx", src: "datas/maps/delta6.tmx" },
 
 
 
@@ -55,7 +61,6 @@ var game = {
         { name: "theme3", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "theme4", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "theme5", type: "audio", src: "datas/sounds/", channel: 1 },
-        { name: "theme6", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "victory", type: "audio", src: "datas/sounds/", channel: 1 }
     ],
     onload: function () {
