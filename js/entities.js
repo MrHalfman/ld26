@@ -635,8 +635,8 @@ var MoveableItem = me.ObjectEntity.extend({
                 itemsLeft--;
                 if (itemsLeft==0) {
                     me.game.remove(this);
-                    me.levelDirector.previousLevel();
-                    //me.levelDirector.nextLevel();
+                    //me.levelDirector.previousLevel();
+                    me.levelDirector.nextLevel();
                     return false;
                 }
                 me.game.remove(this);
