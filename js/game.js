@@ -23,11 +23,14 @@ var game = {
         { name: "furnitures", type: "image", src: "datas/tilesets/furnitures26.png" },
         { name: "metaset", type: "image", src: "datas/tilesets/metaset.png" },
         { name: "walls", type: "image", src: "datas/tilesets/walls.png" },
+        { name: "walls_red", type: "image", src: "datas/tilesets/walls_red.png" },
+        { name: "walls_green", type: "image", src: "datas/tilesets/walls_green.png" },
         { name: "meta", type: "image", src: "datas/tilesets/metaset2.png" },
 
         /****** SPRITES ******/
         { name: "character", type: "image", src: "datas/sprites/character.png" },
         { name: "selected", type: "image", src: "datas/sprites/select.png" },
+        { name: "switch", type: "image", src: "datas/sprites/switch.png" },
 
         /****** IMAGES ******/
         { name: "splashscreen", type: "image", src: "datas/images/title.png" },
