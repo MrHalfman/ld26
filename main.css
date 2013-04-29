@@ -27,4 +27,15 @@ canvas {
     width: 800px;
     height: 600px;
     margin: auto;
+    float: left;
+}
+
+#help {
+    float: left;
+    width: 200px;
+}
+
+#main {
+    width: 1200px;
+    margin: auto;
 }
