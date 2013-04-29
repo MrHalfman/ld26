@@ -57,6 +57,8 @@ var game = {
 
         me.state.transition("fade", "#FFFFF", 250);
         me.input.bindKey(me.input.KEY.R, "reset", true);
+        me.input.bindKey(me.input.KEY.P, "nextLevel", true);
+        me.input.bindKey(me.input.KEY.M, "previousLevel", true);
         me.entityPool.add("PlayerEntity", PlayerEntity);
         me.entityPool.add("Box", MoveableItem);
         me.entityPool.add("DummySelector", DummySelector);
