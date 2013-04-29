@@ -5,6 +5,7 @@ var IsDummy = false,
     selectedSprite,
     playerEntityGuid;
 var itemsLeft ;
+var waitingPower=false ;
 
 function getSmoothGridPos(pos) {
     return { x: pos.x / 32, y: pos.y / 32 };
@@ -19,6 +20,15 @@ function getGridPos(pos) {
 var trapMap;
 function generateMap(player) {
     var map = me.game.currentLevel ;
+    
+    player.power = {
+        "jumpover": 1,
+        "pull": false,
+        "putbehind": false,
+        "superpush": false,
+        "doorbypass": false,
+        "remove": false
+    };
     
     var rep = {};
     trapMap = {};
@@ -99,17 +109,17 @@ function generateMap(player) {
                             entity.height=32;
                             entity.image="switch";
                             entity.isPolygon=false;
-                            entity.name="Box";
+                            entity.name="Switch";
                             entity.spriteheight=32;
                             entity.spritewidth=32;
-                            entity.type="";
+                            entity.type="trap";
                             entity.width=32;
                             entity.x=32*parseInt(x);
                             entity.y=32*parseInt(y);
                             entity.z=5;
                             var obj = me.entityPool.newInstanceOf(entity.name, entity.x, entity.y, entity);
                             if (obj) {
-                                me.game.add(obj, 5);
+                                me.game.add(obj, 3 );
                             }
                             trapMap[x][y]=1;
                             break;
@@ -161,7 +171,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         this.renderable.addAnimation("walkbottom", [3, 7, 11]);
         this.renderable.setCurrentAnimation("walktop");
         this.power = {
-            "jumpover": false,
+            "jumpover": 1,
             "pull": false,
             "putbehind": false,
             "superpush": false,
@@ -186,32 +196,58 @@ var PlayerEntity = me.ObjectEntity.extend({
         PlayerDirection = direction;
         this.renderable.setCurrentAnimation("walk" + direction);
     },
-    usePower: function (power) {
-        if (this.power[power] && selectedItem) {
-            var SelectedEntity = me.game.getEntityByGUID(selectedItem);
+    usePower: function (power,dir) {
+        if (this.power[power]) {
             switch (power) {
-                case "jumpover":
-                    // Jumping over an item
-                switch (PlayerDirection) {
-                        case "top":
-                            this.pos.y = SelectedEntity.pos.y + 2;
-                            break;
+                case "jumpover": // Jumping over an item
+                if (!dir) {
+                    waitingPower="jumpover";
+                }else{
+                    switch (dir) {
+                        case "up":
+                            if (curMap[this.hardPos.x][this.hardPos.y-1].name=="box" && curMap[this.hardPos.x][this.hardPos.y-2]==0){
+                                curMap[this.hardPos.x][this.hardPos.y-2]=this;
+                                curMap[this.hardPos.x][this.hardPos.y]=0;
+                                this.hardPos.y-=2;
+                                this.pos.y-=33;
+                                this.moving=true;
+                                this.power[power] -- ;
+                            }
+                        break;
                         case "left":
-                            this.pos.x = SelectedEntity.pos.x - 2;
-                            break;
+                            if (curMap[this.hardPos.x-1][this.hardPos.y].name=="box" && curMap[this.hardPos.x-2][this.hardPos.y]==0){
+                                curMap[this.hardPos.x-2][this.hardPos.y]=this;
+                                curMap[this.hardPos.x][this.hardPos.y]=0;
+                                this.hardPos.x-=2;
+                                this.pos.x-=33;
+                                this.moving=true;
+                                this.power[power] -- ;
+                            }
+                        break;
                         case "bottom":
-                            this.pos.y = SelectedEntity.pos.y - SelectedEntity.height - 2;
-                            break;
+                            if (curMap[this.hardPos.x][this.hardPos.y+1].name=="box" && curMap[this.hardPos.x][this.hardPos.y+2]==0){
+                                curMap[this.hardPos.x][this.hardPos.y+2]=this;
+                                curMap[this.hardPos.x][this.hardPos.y]=0;
+                                this.hardPos.y+=2;
+                                this.pos.y+=33;
+                                this.moving=true;
+                                this.power[power] -- ;
+                            }
+                        break;
                         case "right":
-                            this.pos.x = SelectedEntity.pos.x + SelectedEntity.width + 2;
-                            break;
-                        default:
-                            console.log("Error: can't recognise direction");
-                            break;
+                            if (curMap[this.hardPos.x+1][this.hardPos.y].name=="box" && curMap[this.hardPos.x+2][this.hardPos.y]==0){
+                                curMap[this.hardPos.x+2][this.hardPos.y]=this;
+                                curMap[this.hardPos.x][this.hardPos.y]=0;
+                                this.hardPos.x+=2;
+                                this.pos.x+=33;
+                                this.moving=true;
+                                this.power[power] -- ;
+                            }
+                        break;
                     }
-                    break;
-
-                case "pull":
+                    waitingPower=false;
+                } 
+             /*   case "pull":
                     // Pull an item
 	            switch (PlayerDirection) {
                         case "top":
@@ -267,10 +303,11 @@ var PlayerEntity = me.ObjectEntity.extend({
                     me.game.remove(SelectedEntity);
                     break;
                 default:
-		    console.log("Error: can't find spell.");
+                    console.log("Error: can't find spell.");
                     break;
+            */
             }
-            this.power[power] = false;
+            
         }
     },
     gridMovement: function () {
@@ -302,7 +339,25 @@ var PlayerEntity = me.ObjectEntity.extend({
             me.game.add(Dummy, this.z);
             me.game.sort();
         }
-        if (!this.moving) {
+        
+        if (waitingPower) {
+            
+            
+            if (me.input.isKeyPressed('left')) {
+                this.changedirection("left");
+                this.usePower(waitingPower,'left');
+            } else if (me.input.isKeyPressed('right')) {
+                this.changedirection("right");
+                this.usePower(waitingPower,'right');
+            } else if (me.input.isKeyPressed('up')) {
+                this.changedirection("up");
+                this.usePower(waitingPower,'up');
+            } else if (me.input.isKeyPressed('down')) {
+                this.changedirection("down");
+                this.usePower(waitingPower,'down');
+            }
+            
+        }else if (!this.moving) {
             if (me.input.isKeyPressed('left')) {
                 this.changedirection("left");
                 var destination = curMap[this.hardPos.x-1][this.hardPos.y];
@@ -310,7 +365,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
-                            if (curMap[this.hardPos.x-2][this.hardPos.y]!=0 && curMap[this.hardPos.x-2][this.hardPos.y]!=-2) {
+                            if (curMap[this.hardPos.x-2][this.hardPos.y]!=0 && curMap[this.hardPos.x-2][this.hardPos.y]!=-2 || trapMap[this.hardPos.x-2][this.hardPos.y]) {
                                 move = false ;
                             }else{
                                 destination.pushed = "left";
@@ -343,7 +398,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
-                            if (curMap[this.hardPos.x+2][this.hardPos.y]!=0 && curMap[this.hardPos.x+2][this.hardPos.y]!=-2) {
+                            if (curMap[this.hardPos.x+2][this.hardPos.y]!=0 && curMap[this.hardPos.x+2][this.hardPos.y]!=-2 || trapMap[this.hardPos.x+2][this.hardPos.y]) {
                                 move = false ;
                             }else{
                                 destination.pushed = "right";
@@ -376,7 +431,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
-                            if (curMap[this.hardPos.x][this.hardPos.y-2]!=0 && curMap[this.hardPos.x][this.hardPos.y-2]!=-2) {
+                            if (curMap[this.hardPos.x][this.hardPos.y-2]!=0 && curMap[this.hardPos.x][this.hardPos.y-2]!=-2 || trapMap[this.hardPos.x][this.hardPos.y-2]) {
                                 move = false ;
                             }else{
                                 destination.pushed = "top";
@@ -408,7 +463,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
-                            if (curMap[this.hardPos.x][this.hardPos.y+2]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                            if (curMap[this.hardPos.x][this.hardPos.y+2]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2 || trapMap[this.hardPos.x][this.hardPos.y+2]) {
                                 move = false ;
                             }else{
                                 destination.pushed = "bottom";
