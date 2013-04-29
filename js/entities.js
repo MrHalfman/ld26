@@ -264,7 +264,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
-                            if (curMap[this.hardPos.x-2][this.hardPos.y]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                            if (curMap[this.hardPos.x-2][this.hardPos.y]!=0 && curMap[this.hardPos.x-2][this.hardPos.y]!=-2) {
                                 move = false ;
                             }else{
                                 destination.pushed = "left";
@@ -299,12 +299,11 @@ var PlayerEntity = me.ObjectEntity.extend({
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
-                            if (curMap[this.hardPos.x+2][this.hardPos.y]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                            if (curMap[this.hardPos.x+2][this.hardPos.y]!=0 && curMap[this.hardPos.x+2][this.hardPos.y]!=-2) {
                                 move = false ;
                             }else{
                                 destination.pushed = "right";
                                 destination.pos.x+=3;
-                                
                                 if ((this.hardPos.x+1)>=xmax) {
                                     move = false ;
                                     curMap[this.hardPos.x+1][this.hardPos.y]=-2;
@@ -334,7 +333,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                     var move = true ;
                     if (destination != 0) {
                         if (destination.name="Box") {
-                            if (curMap[this.hardPos.x][this.hardPos.y-2]!=0 && curMap[this.hardPos.x][this.hardPos.y+2]!=-2) {
+                            if (curMap[this.hardPos.x][this.hardPos.y-2]!=0 && curMap[this.hardPos.x][this.hardPos.y-2]!=-2) {
                                 move = false ;
                             }else{
                                 destination.pushed = "top";
