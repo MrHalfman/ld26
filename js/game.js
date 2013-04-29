@@ -38,7 +38,7 @@ var game = {
         if (!me.video.init('screen', 800, 600, true)) {
             alert("This browser does not support HTML5 canvas");
             return;
-        }
+        } 
 
         me.video.setImageSmoothing(false);
 

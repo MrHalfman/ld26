@@ -357,7 +357,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                         this.hardPos.y--;
                         this.pos.y-=3;
                         curMap[this.hardPos.x][this.hardPos.y] = this ;
-                        this.moving=true;
+                        this.moving=true; 
                     }
                 }
             } else if (me.input.isKeyPressed('down')) {
