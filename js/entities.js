@@ -54,6 +54,14 @@ function generateMap(player) {
     
     var map = me.game.currentLevel ;
     
+    var bg = map.mapLayers[0];
+    if (bg.name="Background") {
+        bg.height=600;
+        bg.width=800;
+    }else{
+        alert(bg.name);
+    }
+    
     player.power = {
         "jumpover": 1,
         "pull": false,
