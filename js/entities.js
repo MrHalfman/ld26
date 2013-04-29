@@ -885,13 +885,14 @@ var MoveableItem = me.ObjectEntity.extend({
                             }
                         }
                     }else if(this.moved && btn.tp && btn.tag){
-                        curMap[this.hardPos.x][this.hardPos.y]=0;
-                        this.hardPos.x=btn.tag.x;
-                        this.hardPos.y=btn.tag.y;
-                        curMap[this.hardPos.x][this.hardPos.y]=this;
-                        this.pos.x=32*this.hardPos.x;
-                        this.pos.y=32*this.hardPos.y;
-                    
+                        if (curMap[btn.tag.x][btn.tag.y] == 0) {
+                            curMap[this.hardPos.x][this.hardPos.y]=0;
+                            this.hardPos.x=btn.tag.x;
+                            this.hardPos.y=btn.tag.y;
+                            curMap[this.hardPos.x][this.hardPos.y]=this;
+                            this.pos.x=32*this.hardPos.x;
+                            this.pos.y=32*this.hardPos.y;  
+                        }
                     }
                 }
             }
