@@ -32,9 +32,9 @@ canvas {
 
 #help {
     float: left;
-    width: 196px;
+    width: 190px;
     height: 600px;
-    padding: 2px;
+    padding: 5px;
 }
 
 #main {
@@ -46,9 +46,9 @@ canvas {
 
 #informations {
     float: left;
-    width: 198px;
+    width: 190px;
     height: 600px;
-    padding-left: 2px;
+    padding: 5px;
     font-size: 10pt;
 }
 
@@ -56,5 +56,5 @@ hr {
     background: none;
     height: 1px;
     color: white;
-    border: none;
+    border-top: 1px solid white;
 }

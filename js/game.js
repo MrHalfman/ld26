@@ -53,6 +53,7 @@ var game = {
         { name: "putbehind", type: "image", src: "datas/images/putbehind.png" },
         { name: "remove", type: "image", src: "datas/images/remove.png" },
         { name: "soundmute", type: "image", src: "datas/images/soundmute.png" },
+        { name: "background", type: "image", src: "datas/images/background.png" },
 
         /****** SOUNDS ******/
         { name: "maintheme", type: "audio", src: "datas/sounds/", channel: 1 },
@@ -100,8 +101,12 @@ var game = {
 
 var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
+        this.background = me.loader.getImage("background");
         me.levelDirector.loadLevel("alpha1");
         me.audio.playTrack("theme1");
+    },
+    draw: function (context) {
+        context.drawImage(this.background, 0, 0);
     }
 });
 
