@@ -80,6 +80,18 @@ var PlayScreen = me.ScreenObject.extend({
         me.game.add(new SpellButton(160, 10, { image: "putbehind", spell: "putbehind" }));
         me.game.add(new SpellButton(200, 10, { image: "remove", spell: "remove" }));
         me.game.add(new SoundButton(5, 10));
+    },
+    update: function () {
+
+        if (me.input.isKeyPressed("reset")) {
+            me.levelDirector.reloadLevel();
+        }
+        if (me.input.isKeyPressed("nextLevel")) {
+            me.levelDirector.nextLevel();
+        }
+        if (me.input.isKeyPressed("previousLevel")) {
+            me.levelDirector.previousLevel();
+        }
     }
 });
 

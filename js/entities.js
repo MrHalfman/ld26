@@ -256,15 +256,6 @@ var PlayerEntity = me.ObjectEntity.extend({
             me.game.add(Dummy, this.z);
             me.game.sort();
         }
-        if (me.input.isKeyPressed("reset")) {
-            me.levelDirector.reloadLevel();
-        }
-        if (me.input.isKeyPressed("nextLevel")) {
-            me.levelDirector.nextLevel();
-        }
-        if (me.input.isKeyPressed("previousLevel")) {
-            me.levelDirector.previousLevel();
-        }
         if (!this.moving) {
             if (me.input.isKeyPressed('left')) {
                 this.changedirection("left");
