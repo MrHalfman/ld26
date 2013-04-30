@@ -97,23 +97,31 @@ function generateMap(player) {
         switch (lid) {
             case "alpha1":
                 me.audio.stopTrack();
-                me.audio.playTrack("theme2");
+                me.audio.playTrack("theme2", 0.25);
                 break;
             case "beta1":
                 me.audio.stopTrack();
-                me.audio.playTrack("theme3");
+                me.audio.play("victory", false, function () {
+                    me.audio.playTrack("theme3", 0.25);
+                });
                 break;
             case "gamma1":
                 me.audio.stopTrack();
-                me.audio.playTrack("theme4");
+                me.audio.play("victory", false, function () {
+                    me.audio.playTrack("theme4", 0.25);
+                });
                 break;
             case "delta1":
                 me.audio.stopTrack();
-                me.audio.playTrack("theme5");
+                me.audio.play("victory", false, function () {
+                    me.audio.playTrack("theme5", 0.25);
+                });
                 break;
             case "epsilon1":
                 me.audio.stopTrack();
-                me.audio.playTrack("theme6");
+                me.audio.play("victory", false, function () {
+                    me.audio.playTrack("theme6", 0.25);
+                });
             default:
                 break;
 
@@ -486,6 +494,7 @@ var PlayerEntity = me.ObjectEntity.extend({
                                     if (itemsLeft==0) {
                                         me.game.remove(this);
                                         me.levelDirector.nextLevel();
+                                        LevelCount++;
                                         return false;
                                     }
                                     this.power[power] -- ;

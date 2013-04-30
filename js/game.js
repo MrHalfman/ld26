@@ -1,5 +1,6 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-var MutedSound = false;
+var MutedSound = false,
+    LevelCount = 0;
 var game = {
     assets: [
         /****** LEVELS ******/
@@ -75,7 +76,7 @@ var game = {
 
         me.audio.init("ogg, mp3");
         me.audio.enable();
-        me.audio.setVolume(0.25);
+        me.audio.setVolume(0.5);
         me.loader.onload = this.loaded.bind(this);
         me.loader.preload(game.assets);
         me.state.change(me.state.LOADING);
@@ -102,7 +103,7 @@ var PlayScreen = me.ScreenObject.extend({
     onResetEvent: function () {
         this.background = me.loader.getImage("background");
         me.levelDirector.loadLevel("alpha1");
-        me.audio.playTrack("theme2");
+        me.audio.playTrack("theme2", 0.25);
     },
     draw: function (context) {
         context.drawImage(this.background, 0, 0);
@@ -144,7 +145,7 @@ var StartScreen = me.ScreenObject.extend({
 
 var EndScreen = me.ScreenObject.extend({
     init: function () {
-
+        this.parent(true);
     },
     draw: function (context) {
 
