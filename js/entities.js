@@ -108,7 +108,7 @@ function generateMap(player) {
             case "gamma1":
                 me.audio.stopTrack();
                 me.audio.play("victory", false, function () {
-                    me.audio.playTrack("theme4", 0.25);
+                    me.audio.playTrack("theme6", 0.25);
                 });
                 break;
             case "delta1":
