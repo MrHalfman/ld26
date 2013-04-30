@@ -566,17 +566,6 @@ var PlayerEntity = me.ObjectEntity.extend({
             return false;
         }
 
-        if (me.input.isKeyPressed("nextLevel")) {
-            me.game.remove(this);
-            me.levelDirector.nextLevel();
-            return false;
-        }
-        if (me.input.isKeyPressed("previousLevel") && me.game.currentLevel.levelId != "alpha1") {
-            me.game.remove(this);
-            me.levelDirector.previousLevel();
-            return false;
-        }
-
         if (me.input.isKeyPressed("power1")) {
             fn_jo();
         }
