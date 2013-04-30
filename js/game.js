@@ -1,6 +1,6 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
 var MutedSound = false,
-    LevelCount = 1;
+    LevelCount = 0;
 var game = {
     assets: [
         /****** LEVELS ******/

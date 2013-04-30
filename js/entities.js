@@ -492,7 +492,6 @@ var PlayerEntity = me.ObjectEntity.extend({
                                     curMap[this.hardPos.x][this.hardPos.y-1]=0;
                                     itemsLeft--;
                                     if (itemsLeft == 0) {
-                                        LevelCount++;
                                         me.game.remove(this);
                                         me.levelDirector.nextLevel();
                                         return false;
@@ -868,6 +867,7 @@ var MoveableItem = me.ObjectEntity.extend({
                     if (me.levelDirector.getCurrentLevelId() == "delta6")
                         me.state.change(me.state.CREDITS);
                     else {
+                        LevelCount++;
                         me.game.remove(this);
                         me.levelDirector.nextLevel();
                         return false;
