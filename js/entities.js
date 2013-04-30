@@ -876,7 +876,7 @@ var MoveableItem = me.ObjectEntity.extend({
                 curMap[this.hardPos.x][this.hardPos.y]=-2;
                 itemsLeft--;
                 if (itemsLeft == 0) {
-                    if (me.levelDirector.getCurrentLevelId() == "alpha1")
+                    if (me.levelDirector.getCurrentLevelId() == "delta6")
                         me.state.change(me.state.CREDITS);
                     else {
                         me.game.remove(this);
