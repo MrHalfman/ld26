@@ -491,10 +491,10 @@ var PlayerEntity = me.ObjectEntity.extend({
                                     me.game.remove(curMap[this.hardPos.x][this.hardPos.y-1]);
                                     curMap[this.hardPos.x][this.hardPos.y-1]=0;
                                     itemsLeft--;
-                                    if (itemsLeft==0) {
+                                    if (itemsLeft == 0) {
+                                        LevelCount++;
                                         me.game.remove(this);
                                         me.levelDirector.nextLevel();
-                                        LevelCount++;
                                         return false;
                                     }
                                     this.power[power] -- ;
