@@ -73,12 +73,10 @@ hr {
 
 #btn_jumpover.using{
     background-image: url(datas/images/jumpover_using.png);
-    margin:-2px;
 }
 
 #btn_remove.using{
     background-image: url(datas/images/remove_using.png);
-    margin: -2px;
 }
 
 #buttons div.used{

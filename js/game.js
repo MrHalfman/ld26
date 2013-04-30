@@ -57,7 +57,13 @@ var game = {
         { name: "theme4", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "theme5", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "theme6", type: "audio", src: "datas/sounds/", channel: 1 },
-        { name: "victory", type: "audio", src: "datas/sounds/", channel: 1 }
+        { name: "victory", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "snd_buttons", type: "audio", src: "datas/sounds/", channel: 2 },
+        { name: "snd_jump", type: "audio", src: "datas/sounds/", channel: 2 },
+        { name: "snd_out", type: "audio", src: "datas/sounds/", channel: 2 },
+        { name: "snd_remove", type: "audio", src: "datas/sounds/", channel: 2 },
+        { name: "snd_teleport", type: "audio", src: "datas/sounds/", channel: 2 }
+
     ],
     onload: function () {
         if (!me.video.init('screen', 800, 600, true)) {
@@ -84,8 +90,6 @@ var game = {
         me.input.bindKey(me.input.KEY.M, "previousLevel", true);
         me.entityPool.add("PlayerEntity", PlayerEntity);
         me.entityPool.add("Box", MoveableItem);
-        me.entityPool.add("DummySelector", DummySelector);
-        me.entityPool.add("Selector", Selector);
         me.entityPool.add("Switch", SwitchEntity);
         //me.game.addHUD(me.video.getWidth() - 50, 10, 50, 50);
         //me.game.HUD.addItem("RemainingItemsHUD", new RemainingItemsHUD(me.video.getWidth() - 20, 20));
@@ -136,7 +140,19 @@ var StartScreen = me.ScreenObject.extend({
         this.logo = null;
         me.input.unbindKey(me.input.KEY.ENTER);
     }
-})
+});
+
+var EndScreen = me.ScreenObject.extend({
+    init: function () {
+
+    },
+    draw: function (context) {
+
+    },
+    update: function () {
+
+    }
+});
 
 window.onReady(function onReady() {
     game.onload();

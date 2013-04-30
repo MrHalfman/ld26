@@ -1,12 +1,9 @@
 ﻿/// <reference path="melonJS-0.9.7.js" />
-var IsDummy = false,
-    PlayerDirection = "top",
-    selectedItem = null,
-    selectedSprite,
-    playerEntityGuid;
-var itemsLeft ;
-var waitingPower=false ;
-var playerRef ;
+var PlayerDirection = "top",
+    playerEntityGuid,
+    itemsLeft,
+    waitingPower = false,
+    playerRef;
 var fn_jo = function(){};
 var fn_rm = function(){};
 
@@ -85,7 +82,7 @@ function generateMap(player) {
         })(player);
     }
     
-    if (in_array(lid,["delta6","epsilon1","epsilon2","epsilon3","epsilon4","epsilon5","epsilon6"])) {
+    if (in_array(lid,["epsilon6"])) {
         player.power.remove = 1 ;
         document.getElementById('btn_remove').className = "available" ;
         fn_rm = (function(p){
@@ -96,30 +93,31 @@ function generateMap(player) {
         document.getElementById('btn_remove').className = "blocked" ;
         fn_rm = function(){};
     }
-    
-    switch (lid) {
-        case "alpha1":
-            me.audio.stopTrack();
-            me.audio.playTrack("theme2");
-            break;
-        case "beta1":
-            me.audio.stopTrack();
-            me.audio.playTrack("theme3");
-            break;
-        case "gamma1":
-            me.audio.stopTrack();
-            me.audio.playTrack("theme4");
-            break;
-        case "delta1":
-            me.audio.stopTrack();
-            me.audio.playTrack("theme5");
-            break;
-        case "epsilon1":
-            me.audio.stopTrack();
-            me.audio.playTrack("theme6");
-        default:
-            break;
+    if (!MutedSound) {
+        switch (lid) {
+            case "alpha1":
+                me.audio.stopTrack();
+                me.audio.playTrack("theme2");
+                break;
+            case "beta1":
+                me.audio.stopTrack();
+                me.audio.playTrack("theme3");
+                break;
+            case "gamma1":
+                me.audio.stopTrack();
+                me.audio.playTrack("theme4");
+                break;
+            case "delta1":
+                me.audio.stopTrack();
+                me.audio.playTrack("theme5");
+                break;
+            case "epsilon1":
+                me.audio.stopTrack();
+                me.audio.playTrack("theme6");
+            default:
+                break;
 
+        }
     }
     var rep = {};
     trapMap = {};
@@ -419,7 +417,8 @@ var PlayerEntity = me.ObjectEntity.extend({
                 if (!dir) {
                     waitingPower="jumpover";
                     document.getElementById('btn_jumpover').className = "using" ;
-                }else{
+                } else {
+                    me.audio.play("snd_jump");
                     switch (dir) {
                         case "up":
                             if ((curMap[this.hardPos.x][this.hardPos.y-1].name+'').toLowerCase()=="box" && curMap[this.hardPos.x][this.hardPos.y-2]==0){
@@ -575,12 +574,6 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         if (me.input.isKeyPressed("power2")) {
             fn_rm();
-        }
-        
-        if (!IsDummy) {
-            var Dummy = new DummySelector(this.pos.x + (this.width/2), this.pos.y + (this.height/2), { direction: PlayerDirection });
-            me.game.add(Dummy, this.z);
-            me.game.sort();
         }
         
         if (waitingPower) {
@@ -878,6 +871,7 @@ var MoveableItem = me.ObjectEntity.extend({
                     me.levelDirector.nextLevel();
                     return false;
                 }
+                me.audio.play("snd_out");
                 me.game.remove(this);
             }else{
                 if (ppMap[this.hardPos.x][this.hardPos.y]) {
@@ -887,7 +881,8 @@ var MoveableItem = me.ObjectEntity.extend({
                         var tag = btn.tag;
                         for (var x in curMap) {
                             for (var y in curMap[x]) {
-                                if (curMap[x][y].wall && curMap[x][y].tag==("p"+tag)) {
+                                if (curMap[x][y].wall && curMap[x][y].tag == ("p" + tag)) {
+                                    me.audio.play("snd_buttons");
                                     me.game.remove(curMap[x][y]);
                                     curMap[x][y]=0;
                                 }
@@ -900,7 +895,8 @@ var MoveableItem = me.ObjectEntity.extend({
                             this.hardPos.y=btn.tag.y;
                             curMap[this.hardPos.x][this.hardPos.y]=this;
                             this.pos.x=32*this.hardPos.x;
-                            this.pos.y=32*this.hardPos.y;  
+                            this.pos.y = 32 * this.hardPos.y;
+                            me.audio.play("snd_teleport");
                         }
                     }
                 }
@@ -922,85 +918,6 @@ var MoveableItem = me.ObjectEntity.extend({
     }
 });
 
-var DummySelector = me.ObjectEntity.extend({
-    init: function (x, y, settings) {
-        this.parent(x, y, settings);
-        this.setVelocity(8, 8);
-        this.ttl = 8; // Time to live before removing
-        this.collidable = true;
-        this.gravity = 0;
-        this.type = "dummy";
-        this.direction = settings.direction;
-        this.updateColRect(0, 2, 0, 2);
-        IsDummy = true;
-    },
-    update: function () {
-        if (this.ttl > 0) {
-            this.ttl--;
-        } else {
-            /*
-                Todo : Remove selector properly */         
-            var OldSelector = me.game.getEntityByGUID(selectedSprite);
-            me.game.remove(OldSelector);
-            me.game.remove(this);
-            IsDummy = false;
-            selectedItem = null;
-        }
-        switch (this.direction) {
-            case "top":
-                this.vel.y -= 3;
-                break;
-            case "bottom":
-                this.vel.y += 3;
-                break;
-            case "left":
-                this.vel.x -= 3;
-                break;
-            case "right":
-                this.vel.x += 3;
-                break;
-            default:
-                console.log("Error in dummy direction");
-                break;
-        }
-
-        this.updateMovement();
-        var res = me.game.collide(this);
-
-        if (res && res.obj.type == "moveableitem" && selectedItem == null) {
-            me.game.remove(this);
-            IsDummy = false;
-            selectedItem = res.obj.GUID;
-            // console.log(selectedItem);
-            // TODO : Add selected effect, so the player can see it.
-            var SelectedImage = new Selector(res.obj.pos.x, res.obj.pos.y, { image: "selected", spritewidth: 32, spriteheight: 32 });
-            me.game.add(SelectedImage, this.z);
-            me.game.sort();
-        }
-         
-
-        if (this.vel.x != 0 || this.vel.y != 0) {
-            this.parent(this);
-            return true;
-        }
-
-        return true;
-    }
-});
-
-var Selector = me.ObjectEntity.extend({
-    init: function (x, y, settings) {
-        this.parent(x, y, settings);
-        this.renderable.addAnimation("selected", [0, 1, 2]);
-        this.renderable.setCurrentAnimation("selected");
-        selectedSprite = this.GUID;
-    },
-    update: function () {
-        this.parent(this);
-
-        return true;
-    }
-});
 
 var RemainingItemsHUD = me.HUD_Item.extend({
     init: function (x, y) {
