@@ -58,6 +58,7 @@ var game = {
         { name: "theme4", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "theme5", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "theme6", type: "audio", src: "datas/sounds/", channel: 1 },
+        { name: "secrettheme", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "victory", type: "audio", src: "datas/sounds/", channel: 1 },
         { name: "snd_buttons", type: "audio", src: "datas/sounds/", channel: 2 },
         { name: "snd_jump", type: "audio", src: "datas/sounds/", channel: 2 },
@@ -84,6 +85,7 @@ var game = {
     loaded: function () {
         me.state.set(me.state.PLAY, new PlayScreen());
         me.state.set(me.state.MENU, new StartScreen());
+        me.state.set(me.state.CREDITS, new EndScreen());;
 
         me.state.transition("fade", "#FFFFF", 250);
         me.input.bindKey(me.input.KEY.R, "reset", true);
@@ -146,11 +148,38 @@ var StartScreen = me.ScreenObject.extend({
 var EndScreen = me.ScreenObject.extend({
     init: function () {
         this.parent(true);
+        this.levelcount = new me.Font('century gothic', 24, 'white');
+        this.logo = new me.Font('century gothic', 32, 'white');
+        this.credits_code = new me.Font('century gothic', 16, 'white');
+        this.credits_music = new me.Font('century gothic', 16, 'white');
+        this.credits_graphism = new me.Font('century gothic', 16, 'white');
+        this.credits_leveld = new me.Font('century gothic', 16, 'white');
     },
     draw: function (context) {
+        me.audio.stopTrack();
+        me.audio.playTrack("secrettheme", 0.25);
+        me.video.clearSurface(context, "black");
+        levelcount_text = "You have visited " + LevelCount + "/24 levels, thanks for playing!";
+        levelcount_width = this.levelcount.measureText(context, levelcount_text).width;
 
-    },
-    update: function () {
+        logo_text = "Shrink Shift";
+        logo_width = this.logo.measureText(context, logo_text).width;
+
+        credits_code_text = "Code : Demurgos & Halfman";
+        credits_code_width = this.credits_code.measureText(context, credits_code_text).width;
+        credits_music_text = "Music & Sounds : Lykan";
+        credits_music_width = this.credits_music.measureText(context, credits_code_text).width;
+        credits_graphism_text = "Graphism : Azopi";
+        credits_graphism_width = this.credits_graphism.measureText(context, credits_code_text).width;
+        credits_leveld_text = "Level Design : Cabra";
+        credits_leveld_width = this.credits_leveld.measureText(context, credits_code_text).width;
+
+        this.logo.draw(context, logo_text, ((me.video.getWidth() - logo_width) / 2), (me.video.getHeight() / 2) - 250);
+        this.levelcount.draw(context, levelcount_text, ((me.video.getWidth() - levelcount_width) / 2), (me.video.getHeight() / 2) - 200);
+        this.credits_code.draw(context, credits_code_text, ((me.video.getWidth() - credits_code_width) / 2), (me.video.getHeight()/ 2) - 130);
+        this.credits_music.draw(context, credits_music_text, ((me.video.getWidth() - credits_music_width) / 2), (me.video.getHeight() / 2) - 110);
+        this.credits_graphism.draw(context, credits_graphism_text, ((me.video.getWidth() - credits_graphism_width) / 2), (me.video.getHeight() / 2) - 90);
+        this.credits_leveld.draw(context, credits_leveld_text, ((me.video.getWidth() - credits_leveld_width) / 2), (me.video.getHeight() / 2) - 70);
 
     }
 });

@@ -875,10 +875,14 @@ var MoveableItem = me.ObjectEntity.extend({
             if (this.hardPos.x>=xmax || this.hardPos.x<0 || this.hardPos.y>=ymax || this.hardPos.y<0) {
                 curMap[this.hardPos.x][this.hardPos.y]=-2;
                 itemsLeft--;
-                if (itemsLeft==0) {
-                    me.game.remove(this);
-                    me.levelDirector.nextLevel();
-                    return false;
+                if (itemsLeft == 0) {
+                    if (me.levelDirector.getCurrentLevelId() == "alpha1")
+                        me.state.change(me.state.CREDITS);
+                    else {
+                        me.game.remove(this);
+                        me.levelDirector.nextLevel();
+                        return false;
+                    }
                 }
                 me.audio.play("snd_out");
                 me.game.remove(this);
