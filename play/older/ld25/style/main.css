@@ -1,0 +1,200 @@
+body{
+    background-color:black;
+	background-image: url('../img/bg.png');
+}
+
+
+#game{
+    background-color:black;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-250px;
+    margin-top:-250px;
+    width:500px;
+    height:500px;
+    overflow: hidden ;
+}
+
+#holder{
+    width:800px;
+    margin:auto;
+    font-family:monospace;
+    margin-top:50px;
+    color:white;
+}
+
+h1{
+    text-align:center;
+    text-decoration: none;
+}
+
+h1>a{
+    font-size: 70px;
+    color:white ;
+    text-decoration: none;
+    
+}
+h1>a:hover{
+    text-shadow:0 0 3px white ;
+}
+
+nav{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+nav>a{
+    display:inline-block;
+    width:25%;
+    text-align:center;
+    font-size:25px;
+    text-decoration: none;
+    color:white;
+}
+
+nav>a:hover{
+    text-shadow:0 0 3px white ;
+    cursor:pointer;
+}
+
+#cvs{
+    position:absolute;
+}
+
+#txtwrapper{
+    overflow:hidden;
+    height:150px;
+    font-family: monospace;
+    position:absolute;
+    top:0;
+    width:500px;
+}
+
+#txt{
+    color:white;
+    overflow:hidden;
+    position:absolute;
+    bottom:0;
+    width:500px;
+    min-height:150px;
+    font-family: monospace;
+}
+
+.dev{
+    color:orange;
+}
+
+strong{
+    color:yellow;
+}
+
+.bug{
+    color:#54ff3d;
+}
+
+#selector>.choice{
+    background-color:none;
+    border:none;
+    position:absolute;
+    color:white;
+    font-family: monospace;
+    cursor:pointer;
+}
+
+
+#playpm{
+    top:50px;
+    left:50px;
+    width:400px;
+    height:250px;
+    background-color:green;
+    text-align: center;
+}
+
+#playpm .txt{
+    font-size:30px;
+    margin:25px;
+}
+
+#playpm .timer{
+    position:absolute;
+    bottom:10px;
+    left:0;
+    right:0;
+}
+
+
+#play48h{
+    top:350px;
+    left:50px;
+    width:175px;
+    height:100px;
+    background-color:red;
+    font-size:20px;
+    text-align:center;
+}
+
+#versions{
+    top:350px;
+    left:275px;
+    width:175px;
+    height:100px;
+    background-color:blue;
+}
+
+#playv{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:40px;
+}
+
+#playv a{
+    display:inline-block;
+    width:29.166667px;
+    text-align:center;
+    font-size:30px;
+    text-decoration: none;
+    color:white;
+    cursor:pointer;
+    height:40px;
+}
+
+a:hover{
+    text-shadow:0 0 3px white ;}
+
+#content h2{
+    font-size:18px;
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+#content a{
+    text-decoration: none;
+    color:yellow;
+}
+
+#content a:hover{
+    text-shadow:0 0 3px yellow ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

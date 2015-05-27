@@ -1,0 +1,6 @@
+AddType application/x-web-app-manifest+json .webapp
+
+RewriteEngine On
+RewriteRule ^play$ game.php [QSA]
+RewriteRule ^bonus$ bonus.php [QSA]
+RewriteRule ^author$ author.php [QSA]
